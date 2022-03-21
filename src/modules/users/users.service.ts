@@ -31,4 +31,25 @@ export class UsersService {
     });
     return users;
   }
+
+  // async signin(data): Promise<any> {
+  //   const { firstname, lastname, age, address, username, password, email } =
+  //     data;
+  //   const checkUserExist = await prisma.user.count({
+  //     where: {
+
+  //     },
+  //   });
+  //   if (checkUserExist > 0) {
+  //   }
+  //   return true;
+  // }
+  // async findOne(username: number): Promise<User> {
+  //   const user = await prisma.user.findFirst({
+  //     where: {
+        
+  //     },
+  //   });
+  //   return user;
+  // }
 }
