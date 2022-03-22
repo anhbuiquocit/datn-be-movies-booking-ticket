@@ -5,8 +5,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
-import configuration from './config/configuration';
 import { APP_FILTER } from '@nestjs/core';
+import { AuthModule } from './modules/auth/auth.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -14,6 +14,7 @@ import { APP_FILTER } from '@nestjs/core';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [
