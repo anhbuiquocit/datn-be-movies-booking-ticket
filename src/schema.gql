@@ -3,29 +3,65 @@
 # ------------------------------------------------------
 
 type User {
-  id: Int!
+  id: ID!
+  createAt: DateTime!
+  updateAt: DateTime
+  deleteAt: DateTime
   firstname: String!
   lastname: String!
   age: Int!
   address: String!
+  email: String!
+  password: String!
+  username: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
-  Users(userWhereInput: UserWhereInput): [User!]!
+  Users(userData: UserWhereInput): [User!]!
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
-  id: Int
+  id: IntFilter
   createAt: DateTimeFilter
   updateAt: DateTimeNullableFilter
   deleteAt: DateTimeNullableFilter
-  firstname: String
-  lastname: String
-  age: Int
-  address: String
+  firstname: StringFilter
+  lastname: StringFilter
+  age: IntFilter
+  address: StringFilter
+  email: StringFilter
+  password: StringFilter
+  username: StringFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
 }
 
 input DateTimeFilter {
@@ -38,11 +74,6 @@ input DateTimeFilter {
   gte: DateTime
   not: NestedDateTimeFilter
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 input NestedDateTimeFilter {
   equals: DateTime
@@ -75,4 +106,49 @@ input NestedDateTimeNullableFilter {
   gt: DateTime
   gte: DateTime
   not: NestedDateTimeNullableFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+type Mutation {
+  signin(user: UserCreateInput!): Boolean!
+}
+
+input UserCreateInput {
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+  firstname: String!
+  lastname: String!
+  age: Int!
+  address: String!
+  email: String!
+  password: String!
+  username: String!
 }

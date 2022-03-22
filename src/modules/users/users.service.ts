@@ -1,55 +1,46 @@
-import { User } from './users';
+import { hash } from './../../util/bcrypt';
+import { validateUser } from './../../lib/commonFunction';
+import { User } from '../../@generated/prisma-nestjs-graphql/user/user.model';
 import { Body, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 @Injectable()
 export class UsersService {
   // constructor(private context: configuration) {}
-  async findAll(userWhereInput): Promise<User[]> {
-    // if (id == null) {
-    //   throw new HttpException('This is error', HttpStatus.NOT_FOUND);
-    // }
-    console.log('userWhereInput: ', userWhereInput);
-    const { id, firstname, lastname, age, address, OR, AND, NOT } =
-      userWhereInput;
-    console.log('iD: ', id);
-    console.log('firstname: ', firstname);
-    console.log('lastname: ', lastname);
-    console.log('age: ', age);
-    console.log('address: ', address);
+  async findAll(userData): Promise<User[]> {
+    console.log('userData: ', userData);
     const users = await prisma.user.findMany({
       where: {
-        id,
-        firstname,
-        lastname,
-        age,
-        address,
-        OR,
-        AND,
-        NOT,
+        email: userData.email.equals,
       },
     });
     return users;
   }
 
-  // async signin(data): Promise<any> {
-  //   const { firstname, lastname, age, address, username, password, email } =
-  //     data;
-  //   const checkUserExist = await prisma.user.count({
-  //     where: {
-
-  //     },
-  //   });
-  //   if (checkUserExist > 0) {
-  //   }
-  //   return true;
-  // }
-  // async findOne(username: number): Promise<User> {
-  //   const user = await prisma.user.findFirst({
-  //     where: {
-        
-  //     },
-  //   });
-  //   return user;
-  // }
+  async signin(data): Promise<any> {
+    if (data) {
+      validateUser(data);
+      const user = await prisma.user.create({
+        data: {
+          firstname: data.firstname,
+          lastname: data.lastname,
+          age: data.age,
+          address: data.address,
+          email: data.email,
+          username: data.username,
+          password: hash(data.password),
+        },
+      });
+      return true;
+    }
+    return false;
+  }
+  async findOne(username: string): Promise<User> {
+    const user = await prisma.user.findFirst({
+      where: {
+        username,
+      },
+    });
+    return user;
+  }
 }

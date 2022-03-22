@@ -17,10 +17,10 @@ import { APP_FILTER } from '@nestjs/core';
   ],
   controllers: [],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: HttpErrorFilter,
-    },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: HttpErrorFilter,
+    // },
   ],
 })
 export class AppModule {}

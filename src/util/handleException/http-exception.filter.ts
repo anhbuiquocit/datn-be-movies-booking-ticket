@@ -11,9 +11,10 @@ export class HttpErrorFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const request = ctx.getRequest();
     const response = ctx.getResponse();
-    const status = exception.getStatus()
-      ? exception.getStatus()
-      : HttpStatus.INTERNAL_SERVER_ERROR;
+    const status =
+      exception && exception.getStatus()
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
     const errorResponse = {
       code: status,
       timestamp: new Date().toLocaleDateString(),
@@ -24,27 +25,60 @@ export class HttpErrorFilter implements ExceptionFilter {
     response.status(status).json(errorResponse);
   }
 }
+
+// import 'dotenv/config';
 // import {
-//   ExceptionFilter,
-//   Catch,
 //   ArgumentsHost,
+//   Catch,
+//   ExceptionFilter,
 //   HttpException,
+//   HttpStatus,
+//   Logger,
 // } from '@nestjs/common';
-// import { Request, Response } from 'express';
 
-// @Catch(HttpException)
+// @Catch()
 // export class HttpErrorFilter implements ExceptionFilter {
-//   catch(exception: HttpException, host: ArgumentsHost) {
+//   private readonly logger: Logger;
+//   constructor() {
+//     this.logger = new Logger();
+//   }
+//   catch(exception: Error, host: ArgumentsHost): any {
 //     const ctx = host.switchToHttp();
-//     const response = ctx.getResponse<Response>();
-//     const request = ctx.getRequest<Request>();
-//     const status = exception.getStatus();
+//     const request = ctx.getRequest();
+//     const response = ctx.getResponse();
 
-//     response.status(status).json({
-//       statusCode: status,
+//     const statusCode =
+//       exception instanceof HttpException
+//         ? exception.getStatus()
+//         : HttpStatus.INTERNAL_SERVER_ERROR;
+//     const message =
+//       exception instanceof HttpException
+//         ? exception.message
+//         : 'Internal server error';
+
+//     const devErrorResponse: any = {
+//       statusCode,
 //       timestamp: new Date().toISOString(),
 //       path: request.url,
-//       mesage: exception.message || null,
-//     });
+//       method: request.method,
+//       errorName: exception?.name,
+//       message: exception?.message,
+//     };
+
+//     const prodErrorResponse: any = {
+//       statusCode,
+//       message,
+//     };
+//     this.logger.log(
+//       `request method: ${request.method} request url${request.url}`,
+//       JSON.stringify(devErrorResponse),
+//     );
+//     response
+//       .status(statusCode)
+//       .json(
+//         process.env.NODE_ENV === 'development'
+//           ? devErrorResponse
+//           : prodErrorResponse,
+//       );
 //   }
 // }

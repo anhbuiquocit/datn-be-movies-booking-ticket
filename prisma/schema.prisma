@@ -7,10 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator nestgraphql {
+    provider = "node node_modules/prisma-nestjs-graphql"
+    output = "../src/@generated/prisma-nestjs-graphql"
+    fields_Validator_from = "class-validator"
+    fields_Validator_input = true
+}
+
 model User {
   id        Int       @id @default(autoincrement())
   createAt  DateTime  @default(now())
-  updateAt  DateTime? 
+  updateAt  DateTime?
   deleteAt  DateTime?
   firstname String
   lastname  String
