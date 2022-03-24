@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, SetMetadata } from '@nestjs/common';
 import { User } from 'src/@generated/prisma-nestjs-graphql/user/user.model';
 
 export const validateUser = (user: User) => {
@@ -16,3 +16,5 @@ export const validateUser = (user: User) => {
     throw new HttpException('Enter your password', HttpStatus.NOT_FOUND);
   if (!email) throw new HttpException('Enter your email', HttpStatus.NOT_FOUND);
 };
+export const IS_PUBLIC_KEY = 'isPublic';
+export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);

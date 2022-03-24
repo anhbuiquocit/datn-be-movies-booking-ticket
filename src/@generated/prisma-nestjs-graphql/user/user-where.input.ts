@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
-import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
@@ -20,8 +21,8 @@ export class UserWhereInput {
     @Field(() => IntFilter, {nullable:true})
     id?: IntFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    createAt?: DateTimeFilter;
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    createAt?: DateTimeNullableFilter;
 
     @Field(() => DateTimeNullableFilter, {nullable:true})
     updateAt?: DateTimeNullableFilter;
@@ -29,17 +30,17 @@ export class UserWhereInput {
     @Field(() => DateTimeNullableFilter, {nullable:true})
     deleteAt?: DateTimeNullableFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    firstname?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    firstname?: StringNullableFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    lastname?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    lastname?: StringNullableFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    age?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    age?: IntNullableFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    address?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    address?: StringNullableFilter;
 
     @Field(() => StringFilter, {nullable:true})
     email?: StringFilter;

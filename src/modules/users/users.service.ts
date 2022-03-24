@@ -11,7 +11,7 @@ export class UsersService {
     console.log('userData: ', userData);
     const users = await prisma.user.findMany({
       where: {
-        email: userData.email.equals,
+        deleteAt: userData.deleteAt.equals,
       },
     });
     return users;
@@ -41,6 +41,7 @@ export class UsersService {
         username,
       },
     });
+    console.log('userFind: ', user);
     return user;
   }
 }

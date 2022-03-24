@@ -16,14 +16,14 @@ generator nestgraphql {
 
 model User {
   id        Int       @id @default(autoincrement())
-  createAt  DateTime  @default(now())
+  createAt  DateTime?  @default(now())
   updateAt  DateTime?
   deleteAt  DateTime?
-  firstname String
-  lastname  String
-  age       Int
-  address   String
-  email     String    @unique
+  firstname String?
+  lastname  String?
+  age       Int?
+  address   String?
+  email     String    
   password  String
   username  String    @unique
 }

@@ -13,8 +13,8 @@ export class UserGroupBy {
     @Field(() => Int, {nullable:false})
     id!: number;
 
-    @Field(() => Date, {nullable:false})
-    createAt!: Date | string;
+    @Field(() => Date, {nullable:true})
+    createAt?: Date | string;
 
     @Field(() => Date, {nullable:true})
     updateAt?: Date | string;
@@ -22,17 +22,17 @@ export class UserGroupBy {
     @Field(() => Date, {nullable:true})
     deleteAt?: Date | string;
 
-    @Field(() => String, {nullable:false})
-    firstname!: string;
+    @Field(() => String, {nullable:true})
+    firstname?: string;
 
-    @Field(() => String, {nullable:false})
-    lastname!: string;
+    @Field(() => String, {nullable:true})
+    lastname?: string;
 
-    @Field(() => Int, {nullable:false})
-    age!: number;
+    @Field(() => Int, {nullable:true})
+    age?: number;
 
-    @Field(() => String, {nullable:false})
-    address!: string;
+    @Field(() => String, {nullable:true})
+    address?: string;
 
     @Field(() => String, {nullable:false})
     email!: string;

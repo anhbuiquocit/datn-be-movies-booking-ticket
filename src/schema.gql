@@ -4,13 +4,13 @@
 
 type User {
   id: ID!
-  createAt: DateTime!
+  createAt: DateTime
   updateAt: DateTime
   deleteAt: DateTime
-  firstname: String!
-  lastname: String!
-  age: Int!
-  address: String!
+  firstname: String
+  lastname: String
+  age: Int
+  address: String
   email: String!
   password: String!
   username: String!
@@ -35,13 +35,13 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
   id: IntFilter
-  createAt: DateTimeFilter
+  createAt: DateTimeNullableFilter
   updateAt: DateTimeNullableFilter
   deleteAt: DateTimeNullableFilter
-  firstname: StringFilter
-  lastname: StringFilter
-  age: IntFilter
-  address: StringFilter
+  firstname: StringNullableFilter
+  lastname: StringNullableFilter
+  age: IntNullableFilter
+  address: StringNullableFilter
   email: StringFilter
   password: StringFilter
   username: StringFilter
@@ -69,28 +69,6 @@ input NestedIntFilter {
   not: NestedIntFilter
 }
 
-input DateTimeFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeFilter
-}
-
-input NestedDateTimeFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeFilter
-}
-
 input DateTimeNullableFilter {
   equals: DateTime
   in: [DateTime!]
@@ -111,6 +89,56 @@ input NestedDateTimeNullableFilter {
   gt: DateTime
   gte: DateTime
   not: NestedDateTimeNullableFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
 }
 
 input StringFilter {
@@ -143,23 +171,24 @@ input NestedStringFilter {
 
 type Mutation {
   signin(user: UserCreateInput!): Boolean!
-  login(loginUserInput: LoginUserInput!): LoginResponse!
+  login(userInput: LoginUserInput!): LoginResponse!
 }
 
 input UserCreateInput {
   createAt: DateTime
   updateAt: DateTime
   deleteAt: DateTime
-  firstname: String!
-  lastname: String!
-  age: Int!
-  address: String!
+  firstname: String
+  lastname: String
+  age: Int
+  address: String
   email: String!
   password: String!
   username: String!
 }
 
 input LoginUserInput {
+  id: Int
   username: String!
   password: String!
 }
