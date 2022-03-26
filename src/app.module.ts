@@ -19,10 +19,10 @@ import { AuthModule } from './modules/auth/auth.module';
   ],
   controllers: [],
   providers: [
-    // {
-    //   provide: APP_FILTER,
-    //   useClass: HttpErrorFilter,
-    // },
+    {
+      provide: APP_FILTER,
+      useClass: HttpErrorFilter,
+    },
     // {
     //   provide: APP_GUARD,
     //   useClass: JwtAuthGuard,

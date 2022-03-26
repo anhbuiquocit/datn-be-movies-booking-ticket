@@ -1,3 +1,5 @@
+import { confirmEmailLink } from './../../util/confirmEmailLink';
+import { sendEmail } from './../../util/sendEmail';
 import { hash } from './../../util/bcrypt';
 import { validateUser } from './../../lib/commonFunction';
 import { User } from '../../@generated/prisma-nestjs-graphql/user/user.model';
@@ -20,6 +22,17 @@ export class UsersService {
   async signin(data): Promise<any> {
     if (data) {
       validateUser(data);
+      const userExist = await prisma.user.count({
+        where: {
+          username: data.username,
+          deleteAt: null,
+        },
+      });
+      console.log('userExist: ', userExist);
+      if (userExist) {
+        throw new Error('User name existed');
+      }
+      console.log('dataa: ', data);
       const user = await prisma.user.create({
         data: {
           firstname: data.firstname,
@@ -31,7 +44,14 @@ export class UsersService {
           password: hash(data.password),
         },
       });
-      return true;
+      // const userCreate = await prisma.user.create({
+      //   data: {
+
+      //   }
+      // })
+      if (sendEmail(data.email, confirmEmailLink(user.id))) {
+        return true;
+      }
     }
     return false;
   }

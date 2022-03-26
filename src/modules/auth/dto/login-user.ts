@@ -3,8 +3,8 @@ import { Field, InputType, ObjectType, Int } from '@nestjs/graphql';
 // @ObjectType()
 @InputType()
 export class LoginUserInput {
-  @Field(() => Int, { nullable: true })
-  id: number;
+  @Field(() => String, { nullable: true })
+  id: string;
   @Field()
   username: string;
   @Field()

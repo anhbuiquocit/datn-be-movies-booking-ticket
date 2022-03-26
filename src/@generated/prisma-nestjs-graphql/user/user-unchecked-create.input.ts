@@ -5,8 +5,8 @@ import { Int } from '@nestjs/graphql';
 @InputType()
 export class UserUncheckedCreateInput {
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
     @Field(() => Date, {nullable:true})
     createAt?: Date | string;
@@ -37,4 +37,7 @@ export class UserUncheckedCreateInput {
 
     @Field(() => String, {nullable:false})
     username!: string;
+
+    @Field(() => Boolean, {nullable:true})
+    active?: boolean;
 }

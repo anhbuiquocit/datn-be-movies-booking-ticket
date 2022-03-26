@@ -39,5 +39,8 @@ export class UserCountAggregate {
     username!: number;
 
     @Field(() => Int, {nullable:false})
+    active!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

@@ -8,22 +8,23 @@ datasource db {
 }
 
 generator nestgraphql {
-    provider = "node node_modules/prisma-nestjs-graphql"
-    output = "../src/@generated/prisma-nestjs-graphql"
-    fields_Validator_from = "class-validator"
-    fields_Validator_input = true
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../src/@generated/prisma-nestjs-graphql"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  createAt  DateTime?  @default(now())
+  id        String    @id @default(uuid())
+  createAt  DateTime? @default(now())
   updateAt  DateTime?
   deleteAt  DateTime?
   firstname String?
   lastname  String?
   age       Int?
   address   String?
-  email     String    
+  email     String
   password  String
   username  String    @unique
+  active    Boolean?
 }

@@ -10,8 +10,8 @@ import { UserMaxAggregate } from './user-max-aggregate.output';
 @ObjectType()
 export class UserGroupBy {
 
-    @Field(() => Int, {nullable:false})
-    id!: number;
+    @Field(() => String, {nullable:false})
+    id!: string;
 
     @Field(() => Date, {nullable:true})
     createAt?: Date | string;
@@ -42,6 +42,9 @@ export class UserGroupBy {
 
     @Field(() => String, {nullable:false})
     username!: string;
+
+    @Field(() => Boolean, {nullable:true})
+    active?: boolean;
 
     @Field(() => UserCountAggregate, {nullable:true})
     _count?: UserCountAggregate;

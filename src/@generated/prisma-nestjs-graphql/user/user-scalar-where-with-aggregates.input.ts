@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
+import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
-import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
+import { BoolNullableWithAggregatesFilter } from '../prisma/bool-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class UserScalarWhereWithAggregatesInput {
@@ -18,8 +18,8 @@ export class UserScalarWhereWithAggregatesInput {
     @Field(() => [UserScalarWhereWithAggregatesInput], {nullable:true})
     NOT?: Array<UserScalarWhereWithAggregatesInput>;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    id?: StringWithAggregatesFilter;
 
     @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
     createAt?: DateTimeNullableWithAggregatesFilter;
@@ -50,4 +50,7 @@ export class UserScalarWhereWithAggregatesInput {
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     username?: StringWithAggregatesFilter;
+
+    @Field(() => BoolNullableWithAggregatesFilter, {nullable:true})
+    active?: BoolNullableWithAggregatesFilter;
 }

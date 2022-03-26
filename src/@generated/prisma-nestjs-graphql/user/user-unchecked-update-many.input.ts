@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
 @InputType()
 export class UserUncheckedUpdateManyInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: StringFieldUpdateOperationsInput;
 
     @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
     createAt?: NullableDateTimeFieldUpdateOperationsInput;
@@ -41,4 +41,7 @@ export class UserUncheckedUpdateManyInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     username?: StringFieldUpdateOperationsInput;
+
+    @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
+    active?: NullableBoolFieldUpdateOperationsInput;
 }

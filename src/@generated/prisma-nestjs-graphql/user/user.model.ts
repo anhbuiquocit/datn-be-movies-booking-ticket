@@ -7,7 +7,7 @@ import { Int } from '@nestjs/graphql';
 export class User {
 
     @Field(() => ID, {nullable:false})
-    id!: number;
+    id!: string;
 
     @Field(() => Date, {nullable:true})
     createAt!: Date | null;
@@ -38,4 +38,7 @@ export class User {
 
     @Field(() => String, {nullable:false})
     username!: string;
+
+    @Field(() => Boolean, {nullable:true})
+    active!: boolean | null;
 }

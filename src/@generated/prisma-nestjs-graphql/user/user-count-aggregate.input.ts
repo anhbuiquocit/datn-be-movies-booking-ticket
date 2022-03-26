@@ -38,5 +38,8 @@ export class UserCountAggregateInput {
     username?: true;
 
     @Field(() => Boolean, {nullable:true})
+    active?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

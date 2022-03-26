@@ -36,4 +36,7 @@ export class UserMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     username?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    active?: true;
 }

@@ -1,4 +1,3 @@
-import { UserCreateInput } from './../../@generated/prisma-nestjs-graphql/user/user-create.input';
 import { UsersService } from './../users/users.service';
 import { User } from './../../@generated/prisma-nestjs-graphql/user/user.model';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -7,8 +6,7 @@ import { AuthService } from './auth.service';
 import { Mutation, Resolver, Args, Context } from '@nestjs/graphql';
 import { LoginResponse } from './dto/login-response';
 import { LoginUserInput } from './dto/login-user';
-// bao h ve
-import { UseGuards, Request, Query } from '@nestjs/common';
+import { UseGuards, Request, Query, UseFilters } from '@nestjs/common';
 @Resolver()
 export class AuthResolver {
   constructor(

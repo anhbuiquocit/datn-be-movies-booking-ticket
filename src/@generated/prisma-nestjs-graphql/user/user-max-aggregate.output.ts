@@ -5,8 +5,8 @@ import { Int } from '@nestjs/graphql';
 @ObjectType()
 export class UserMaxAggregate {
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
     @Field(() => Date, {nullable:true})
     createAt?: Date | string;
@@ -37,4 +37,7 @@ export class UserMaxAggregate {
 
     @Field(() => String, {nullable:true})
     username?: string;
+
+    @Field(() => Boolean, {nullable:true})
+    active?: boolean;
 }

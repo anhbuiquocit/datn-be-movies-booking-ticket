@@ -43,6 +43,9 @@ export class UserOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     username?: keyof typeof SortOrder;
 
+    @Field(() => SortOrder, {nullable:true})
+    active?: keyof typeof SortOrder;
+
     @Field(() => UserCountOrderByAggregateInput, {nullable:true})
     _count?: UserCountOrderByAggregateInput;
 

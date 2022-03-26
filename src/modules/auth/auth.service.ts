@@ -34,10 +34,10 @@ export class AuthService {
         username: user.username,
       },
     });
-    if (!userFind)
-      throw new HttpException('USERNAME_OR_PASSWORD_IS_NOT_CORRECT', 404);
+    if (!userFind) throw new HttpException('USERNAME_IS_NOT_CORRECT', 404);
     console.log('userFind:', userFind);
-    if (compare(user.password, userFind.password)) {
+    const isPassword = await compare(user.password, userFind.password);
+    if (isPassword) {
       return {
         access_token: this.jwtService.sign({
           username: user.username,
@@ -46,9 +46,10 @@ export class AuthService {
         user: userFind,
       };
     }
-    return {
-      access_token: '',
-      userFind: null,
-    };
+    // return {
+    //   access_token: '',
+    //   userFind: null,
+    // };
+    throw new Error('PASSWORD_IS_NOT_CORRECT');
   }
 }
