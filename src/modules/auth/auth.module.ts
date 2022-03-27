@@ -18,13 +18,8 @@ import constant from '../../config/index';
       signOptions: { expiresIn: '300s' },
     }),
   ],
-  providers: [
-    AuthService,
-    AuthResolver,
-    LocalStrategy,
-    JwtStrategy,
-    AuthController,
-  ],
+  controllers: [AuthController],
+  providers: [AuthService, AuthResolver, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

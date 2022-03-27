@@ -9,6 +9,7 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { notStrictEqual } from 'assert';
 const prisma = new PrismaClient();
 @Injectable()
 export class AuthService {
@@ -51,5 +52,24 @@ export class AuthService {
     //   userFind: null,
     // };
     throw new Error('PASSWORD_IS_NOT_CORRECT');
+  }
+  async verificationAccount(userId: string) {
+    const userFind = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!userFind) {
+      return false;
+    }
+    await prisma.user.update({
+      where: {
+        id: userFind.id,
+      },
+      data: {
+        active: true,
+      },
+    });
+    return true;
   }
 }
