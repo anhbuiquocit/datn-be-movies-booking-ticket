@@ -1,6 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { OrderUncheckedCreateNestedManyWithoutUserInput } from '../order/order-unchecked-create-nested-many-without-user.input';
+import { BookingUncheckedCreateNestedManyWithoutUserInput } from '../booking/booking-unchecked-create-nested-many-without-user.input';
 
 @InputType()
 export class UserUncheckedCreateInput {
@@ -40,4 +42,19 @@ export class UserUncheckedCreateInput {
 
     @Field(() => Boolean, {nullable:true})
     active?: boolean;
+
+    @Field(() => Int, {nullable:true})
+    point?: number;
+
+    @Field(() => String, {nullable:true})
+    phone?: string;
+
+    @Field(() => String, {nullable:true})
+    role?: string;
+
+    @Field(() => OrderUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    Order?: OrderUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => BookingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    Booking?: BookingUncheckedCreateNestedManyWithoutUserInput;
 }

@@ -11,9 +11,36 @@ export class UsersService {
   // constructor(private context: configuration) {}
   async findAll(userData): Promise<User[]> {
     console.log('userData: ', userData);
+    const {
+      id,
+      firstname,
+      lastname,
+      age,
+      address,
+      email,
+      active,
+      point,
+      phone,
+      role,
+      Order,
+      Booking,
+      deleteAt,
+    } = userData;
     const users = await prisma.user.findMany({
       where: {
-        deleteAt: userData.deleteAt.equals,
+        deleteAt,
+        id,
+        firstname,
+        lastname,
+        age,
+        address,
+        email,
+        active,
+        point,
+        phone,
+        role,
+        Order,
+        Booking,
       },
     });
     return users;

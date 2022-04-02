@@ -7,4 +7,7 @@ export class UserAvgOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     age?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    point?: keyof typeof SortOrder;
 }

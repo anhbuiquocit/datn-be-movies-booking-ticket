@@ -2,6 +2,197 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ClusterCinemaCount {
+  Cinema: Int!
+}
+
+type ClusterCinema {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  phone: String!
+  Cinema: [Cinema!]
+  _count: ClusterCinemaCount!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type CinemaCount {
+  Room: Int!
+}
+
+type Cinema {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  address: String!
+  phone: String!
+  clusterCinema: ClusterCinema!
+  ClusterCinemaId: String!
+  Room: [Room!]
+  _count: CinemaCount!
+}
+
+type PromotionCount {
+  Order: Int!
+  Booking: Int!
+}
+
+type Promotion {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  code: String!
+  discount: Float!
+  maxDiscount: Float!
+  startDate: DateTime!
+  endDate: DateTime!
+  Order: [Order!]
+  Booking: [Booking!]
+  _count: PromotionCount!
+}
+
+type Booking {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User!
+  UserId: String!
+  showing: Showing!
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItem!
+  BookingItemId: String!
+  promotion: Promotion!
+  PromotionId: String!
+}
+
+type BookingItemCount {
+  Order: Int!
+  Booking: Int!
+}
+
+type BookingItem {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  seat: Seat!
+  SeatId: String!
+  amount: Int!
+  price: Int!
+  Order: [Order!]
+  Booking: [Booking!]
+  _count: BookingItemCount!
+}
+
+type SeatCount {
+  BookingItem: Int!
+}
+
+type Seat {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  position: String!
+  room: Room!
+  RoomId: String!
+  BookingItem: [BookingItem!]
+  _count: SeatCount!
+}
+
+type RoomCount {
+  Seat: Int!
+  Showing: Int!
+}
+
+type Room {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  cinema: Cinema!
+  CinemaId: String!
+  Seat: [Seat!]
+  Showing: [Showing!]
+  _count: RoomCount!
+}
+
+type FilmCount {
+  Showing: Int!
+}
+
+type Film {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  trailler: String!
+  name: String!
+  description: String!
+  director: String!
+  actor: String!
+  time: String!
+  Showing: [Showing!]
+  _count: FilmCount!
+}
+
+type ShowingCount {
+  Order: Int!
+  Booking: Int!
+}
+
+type Showing {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  room: Room!
+  RoomId: String!
+  film: Film!
+  FilmId: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  Order: [Order!]
+  Booking: [Booking!]
+  _count: ShowingCount!
+}
+
+type Order {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User!
+  UserId: String!
+  showing: Showing!
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItem!
+  BookingItemId: String!
+  promotion: Promotion!
+  PromotionId: String!
+}
+
+type UserCount {
+  Order: Int!
+  Booking: Int!
+}
+
 type User {
   id: ID!
   createAt: DateTime
@@ -15,12 +206,13 @@ type User {
   password: String!
   username: String!
   active: Boolean
+  point: Int
+  phone: String
+  role: String
+  Order: [Order!]
+  Booking: [Booking!]
+  _count: UserCount!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type LoginResponse {
   access_token: String!
@@ -29,6 +221,7 @@ type LoginResponse {
 
 type Query {
   Users(userData: UserWhereInput): [User!]!
+  films(filmInput: FilmWhereInput): [Film!]!
 }
 
 input UserWhereInput {
@@ -47,6 +240,11 @@ input UserWhereInput {
   password: StringFilter
   username: StringFilter
   active: BoolNullableFilter
+  point: IntNullableFilter
+  phone: StringNullableFilter
+  role: StringNullableFilter
+  Order: OrderListRelationFilter
+  Booking: BookingListRelationFilter
 }
 
 input StringFilter {
@@ -159,6 +357,326 @@ input NestedBoolNullableFilter {
   not: NestedBoolNullableFilter
 }
 
+input OrderListRelationFilter {
+  every: OrderWhereInput
+  some: OrderWhereInput
+  none: OrderWhereInput
+}
+
+input OrderWhereInput {
+  AND: [OrderWhereInput!]
+  OR: [OrderWhereInput!]
+  NOT: [OrderWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  user: UserRelationFilter
+  UserId: StringFilter
+  showing: ShowingRelationFilter
+  ShowingId: StringFilter
+  amount: IntFilter
+  price: IntFilter
+  bookingItem: BookingItemRelationFilter
+  BookingItemId: StringFilter
+  promotion: PromotionRelationFilter
+  PromotionId: StringFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input ShowingRelationFilter {
+  is: ShowingWhereInput
+  isNot: ShowingWhereInput
+}
+
+input ShowingWhereInput {
+  AND: [ShowingWhereInput!]
+  OR: [ShowingWhereInput!]
+  NOT: [ShowingWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  room: RoomRelationFilter
+  RoomId: StringFilter
+  film: FilmRelationFilter
+  FilmId: StringFilter
+  startDate: DateTimeFilter
+  endDate: DateTimeFilter
+  Order: OrderListRelationFilter
+  Booking: BookingListRelationFilter
+}
+
+input RoomRelationFilter {
+  is: RoomWhereInput
+  isNot: RoomWhereInput
+}
+
+input RoomWhereInput {
+  AND: [RoomWhereInput!]
+  OR: [RoomWhereInput!]
+  NOT: [RoomWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  name: StringFilter
+  cinema: CinemaRelationFilter
+  CinemaId: StringFilter
+  Seat: SeatListRelationFilter
+  Showing: ShowingListRelationFilter
+}
+
+input CinemaRelationFilter {
+  is: CinemaWhereInput
+  isNot: CinemaWhereInput
+}
+
+input CinemaWhereInput {
+  AND: [CinemaWhereInput!]
+  OR: [CinemaWhereInput!]
+  NOT: [CinemaWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  name: StringFilter
+  address: StringFilter
+  phone: StringFilter
+  clusterCinema: ClusterCinemaRelationFilter
+  ClusterCinemaId: StringFilter
+  Room: RoomListRelationFilter
+}
+
+input ClusterCinemaRelationFilter {
+  is: ClusterCinemaWhereInput
+  isNot: ClusterCinemaWhereInput
+}
+
+input ClusterCinemaWhereInput {
+  AND: [ClusterCinemaWhereInput!]
+  OR: [ClusterCinemaWhereInput!]
+  NOT: [ClusterCinemaWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  name: StringFilter
+  phone: StringFilter
+  Cinema: CinemaListRelationFilter
+}
+
+input CinemaListRelationFilter {
+  every: CinemaWhereInput
+  some: CinemaWhereInput
+  none: CinemaWhereInput
+}
+
+input RoomListRelationFilter {
+  every: RoomWhereInput
+  some: RoomWhereInput
+  none: RoomWhereInput
+}
+
+input SeatListRelationFilter {
+  every: SeatWhereInput
+  some: SeatWhereInput
+  none: SeatWhereInput
+}
+
+input SeatWhereInput {
+  AND: [SeatWhereInput!]
+  OR: [SeatWhereInput!]
+  NOT: [SeatWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  name: StringFilter
+  position: StringFilter
+  room: RoomRelationFilter
+  RoomId: StringFilter
+  BookingItem: BookingItemListRelationFilter
+}
+
+input BookingItemListRelationFilter {
+  every: BookingItemWhereInput
+  some: BookingItemWhereInput
+  none: BookingItemWhereInput
+}
+
+input BookingItemWhereInput {
+  AND: [BookingItemWhereInput!]
+  OR: [BookingItemWhereInput!]
+  NOT: [BookingItemWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  seat: SeatRelationFilter
+  SeatId: StringFilter
+  amount: IntFilter
+  price: IntFilter
+  Order: OrderListRelationFilter
+  Booking: BookingListRelationFilter
+}
+
+input SeatRelationFilter {
+  is: SeatWhereInput
+  isNot: SeatWhereInput
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input BookingListRelationFilter {
+  every: BookingWhereInput
+  some: BookingWhereInput
+  none: BookingWhereInput
+}
+
+input BookingWhereInput {
+  AND: [BookingWhereInput!]
+  OR: [BookingWhereInput!]
+  NOT: [BookingWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  user: UserRelationFilter
+  UserId: StringFilter
+  showing: ShowingRelationFilter
+  ShowingId: StringFilter
+  amount: IntFilter
+  price: IntFilter
+  bookingItem: BookingItemRelationFilter
+  BookingItemId: StringFilter
+  promotion: PromotionRelationFilter
+  PromotionId: StringFilter
+}
+
+input BookingItemRelationFilter {
+  is: BookingItemWhereInput
+  isNot: BookingItemWhereInput
+}
+
+input PromotionRelationFilter {
+  is: PromotionWhereInput
+  isNot: PromotionWhereInput
+}
+
+input PromotionWhereInput {
+  AND: [PromotionWhereInput!]
+  OR: [PromotionWhereInput!]
+  NOT: [PromotionWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  code: StringFilter
+  discount: FloatFilter
+  maxDiscount: FloatFilter
+  startDate: DateTimeFilter
+  endDate: DateTimeFilter
+  Order: OrderListRelationFilter
+  Booking: BookingListRelationFilter
+}
+
+input FloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatFilter
+}
+
+input NestedFloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatFilter
+}
+
+input ShowingListRelationFilter {
+  every: ShowingWhereInput
+  some: ShowingWhereInput
+  none: ShowingWhereInput
+}
+
+input FilmRelationFilter {
+  is: FilmWhereInput
+  isNot: FilmWhereInput
+}
+
+input FilmWhereInput {
+  AND: [FilmWhereInput!]
+  OR: [FilmWhereInput!]
+  NOT: [FilmWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  trailler: StringFilter
+  name: StringFilter
+  description: StringFilter
+  director: StringFilter
+  actor: StringFilter
+  time: StringFilter
+  Showing: ShowingListRelationFilter
+}
+
 type Mutation {
   signin(user: UserCreateInput!): Boolean!
   login(userInput: LoginUserInput!): LoginResponse!
@@ -177,6 +695,823 @@ input UserCreateInput {
   password: String!
   username: String!
   active: Boolean
+  point: Int
+  phone: String
+  role: String
+  Order: OrderCreateNestedManyWithoutUserInput
+  Booking: BookingCreateNestedManyWithoutUserInput
+}
+
+input OrderCreateNestedManyWithoutUserInput {
+  create: [OrderCreateWithoutUserInput!]
+  connectOrCreate: [OrderCreateOrConnectWithoutUserInput!]
+  createMany: OrderCreateManyUserInputEnvelope
+  connect: [OrderWhereUniqueInput!]
+}
+
+input OrderCreateWithoutUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  showing: ShowingCreateNestedOneWithoutOrderInput!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItemCreateNestedOneWithoutOrderInput!
+  promotion: PromotionCreateNestedOneWithoutOrderInput!
+}
+
+input ShowingCreateNestedOneWithoutOrderInput {
+  create: ShowingCreateWithoutOrderInput
+  connectOrCreate: ShowingCreateOrConnectWithoutOrderInput
+  connect: ShowingWhereUniqueInput
+}
+
+input ShowingCreateWithoutOrderInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  room: RoomCreateNestedOneWithoutShowingInput!
+  film: FilmCreateNestedOneWithoutShowingInput!
+  startDate: DateTime!
+  endDate: DateTime!
+  Booking: BookingCreateNestedManyWithoutShowingInput
+}
+
+input RoomCreateNestedOneWithoutShowingInput {
+  create: RoomCreateWithoutShowingInput
+  connectOrCreate: RoomCreateOrConnectWithoutShowingInput
+  connect: RoomWhereUniqueInput
+}
+
+input RoomCreateWithoutShowingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  cinema: CinemaCreateNestedOneWithoutRoomInput!
+  Seat: SeatCreateNestedManyWithoutRoomInput
+}
+
+input CinemaCreateNestedOneWithoutRoomInput {
+  create: CinemaCreateWithoutRoomInput
+  connectOrCreate: CinemaCreateOrConnectWithoutRoomInput
+  connect: CinemaWhereUniqueInput
+}
+
+input CinemaCreateWithoutRoomInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  address: String!
+  phone: String!
+  clusterCinema: ClusterCinemaCreateNestedOneWithoutCinemaInput!
+}
+
+input ClusterCinemaCreateNestedOneWithoutCinemaInput {
+  create: ClusterCinemaCreateWithoutCinemaInput
+  connectOrCreate: ClusterCinemaCreateOrConnectWithoutCinemaInput
+  connect: ClusterCinemaWhereUniqueInput
+}
+
+input ClusterCinemaCreateWithoutCinemaInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  phone: String!
+}
+
+input ClusterCinemaCreateOrConnectWithoutCinemaInput {
+  where: ClusterCinemaWhereUniqueInput!
+  create: ClusterCinemaCreateWithoutCinemaInput!
+}
+
+input ClusterCinemaWhereUniqueInput {
+  id: String
+}
+
+input CinemaCreateOrConnectWithoutRoomInput {
+  where: CinemaWhereUniqueInput!
+  create: CinemaCreateWithoutRoomInput!
+}
+
+input CinemaWhereUniqueInput {
+  id: String
+}
+
+input SeatCreateNestedManyWithoutRoomInput {
+  create: [SeatCreateWithoutRoomInput!]
+  connectOrCreate: [SeatCreateOrConnectWithoutRoomInput!]
+  createMany: SeatCreateManyRoomInputEnvelope
+  connect: [SeatWhereUniqueInput!]
+}
+
+input SeatCreateWithoutRoomInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  position: String!
+  BookingItem: BookingItemCreateNestedManyWithoutSeatInput
+}
+
+input BookingItemCreateNestedManyWithoutSeatInput {
+  create: [BookingItemCreateWithoutSeatInput!]
+  connectOrCreate: [BookingItemCreateOrConnectWithoutSeatInput!]
+  createMany: BookingItemCreateManySeatInputEnvelope
+  connect: [BookingItemWhereUniqueInput!]
+}
+
+input BookingItemCreateWithoutSeatInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  amount: Int!
+  price: Int!
+  Order: OrderCreateNestedManyWithoutBookingItemInput
+  Booking: BookingCreateNestedManyWithoutBookingItemInput
+}
+
+input OrderCreateNestedManyWithoutBookingItemInput {
+  create: [OrderCreateWithoutBookingItemInput!]
+  connectOrCreate: [OrderCreateOrConnectWithoutBookingItemInput!]
+  createMany: OrderCreateManyBookingItemInputEnvelope
+  connect: [OrderWhereUniqueInput!]
+}
+
+input OrderCreateWithoutBookingItemInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: UserCreateNestedOneWithoutOrderInput!
+  showing: ShowingCreateNestedOneWithoutOrderInput!
+  amount: Int!
+  price: Int!
+  promotion: PromotionCreateNestedOneWithoutOrderInput!
+}
+
+input UserCreateNestedOneWithoutOrderInput {
+  create: UserCreateWithoutOrderInput
+  connectOrCreate: UserCreateOrConnectWithoutOrderInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutOrderInput {
+  id: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+  firstname: String
+  lastname: String
+  age: Int
+  address: String
+  email: String!
+  password: String!
+  username: String!
+  active: Boolean
+  point: Int
+  phone: String
+  role: String
+  Booking: BookingCreateNestedManyWithoutUserInput
+}
+
+input BookingCreateNestedManyWithoutUserInput {
+  create: [BookingCreateWithoutUserInput!]
+  connectOrCreate: [BookingCreateOrConnectWithoutUserInput!]
+  createMany: BookingCreateManyUserInputEnvelope
+  connect: [BookingWhereUniqueInput!]
+}
+
+input BookingCreateWithoutUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  showing: ShowingCreateNestedOneWithoutBookingInput!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItemCreateNestedOneWithoutBookingInput!
+  promotion: PromotionCreateNestedOneWithoutBookingInput!
+}
+
+input ShowingCreateNestedOneWithoutBookingInput {
+  create: ShowingCreateWithoutBookingInput
+  connectOrCreate: ShowingCreateOrConnectWithoutBookingInput
+  connect: ShowingWhereUniqueInput
+}
+
+input ShowingCreateWithoutBookingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  room: RoomCreateNestedOneWithoutShowingInput!
+  film: FilmCreateNestedOneWithoutShowingInput!
+  startDate: DateTime!
+  endDate: DateTime!
+  Order: OrderCreateNestedManyWithoutShowingInput
+}
+
+input FilmCreateNestedOneWithoutShowingInput {
+  create: FilmCreateWithoutShowingInput
+  connectOrCreate: FilmCreateOrConnectWithoutShowingInput
+  connect: FilmWhereUniqueInput
+}
+
+input FilmCreateWithoutShowingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  trailler: String!
+  name: String!
+  description: String!
+  director: String!
+  actor: String!
+  time: String!
+}
+
+input FilmCreateOrConnectWithoutShowingInput {
+  where: FilmWhereUniqueInput!
+  create: FilmCreateWithoutShowingInput!
+}
+
+input FilmWhereUniqueInput {
+  id: String
+}
+
+input OrderCreateNestedManyWithoutShowingInput {
+  create: [OrderCreateWithoutShowingInput!]
+  connectOrCreate: [OrderCreateOrConnectWithoutShowingInput!]
+  createMany: OrderCreateManyShowingInputEnvelope
+  connect: [OrderWhereUniqueInput!]
+}
+
+input OrderCreateWithoutShowingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: UserCreateNestedOneWithoutOrderInput!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItemCreateNestedOneWithoutOrderInput!
+  promotion: PromotionCreateNestedOneWithoutOrderInput!
+}
+
+input BookingItemCreateNestedOneWithoutOrderInput {
+  create: BookingItemCreateWithoutOrderInput
+  connectOrCreate: BookingItemCreateOrConnectWithoutOrderInput
+  connect: BookingItemWhereUniqueInput
+}
+
+input BookingItemCreateWithoutOrderInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  seat: SeatCreateNestedOneWithoutBookingItemInput!
+  amount: Int!
+  price: Int!
+  Booking: BookingCreateNestedManyWithoutBookingItemInput
+}
+
+input SeatCreateNestedOneWithoutBookingItemInput {
+  create: SeatCreateWithoutBookingItemInput
+  connectOrCreate: SeatCreateOrConnectWithoutBookingItemInput
+  connect: SeatWhereUniqueInput
+}
+
+input SeatCreateWithoutBookingItemInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  position: String!
+  room: RoomCreateNestedOneWithoutSeatInput!
+}
+
+input RoomCreateNestedOneWithoutSeatInput {
+  create: RoomCreateWithoutSeatInput
+  connectOrCreate: RoomCreateOrConnectWithoutSeatInput
+  connect: RoomWhereUniqueInput
+}
+
+input RoomCreateWithoutSeatInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  cinema: CinemaCreateNestedOneWithoutRoomInput!
+  Showing: ShowingCreateNestedManyWithoutRoomInput
+}
+
+input ShowingCreateNestedManyWithoutRoomInput {
+  create: [ShowingCreateWithoutRoomInput!]
+  connectOrCreate: [ShowingCreateOrConnectWithoutRoomInput!]
+  createMany: ShowingCreateManyRoomInputEnvelope
+  connect: [ShowingWhereUniqueInput!]
+}
+
+input ShowingCreateWithoutRoomInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  film: FilmCreateNestedOneWithoutShowingInput!
+  startDate: DateTime!
+  endDate: DateTime!
+  Order: OrderCreateNestedManyWithoutShowingInput
+  Booking: BookingCreateNestedManyWithoutShowingInput
+}
+
+input BookingCreateNestedManyWithoutShowingInput {
+  create: [BookingCreateWithoutShowingInput!]
+  connectOrCreate: [BookingCreateOrConnectWithoutShowingInput!]
+  createMany: BookingCreateManyShowingInputEnvelope
+  connect: [BookingWhereUniqueInput!]
+}
+
+input BookingCreateWithoutShowingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: UserCreateNestedOneWithoutBookingInput!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItemCreateNestedOneWithoutBookingInput!
+  promotion: PromotionCreateNestedOneWithoutBookingInput!
+}
+
+input UserCreateNestedOneWithoutBookingInput {
+  create: UserCreateWithoutBookingInput
+  connectOrCreate: UserCreateOrConnectWithoutBookingInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutBookingInput {
+  id: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+  firstname: String
+  lastname: String
+  age: Int
+  address: String
+  email: String!
+  password: String!
+  username: String!
+  active: Boolean
+  point: Int
+  phone: String
+  role: String
+  Order: OrderCreateNestedManyWithoutUserInput
+}
+
+input UserCreateOrConnectWithoutBookingInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutBookingInput!
+}
+
+input UserWhereUniqueInput {
+  id: String
+  username: String
+}
+
+input BookingItemCreateNestedOneWithoutBookingInput {
+  create: BookingItemCreateWithoutBookingInput
+  connectOrCreate: BookingItemCreateOrConnectWithoutBookingInput
+  connect: BookingItemWhereUniqueInput
+}
+
+input BookingItemCreateWithoutBookingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  seat: SeatCreateNestedOneWithoutBookingItemInput!
+  amount: Int!
+  price: Int!
+  Order: OrderCreateNestedManyWithoutBookingItemInput
+}
+
+input BookingItemCreateOrConnectWithoutBookingInput {
+  where: BookingItemWhereUniqueInput!
+  create: BookingItemCreateWithoutBookingInput!
+}
+
+input BookingItemWhereUniqueInput {
+  id: String
+}
+
+input PromotionCreateNestedOneWithoutBookingInput {
+  create: PromotionCreateWithoutBookingInput
+  connectOrCreate: PromotionCreateOrConnectWithoutBookingInput
+  connect: PromotionWhereUniqueInput
+}
+
+input PromotionCreateWithoutBookingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  code: String!
+  discount: Float!
+  maxDiscount: Float!
+  startDate: DateTime!
+  endDate: DateTime!
+  Order: OrderCreateNestedManyWithoutPromotionInput
+}
+
+input OrderCreateNestedManyWithoutPromotionInput {
+  create: [OrderCreateWithoutPromotionInput!]
+  connectOrCreate: [OrderCreateOrConnectWithoutPromotionInput!]
+  createMany: OrderCreateManyPromotionInputEnvelope
+  connect: [OrderWhereUniqueInput!]
+}
+
+input OrderCreateWithoutPromotionInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: UserCreateNestedOneWithoutOrderInput!
+  showing: ShowingCreateNestedOneWithoutOrderInput!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItemCreateNestedOneWithoutOrderInput!
+}
+
+input OrderCreateOrConnectWithoutPromotionInput {
+  where: OrderWhereUniqueInput!
+  create: OrderCreateWithoutPromotionInput!
+}
+
+input OrderWhereUniqueInput {
+  id: String
+}
+
+input OrderCreateManyPromotionInputEnvelope {
+  data: [OrderCreateManyPromotionInput!]!
+  skipDuplicates: Boolean
+}
+
+input OrderCreateManyPromotionInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  UserId: String!
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  BookingItemId: String!
+}
+
+input PromotionCreateOrConnectWithoutBookingInput {
+  where: PromotionWhereUniqueInput!
+  create: PromotionCreateWithoutBookingInput!
+}
+
+input PromotionWhereUniqueInput {
+  id: String
+}
+
+input BookingCreateOrConnectWithoutShowingInput {
+  where: BookingWhereUniqueInput!
+  create: BookingCreateWithoutShowingInput!
+}
+
+input BookingWhereUniqueInput {
+  id: String
+}
+
+input BookingCreateManyShowingInputEnvelope {
+  data: [BookingCreateManyShowingInput!]!
+  skipDuplicates: Boolean
+}
+
+input BookingCreateManyShowingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  UserId: String!
+  amount: Int!
+  price: Int!
+  BookingItemId: String!
+  PromotionId: String!
+}
+
+input ShowingCreateOrConnectWithoutRoomInput {
+  where: ShowingWhereUniqueInput!
+  create: ShowingCreateWithoutRoomInput!
+}
+
+input ShowingWhereUniqueInput {
+  id: String
+}
+
+input ShowingCreateManyRoomInputEnvelope {
+  data: [ShowingCreateManyRoomInput!]!
+  skipDuplicates: Boolean
+}
+
+input ShowingCreateManyRoomInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  FilmId: String!
+  startDate: DateTime!
+  endDate: DateTime!
+}
+
+input RoomCreateOrConnectWithoutSeatInput {
+  where: RoomWhereUniqueInput!
+  create: RoomCreateWithoutSeatInput!
+}
+
+input RoomWhereUniqueInput {
+  id: String
+}
+
+input SeatCreateOrConnectWithoutBookingItemInput {
+  where: SeatWhereUniqueInput!
+  create: SeatCreateWithoutBookingItemInput!
+}
+
+input SeatWhereUniqueInput {
+  id: String
+}
+
+input BookingCreateNestedManyWithoutBookingItemInput {
+  create: [BookingCreateWithoutBookingItemInput!]
+  connectOrCreate: [BookingCreateOrConnectWithoutBookingItemInput!]
+  createMany: BookingCreateManyBookingItemInputEnvelope
+  connect: [BookingWhereUniqueInput!]
+}
+
+input BookingCreateWithoutBookingItemInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: UserCreateNestedOneWithoutBookingInput!
+  showing: ShowingCreateNestedOneWithoutBookingInput!
+  amount: Int!
+  price: Int!
+  promotion: PromotionCreateNestedOneWithoutBookingInput!
+}
+
+input BookingCreateOrConnectWithoutBookingItemInput {
+  where: BookingWhereUniqueInput!
+  create: BookingCreateWithoutBookingItemInput!
+}
+
+input BookingCreateManyBookingItemInputEnvelope {
+  data: [BookingCreateManyBookingItemInput!]!
+  skipDuplicates: Boolean
+}
+
+input BookingCreateManyBookingItemInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  UserId: String!
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  PromotionId: String!
+}
+
+input BookingItemCreateOrConnectWithoutOrderInput {
+  where: BookingItemWhereUniqueInput!
+  create: BookingItemCreateWithoutOrderInput!
+}
+
+input PromotionCreateNestedOneWithoutOrderInput {
+  create: PromotionCreateWithoutOrderInput
+  connectOrCreate: PromotionCreateOrConnectWithoutOrderInput
+  connect: PromotionWhereUniqueInput
+}
+
+input PromotionCreateWithoutOrderInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  code: String!
+  discount: Float!
+  maxDiscount: Float!
+  startDate: DateTime!
+  endDate: DateTime!
+  Booking: BookingCreateNestedManyWithoutPromotionInput
+}
+
+input BookingCreateNestedManyWithoutPromotionInput {
+  create: [BookingCreateWithoutPromotionInput!]
+  connectOrCreate: [BookingCreateOrConnectWithoutPromotionInput!]
+  createMany: BookingCreateManyPromotionInputEnvelope
+  connect: [BookingWhereUniqueInput!]
+}
+
+input BookingCreateWithoutPromotionInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: UserCreateNestedOneWithoutBookingInput!
+  showing: ShowingCreateNestedOneWithoutBookingInput!
+  amount: Int!
+  price: Int!
+  bookingItem: BookingItemCreateNestedOneWithoutBookingInput!
+}
+
+input BookingCreateOrConnectWithoutPromotionInput {
+  where: BookingWhereUniqueInput!
+  create: BookingCreateWithoutPromotionInput!
+}
+
+input BookingCreateManyPromotionInputEnvelope {
+  data: [BookingCreateManyPromotionInput!]!
+  skipDuplicates: Boolean
+}
+
+input BookingCreateManyPromotionInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  UserId: String!
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  BookingItemId: String!
+}
+
+input PromotionCreateOrConnectWithoutOrderInput {
+  where: PromotionWhereUniqueInput!
+  create: PromotionCreateWithoutOrderInput!
+}
+
+input OrderCreateOrConnectWithoutShowingInput {
+  where: OrderWhereUniqueInput!
+  create: OrderCreateWithoutShowingInput!
+}
+
+input OrderCreateManyShowingInputEnvelope {
+  data: [OrderCreateManyShowingInput!]!
+  skipDuplicates: Boolean
+}
+
+input OrderCreateManyShowingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  UserId: String!
+  amount: Int!
+  price: Int!
+  BookingItemId: String!
+  PromotionId: String!
+}
+
+input ShowingCreateOrConnectWithoutBookingInput {
+  where: ShowingWhereUniqueInput!
+  create: ShowingCreateWithoutBookingInput!
+}
+
+input BookingCreateOrConnectWithoutUserInput {
+  where: BookingWhereUniqueInput!
+  create: BookingCreateWithoutUserInput!
+}
+
+input BookingCreateManyUserInputEnvelope {
+  data: [BookingCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input BookingCreateManyUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  BookingItemId: String!
+  PromotionId: String!
+}
+
+input UserCreateOrConnectWithoutOrderInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutOrderInput!
+}
+
+input OrderCreateOrConnectWithoutBookingItemInput {
+  where: OrderWhereUniqueInput!
+  create: OrderCreateWithoutBookingItemInput!
+}
+
+input OrderCreateManyBookingItemInputEnvelope {
+  data: [OrderCreateManyBookingItemInput!]!
+  skipDuplicates: Boolean
+}
+
+input OrderCreateManyBookingItemInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  UserId: String!
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  PromotionId: String!
+}
+
+input BookingItemCreateOrConnectWithoutSeatInput {
+  where: BookingItemWhereUniqueInput!
+  create: BookingItemCreateWithoutSeatInput!
+}
+
+input BookingItemCreateManySeatInputEnvelope {
+  data: [BookingItemCreateManySeatInput!]!
+  skipDuplicates: Boolean
+}
+
+input BookingItemCreateManySeatInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  amount: Int!
+  price: Int!
+}
+
+input SeatCreateOrConnectWithoutRoomInput {
+  where: SeatWhereUniqueInput!
+  create: SeatCreateWithoutRoomInput!
+}
+
+input SeatCreateManyRoomInputEnvelope {
+  data: [SeatCreateManyRoomInput!]!
+  skipDuplicates: Boolean
+}
+
+input SeatCreateManyRoomInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  position: String!
+}
+
+input RoomCreateOrConnectWithoutShowingInput {
+  where: RoomWhereUniqueInput!
+  create: RoomCreateWithoutShowingInput!
+}
+
+input ShowingCreateOrConnectWithoutOrderInput {
+  where: ShowingWhereUniqueInput!
+  create: ShowingCreateWithoutOrderInput!
+}
+
+input OrderCreateOrConnectWithoutUserInput {
+  where: OrderWhereUniqueInput!
+  create: OrderCreateWithoutUserInput!
+}
+
+input OrderCreateManyUserInputEnvelope {
+  data: [OrderCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input OrderCreateManyUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  ShowingId: String!
+  amount: Int!
+  price: Int!
+  BookingItemId: String!
+  PromotionId: String!
 }
 
 input LoginUserInput {

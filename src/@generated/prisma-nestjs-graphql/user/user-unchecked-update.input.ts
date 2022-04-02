@@ -5,6 +5,8 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
+import { OrderUncheckedUpdateManyWithoutUserInput } from '../order/order-unchecked-update-many-without-user.input';
+import { BookingUncheckedUpdateManyWithoutUserInput } from '../booking/booking-unchecked-update-many-without-user.input';
 
 @InputType()
 export class UserUncheckedUpdateInput {
@@ -44,4 +46,19 @@ export class UserUncheckedUpdateInput {
 
     @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
     active?: NullableBoolFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    point?: NullableIntFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    phone?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    role?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => OrderUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    Order?: OrderUncheckedUpdateManyWithoutUserInput;
+
+    @Field(() => BookingUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    Booking?: BookingUncheckedUpdateManyWithoutUserInput;
 }

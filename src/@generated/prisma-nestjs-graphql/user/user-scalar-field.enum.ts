@@ -12,7 +12,10 @@ export enum UserScalarFieldEnum {
     email = "email",
     password = "password",
     username = "username",
-    active = "active"
+    active = "active",
+    point = "point",
+    phone = "phone",
+    role = "role"
 }
 
 

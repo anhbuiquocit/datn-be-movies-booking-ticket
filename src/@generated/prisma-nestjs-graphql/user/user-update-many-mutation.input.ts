@@ -44,4 +44,13 @@ export class UserUpdateManyMutationInput {
 
     @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
     active?: NullableBoolFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    point?: NullableIntFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    phone?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    role?: NullableStringFieldUpdateOperationsInput;
 }

@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalFilters(new HttpErrorFilter());
+  // app.useGlobalFilters(new HttpErrorFilter());
   await app.listen(4000);
 }
 bootstrap();

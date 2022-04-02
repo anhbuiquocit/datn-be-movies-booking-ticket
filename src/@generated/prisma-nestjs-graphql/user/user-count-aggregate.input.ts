@@ -41,5 +41,14 @@ export class UserCountAggregateInput {
     active?: true;
 
     @Field(() => Boolean, {nullable:true})
+    point?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    phone?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    role?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

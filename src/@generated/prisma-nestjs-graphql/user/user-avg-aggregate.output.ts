@@ -7,4 +7,7 @@ export class UserAvgAggregate {
 
     @Field(() => Float, {nullable:true})
     age?: number;
+
+    @Field(() => Float, {nullable:true})
+    point?: number;
 }

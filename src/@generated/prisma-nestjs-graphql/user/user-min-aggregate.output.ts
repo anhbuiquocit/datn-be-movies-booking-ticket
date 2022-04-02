@@ -40,4 +40,13 @@ export class UserMinAggregate {
 
     @Field(() => Boolean, {nullable:true})
     active?: boolean;
+
+    @Field(() => Int, {nullable:true})
+    point?: number;
+
+    @Field(() => String, {nullable:true})
+    phone?: string;
+
+    @Field(() => String, {nullable:true})
+    role?: string;
 }

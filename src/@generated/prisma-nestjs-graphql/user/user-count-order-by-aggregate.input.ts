@@ -40,4 +40,13 @@ export class UserCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     active?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    point?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    phone?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    role?: keyof typeof SortOrder;
 }

@@ -53,4 +53,13 @@ export class UserScalarWhereWithAggregatesInput {
 
     @Field(() => BoolNullableWithAggregatesFilter, {nullable:true})
     active?: BoolNullableWithAggregatesFilter;
+
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    point?: IntNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    phone?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    role?: StringNullableWithAggregatesFilter;
 }

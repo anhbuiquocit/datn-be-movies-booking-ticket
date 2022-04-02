@@ -7,4 +7,7 @@ export class UserSumAggregate {
 
     @Field(() => Int, {nullable:true})
     age?: number;
+
+    @Field(() => Int, {nullable:true})
+    point?: number;
 }

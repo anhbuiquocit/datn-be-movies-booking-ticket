@@ -39,4 +39,13 @@ export class UserMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     active?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    point?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    phone?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    role?: true;
 }

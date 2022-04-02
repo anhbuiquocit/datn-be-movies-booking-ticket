@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { Mutation, Resolver, Args, Context } from '@nestjs/graphql';
 import { LoginResponse } from './dto/login-response';
 import { LoginUserInput } from './dto/login-user';
-import { UseGuards, Request, Query, UseFilters } from '@nestjs/common';
+import { UseGuards, Request, UseFilters } from '@nestjs/common';
 @Resolver()
 export class AuthResolver {
   constructor(

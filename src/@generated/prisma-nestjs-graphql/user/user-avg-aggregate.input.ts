@@ -6,4 +6,7 @@ export class UserAvgAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     age?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    point?: true;
 }
