@@ -25,6 +25,9 @@ export class UsersService {
       Order,
       Booking,
       deleteAt,
+      AND,
+      OR,
+      NOT,
     } = userData;
     const users = await prisma.user.findMany({
       where: {
@@ -41,6 +44,9 @@ export class UsersService {
         role,
         Order,
         Booking,
+        AND,
+        OR,
+        NOT,
       },
     });
     return users;

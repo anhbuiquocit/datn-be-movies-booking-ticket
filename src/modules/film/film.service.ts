@@ -5,7 +5,18 @@ const prisma = new PrismaClient();
 export class FilmService {
   async findAll(filmInput) {
     console.log('Film Input: ', filmInput);
-    const { id, name, description, director, actor, time, Showing } = filmInput;
+    const {
+      id,
+      name,
+      description,
+      director,
+      actor,
+      time,
+      Showing,
+      AND,
+      OR,
+      NOT,
+    } = filmInput;
     const listFilm = await prisma.film.findMany({
       where: {
         id,
@@ -15,6 +26,9 @@ export class FilmService {
         actor,
         time,
         Showing,
+        AND,
+        OR,
+        NOT,
       },
     });
     console.log('listFilm: ', listFilm);
