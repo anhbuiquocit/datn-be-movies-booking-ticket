@@ -8,7 +8,7 @@ import { UseGuards } from '@nestjs/common';
 @Resolver()
 export class FilmResolver {
   constructor(private filmService: FilmService) {}
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Query(() => [Film])
   async films(
     @Args('filmInput', { nullable: true }) filmInput: FilmWhereInput,

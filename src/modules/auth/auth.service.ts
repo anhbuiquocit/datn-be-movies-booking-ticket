@@ -28,14 +28,14 @@ export class AuthService {
   async login(user) {
     console.log('user: ', user);
     if (!user) {
-      throw new HttpException('INVALID_INPUT_PARAMS', 404);
+      throw new Error('INVALID_INPUT_PARAMS');
     }
     const userFind = await prisma.user.findFirst({
       where: {
         username: user.username,
       },
     });
-    if (!userFind) throw new HttpException('USERNAME_IS_NOT_CORRECT', 404);
+    if (!userFind) throw new Error('USERNAME_IS_NOT_CORRECT');
     console.log('userFind:', userFind);
     const isPassword = await compare(user.password, userFind.password);
     if (isPassword) {

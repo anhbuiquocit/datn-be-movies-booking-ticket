@@ -20,10 +20,10 @@ import { FilmModule } from './modules/film/film.module';
   ],
   controllers: [],
   providers: [
-    // {
-    //   provide: APP_FILTER,
-    //   useClass: HttpErrorFilter,
-    // },
+    {
+      provide: APP_FILTER,
+      useClass: HttpErrorFilter,
+    },
   ],
 })
 export class AppModule {}
