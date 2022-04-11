@@ -23,7 +23,7 @@ export class UserMaxAggregateInput {
     lastname?: true;
 
     @Field(() => Boolean, {nullable:true})
-    age?: true;
+    birthday?: true;
 
     @Field(() => Boolean, {nullable:true})
     address?: true;

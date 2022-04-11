@@ -29,7 +29,7 @@ export class UserOrderByWithAggregationInput {
     lastname?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    age?: keyof typeof SortOrder;
+    birthday?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     address?: keyof typeof SortOrder;

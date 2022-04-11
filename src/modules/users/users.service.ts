@@ -1,3 +1,4 @@
+import { JwtService } from '@nestjs/jwt';
 import { confirmEmailLink } from './../../util/confirmEmailLink';
 import { sendEmail } from './../../util/sendEmail';
 import { hash } from './../../util/bcrypt';
@@ -8,14 +9,14 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 @Injectable()
 export class UsersService {
-  // constructor(private context: configuration) {}
+  constructor(private jwtService: JwtService) {}
   async findAll(userData): Promise<User[]> {
     console.log('userData: ', userData);
     const {
       id,
       firstname,
       lastname,
-      age,
+      birthday,
       address,
       email,
       active,
@@ -35,7 +36,7 @@ export class UsersService {
         id,
         firstname,
         lastname,
-        age,
+        birthday,
         address,
         email,
         active,
@@ -52,41 +53,50 @@ export class UsersService {
     return users;
   }
 
-  async signin(data): Promise<any> {
-    if (data) {
-      validateUser(data);
-      const userExist = await prisma.user.count({
-        where: {
-          username: data.username,
-          deleteAt: null,
-        },
-      });
-      console.log('userExist: ', userExist);
-      if (userExist) {
-        throw new Error('User name existed');
+  async signup(data): Promise<any> {
+    try {
+      if (data) {
+        validateUser(data);
+        const userExist = await prisma.user.count({
+          where: {
+            username: data.username,
+            deleteAt: null,
+          },
+        });
+        console.log('userExist: ', userExist);
+        if (userExist) {
+          throw new Error('User name existed');
+        }
+        console.log('dataa: ', data);
+        const user = await prisma.user.create({
+          data: {
+            firstname: data.firstname,
+            lastname: data.lastname,
+            birthday: data.birthday,
+            address: data.address,
+            email: data.email,
+            username: data.username,
+            password: hash(data.password),
+          },
+          select: {
+            id: true,
+            username: true,
+          },
+        });
+        if (user) {
+          console.log('user after create: ', user);
+          const payload = { username: user.username, sub: user.id };
+          const token = this.jwtService.sign(payload);
+          console.log('Token: ', token);
+          // Function send mail
+          // sendEmail(data.email, confirmEmailLink(token));
+          return true;
+        }
       }
-      console.log('dataa: ', data);
-      const user = await prisma.user.create({
-        data: {
-          firstname: data.firstname,
-          lastname: data.lastname,
-          age: data.age,
-          address: data.address,
-          email: data.email,
-          username: data.username,
-          password: hash(data.password),
-        },
-      });
-      // const userCreate = await prisma.user.create({
-      //   data: {
-
-      //   }
-      // })
-      if (sendEmail(data.email, confirmEmailLink(user.id))) {
-        return true;
-      }
+    } catch (err) {
+      console.log('Error: ', err);
+      return false;
     }
-    return false;
   }
   async findOne(username: string): Promise<User> {
     const user = await prisma.user.findFirst({

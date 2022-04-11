@@ -200,7 +200,7 @@ type User {
   deleteAt: DateTime
   firstname: String
   lastname: String
-  age: Int
+  birthday: DateTime
   address: String
   email: String!
   password: String!
@@ -234,7 +234,7 @@ input UserWhereInput {
   deleteAt: DateTimeNullableFilter
   firstname: StringNullableFilter
   lastname: StringNullableFilter
-  age: IntNullableFilter
+  birthday: DateTimeNullableFilter
   address: StringNullableFilter
   email: StringFilter
   password: StringFilter
@@ -325,6 +325,16 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
 }
 
+input BoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
+input NestedBoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
 input IntNullableFilter {
   equals: Int
   in: [Int!]
@@ -345,16 +355,6 @@ input NestedIntNullableFilter {
   gt: Int
   gte: Int
   not: NestedIntNullableFilter
-}
-
-input BoolNullableFilter {
-  equals: Boolean
-  not: NestedBoolNullableFilter
-}
-
-input NestedBoolNullableFilter {
-  equals: Boolean
-  not: NestedBoolNullableFilter
 }
 
 input OrderListRelationFilter {
@@ -678,7 +678,7 @@ input FilmWhereInput {
 }
 
 type Mutation {
-  signin(user: UserCreateInput!): Boolean!
+  signup(user: UserCreateInput!): Boolean!
   login(userInput: LoginUserInput!): LoginResponse!
 }
 
@@ -689,7 +689,7 @@ input UserCreateInput {
   deleteAt: DateTime
   firstname: String
   lastname: String
-  age: Int
+  birthday: DateTime
   address: String
   email: String!
   password: String!
@@ -872,7 +872,7 @@ input UserCreateWithoutOrderInput {
   deleteAt: DateTime
   firstname: String
   lastname: String
-  age: Int
+  birthday: DateTime
   address: String
   email: String!
   password: String!
@@ -1068,7 +1068,7 @@ input UserCreateWithoutBookingInput {
   deleteAt: DateTime
   firstname: String
   lastname: String
-  age: Int
+  birthday: DateTime
   address: String
   email: String!
   password: String!

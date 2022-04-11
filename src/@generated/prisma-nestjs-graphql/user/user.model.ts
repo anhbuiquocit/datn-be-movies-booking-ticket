@@ -27,8 +27,8 @@ export class User {
     @Field(() => String, {nullable:true})
     lastname!: string | null;
 
-    @Field(() => Int, {nullable:true})
-    age!: number | null;
+    @Field(() => Date, {nullable:true})
+    birthday!: Date | null;
 
     @Field(() => String, {nullable:true})
     address!: string | null;

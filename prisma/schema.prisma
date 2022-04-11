@@ -21,7 +21,7 @@ model User {
   deleteAt  DateTime?
   firstname String?
   lastname  String?
-  age       Int?
+  birthday  DateTime?
   address   String?
   email     String
   password  String

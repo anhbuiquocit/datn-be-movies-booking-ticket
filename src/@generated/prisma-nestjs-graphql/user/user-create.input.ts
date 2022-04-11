@@ -25,8 +25,8 @@ export class UserCreateInput {
     @Field(() => String, {nullable:true})
     lastname?: string;
 
-    @Field(() => Int, {nullable:true})
-    age?: number;
+    @Field(() => Date, {nullable:true})
+    birthday?: Date | string;
 
     @Field(() => String, {nullable:true})
     address?: string;

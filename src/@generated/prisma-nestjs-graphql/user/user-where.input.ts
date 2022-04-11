@@ -3,8 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { OrderListRelationFilter } from '../order/order-list-relation-filter.input';
 import { BookingListRelationFilter } from '../booking/booking-list-relation-filter.input';
 
@@ -38,8 +38,8 @@ export class UserWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     lastname?: StringNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    age?: IntNullableFilter;
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    birthday?: DateTimeNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     address?: StringNullableFilter;

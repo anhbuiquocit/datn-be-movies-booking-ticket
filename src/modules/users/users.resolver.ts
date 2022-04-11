@@ -18,14 +18,14 @@ export class UsersResolver {
     return this.userService.findAll(userData);
   }
   @Mutation((type) => Boolean)
-  async signin(@Args('user') user: UserCreateInput): Promise<any> {
+  async signup(@Args('user') user: UserCreateInput): Promise<any> {
     const userFind = await this.userService.findOne(user.username);
     // console.log('userFind', userWhereInput);
     console.log('userFind: ', userFind);
     if (userFind) {
       throw new HttpException('User existed', HttpStatus.NOT_FOUND);
     }
-    await this.userService.signin(user);
+    await this.userService.signup(user);
     return true;
   }
 }

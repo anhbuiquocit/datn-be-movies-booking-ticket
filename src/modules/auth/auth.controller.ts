@@ -8,13 +8,10 @@ export class AuthController {
     private usersService: UsersService,
     private authService: AuthService,
   ) {}
-  @Get('confirm/:userId')
-  verificationAccount(@Param('userId') userId: string) {
-    console.log('iddd: ', userId);
-    redis.get(userId).then((result) => {
-      console.log('result: ', result);
-    });
-    if (!this.authService.verificationAccount(userId)) {
+  @Get('/user/confirm/:token')
+  verificationAccount(@Param('token') token: string) {
+    console.log('token gettt: ', token);
+    if (!this.authService.verificationAccount(token)) {
       return {
         mesage: 'Can not verify your account because id of accout is not exist',
         status: 404,

@@ -6,8 +6,5 @@ import { Int } from '@nestjs/graphql';
 export class UserSumAggregate {
 
     @Field(() => Int, {nullable:true})
-    age?: number;
-
-    @Field(() => Int, {nullable:true})
     point?: number;
 }

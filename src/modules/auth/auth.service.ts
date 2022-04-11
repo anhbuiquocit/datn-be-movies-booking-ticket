@@ -53,23 +53,27 @@ export class AuthService {
     // };
     throw new Error('PASSWORD_IS_NOT_CORRECT');
   }
-  async verificationAccount(userId: string) {
-    const userFind = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-    });
-    if (!userFind) {
-      return false;
+  async verificationAccount(token: string) {
+    const data = this.jwtService.decode(token);
+    console.log('dataaaa: ', data);
+    if (data) {
+      const userFind = await prisma.user.findUnique({
+        where: {
+          id: data?.sub,
+        },
+      });
+      if (!userFind) {
+        return false;
+      }
+      await prisma.user.update({
+        where: {
+          id: userFind.id,
+        },
+        data: {
+          active: true,
+        },
+      });
+      return true;
     }
-    await prisma.user.update({
-      where: {
-        id: userFind.id,
-      },
-      data: {
-        active: true,
-      },
-    });
-    return true;
   }
 }
