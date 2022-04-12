@@ -8,23 +8,29 @@ import rateLimit from 'express-rate-limit';
 import * as config from './config';
 
 import * as dotenv from 'dotenv';
+import { AllExceptionsFilter } from './util/handleException/all-exception.filter';
 dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.useGlobalFilters(new HttpErrorFilter());
+  // const { httpAdapter } = app.get(HttpAdapterHost);
+  // const httpAdapterHost = new HttpAdapterHost();
+  // app.useGlobalFilters(new AllExceptionsFilter(httpAdapterHost));
   app.enableCors({
     origin:
       process.env.NODE_ENV === 'production'
         ? [
-            /https\:\/\/alphamovies\.jp$/,
-            /https\:\/\/\w+\.alphamovies\.jp$/,
-            /wss\:\/\/\w+\.alphamovies\.jp$/,
+            /https\:\/\/alphamovies\.com$/,
+            /https\:\/\/\w+\.alphamovies\.com$/,
+            /wss\:\/\/\w+\.alphamovies\.com$/,
             'file://',
           ]
         : [
             /http\:\/\/(\w+)?\.?localhost:3000$/,
             'file://',
             'http://127.0.0.1:3000',
+            'https://studio.apollographql.com',
+            'localhost:3000',
           ],
   });
 
@@ -34,7 +40,6 @@ async function bootstrap() {
       windowMs: 1000,
       max: 100,
     }),
-    formatError,
   );
   app.use(config.default.grapqlEndPoint, json({ limit: '10mb' }));
   app.use(raw({ type: 'application/json' }));

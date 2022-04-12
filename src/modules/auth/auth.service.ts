@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { notStrictEqual } from 'assert';
+import { MyApolloError } from 'src/util/handleException/MyError';
+import { AuthError } from './auth.error';
 const prisma = new PrismaClient();
 @Injectable()
 export class AuthService {
@@ -28,15 +30,15 @@ export class AuthService {
   async login(user) {
     console.log('user: ', user);
     if (!user) {
-      throw new Error('INVALID_INPUT_PARAMS');
+      throw new MyApolloError(AuthError.INVALID_INPUT_PARAMS);
     }
     const userFind = await prisma.user.findFirst({
       where: {
         username: user.username,
       },
     });
-    if (!userFind) throw new Error('USERNAME_IS_NOT_CORRECT');
-    console.log('userFind:', userFind);
+    console.log('userFind: ', userFind);
+    if (!userFind) throw new MyApolloError(AuthError.USER_NAME_NOT_CORRECT);
     const isPassword = await compare(user.password, userFind.password);
     if (isPassword) {
       return {
@@ -47,11 +49,7 @@ export class AuthService {
         user: userFind,
       };
     }
-    // return {
-    //   access_token: '',
-    //   userFind: null,
-    // };
-    throw new Error('PASSWORD_IS_NOT_CORRECT');
+    throw new MyApolloError(AuthError.PASSWORD_IS_NOT_CORRECT);
   }
   async verificationAccount(token: string) {
     const data = this.jwtService.decode(token);

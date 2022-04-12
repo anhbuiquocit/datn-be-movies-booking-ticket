@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { ShowingListRelationFilter } from '../showing/showing-list-relation-filter.input';
 
 @InputType()
@@ -35,17 +36,17 @@ export class FilmWhereInput {
     @Field(() => StringFilter, {nullable:true})
     name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    description?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    description?: StringNullableFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    director?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    director?: StringNullableFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    actor?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    actor?: StringNullableFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    time?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    time?: StringNullableFilter;
 
     @Field(() => ShowingListRelationFilter, {nullable:true})
     Showing?: ShowingListRelationFilter;

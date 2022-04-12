@@ -22,15 +22,15 @@ export class FilmCreateManyInput {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => String, {nullable:false})
-    description!: string;
+    @Field(() => String, {nullable:true})
+    description?: string;
 
-    @Field(() => String, {nullable:false})
-    director!: string;
+    @Field(() => String, {nullable:true})
+    director?: string;
 
-    @Field(() => String, {nullable:false})
-    actor!: string;
+    @Field(() => String, {nullable:true})
+    actor?: string;
 
-    @Field(() => String, {nullable:false})
-    time!: string;
+    @Field(() => String, {nullable:true})
+    time?: string;
 }

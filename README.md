@@ -35,6 +35,10 @@ $ npm install
 ## Running the app
 
 ```bash
+
+# Run docker compose
+$ docker compose up -d
+
 # development
 $ npm run start
 
@@ -58,15 +62,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+## Author
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Bui Quoc Anh](https://www.facebook.com/buiquocanhhh/)
 
 ## License
 

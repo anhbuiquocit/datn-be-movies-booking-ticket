@@ -1,4 +1,5 @@
 export const formatError = (error: any) => {
+  console.log('Errorrrr: ', error);
   const { message } = error;
   let formatMessage = '';
   if (typeof message === 'string') {

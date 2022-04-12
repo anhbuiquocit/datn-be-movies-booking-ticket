@@ -25,17 +25,17 @@ export class Film {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => String, {nullable:false})
-    description!: string;
+    @Field(() => String, {nullable:true})
+    description!: string | null;
 
-    @Field(() => String, {nullable:false})
-    director!: string;
+    @Field(() => String, {nullable:true})
+    director!: string | null;
 
-    @Field(() => String, {nullable:false})
-    actor!: string;
+    @Field(() => String, {nullable:true})
+    actor!: string | null;
 
-    @Field(() => String, {nullable:false})
-    time!: string;
+    @Field(() => String, {nullable:true})
+    time!: string | null;
 
     @Field(() => [Showing], {nullable:true})
     Showing?: Array<Showing>;

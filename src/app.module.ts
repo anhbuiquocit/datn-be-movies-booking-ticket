@@ -8,6 +8,13 @@ import { UsersModule } from './modules/users/users.module';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './modules/auth/auth.module';
 import { FilmModule } from './modules/film/film.module';
+import { RolesGuard } from './util/roles.guard';
+import { ShowingModule } from './modules/showing/showing.module';
+import { SeatModule } from './modules/seat/seat.module';
+import { RoomModule } from './modules/room/room.module';
+import { PromotionModule } from './modules/promotion/promotion.module';
+import { BookingItemModule } from './modules/booking-item/booking-item.module';
+import { BookingModule } from './modules/booking/booking.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -17,6 +24,12 @@ import { FilmModule } from './modules/film/film.module';
     UsersModule,
     AuthModule,
     FilmModule,
+    ShowingModule,
+    SeatModule,
+    RoomModule,
+    PromotionModule,
+    BookingItemModule,
+    BookingModule,
   ],
   controllers: [],
   providers: [

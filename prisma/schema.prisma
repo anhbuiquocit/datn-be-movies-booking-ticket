@@ -41,10 +41,10 @@ model Film {
   deletedAt   DateTime?
   trailler    String
   name        String
-  description String
-  director    String
-  actor       String
-  time        String
+  description String?
+  director    String?
+  actor       String?
+  time        String?
   Showing     Showing[]
 }
 
