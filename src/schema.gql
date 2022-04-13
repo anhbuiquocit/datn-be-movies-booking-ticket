@@ -146,6 +146,10 @@ type Film {
   director: String
   actor: String
   time: String
+  image: String
+  imageDescription1: String
+  imageDescription2: String
+  imageDescription3: String
   Showing: [Showing!]
   _count: FilmCount!
 }
@@ -221,7 +225,9 @@ type LoginResponse {
 
 type Query {
   UsersConnection(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
-  filmConnection(where: FilmWhereInput, orderBy: [FilmOrderByWithRelationInput!], cursor: FilmWhereUniqueInput, take: Int, skip: Int, distinct: [FilmScalarFieldEnum!]): [Film!]!
+  queryMe: User!
+  films(where: FilmWhereInput, orderBy: [FilmOrderByWithRelationInput!], cursor: FilmWhereUniqueInput, take: Int, skip: Int, distinct: [FilmScalarFieldEnum!]): [Film!]!
+  film(where: FilmWhereUniqueInput!): Film!
   showingConnection(where: ShowingWhereInput, orderBy: [ShowingOrderByWithRelationInput!], cursor: ShowingWhereUniqueInput, take: Int, skip: Int, distinct: [ShowingScalarFieldEnum!]): [Showing!]!
   seatConnection(where: SeatWhereInput, orderBy: [SeatOrderByWithRelationInput!], cursor: SeatWhereUniqueInput, take: Int, skip: Int, distinct: [SeatScalarFieldEnum!]): [Seat!]!
   roomConnection(where: RoomWhereInput, orderBy: [RoomOrderByWithRelationInput!], cursor: RoomWhereUniqueInput, take: Int, skip: Int, distinct: [RoomScalarFieldEnum!]): [Room!]!
@@ -680,6 +686,10 @@ input FilmWhereInput {
   director: StringNullableFilter
   actor: StringNullableFilter
   time: StringNullableFilter
+  image: StringNullableFilter
+  imageDescription1: StringNullableFilter
+  imageDescription2: StringNullableFilter
+  imageDescription3: StringNullableFilter
   Showing: ShowingListRelationFilter
 }
 
@@ -750,6 +760,10 @@ input FilmOrderByWithRelationInput {
   director: SortOrder
   actor: SortOrder
   time: SortOrder
+  image: SortOrder
+  imageDescription1: SortOrder
+  imageDescription2: SortOrder
+  imageDescription3: SortOrder
   Showing: ShowingOrderByRelationAggregateInput
 }
 
@@ -772,6 +786,10 @@ enum FilmScalarFieldEnum {
   director
   actor
   time
+  image
+  imageDescription1
+  imageDescription2
+  imageDescription3
 }
 
 input ShowingOrderByWithRelationInput {
@@ -1270,6 +1288,10 @@ input FilmCreateWithoutShowingInput {
   director: String
   actor: String
   time: String
+  image: String
+  imageDescription1: String
+  imageDescription2: String
+  imageDescription3: String
 }
 
 input FilmCreateOrConnectWithoutShowingInput {
@@ -2201,6 +2223,10 @@ input FilmUpdateWithoutShowingInput {
   director: NullableStringFieldUpdateOperationsInput
   actor: NullableStringFieldUpdateOperationsInput
   time: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  imageDescription1: NullableStringFieldUpdateOperationsInput
+  imageDescription2: NullableStringFieldUpdateOperationsInput
+  imageDescription3: NullableStringFieldUpdateOperationsInput
 }
 
 input OrderUpdateManyWithoutShowingInput {
@@ -2825,6 +2851,10 @@ input FilmCreateInput {
   director: String
   actor: String
   time: String
+  image: String
+  imageDescription1: String
+  imageDescription2: String
+  imageDescription3: String
   Showing: ShowingCreateNestedManyWithoutFilmInput
 }
 
@@ -2878,6 +2908,10 @@ input FilmUpdateInput {
   director: NullableStringFieldUpdateOperationsInput
   actor: NullableStringFieldUpdateOperationsInput
   time: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  imageDescription1: NullableStringFieldUpdateOperationsInput
+  imageDescription2: NullableStringFieldUpdateOperationsInput
+  imageDescription3: NullableStringFieldUpdateOperationsInput
   Showing: ShowingUpdateManyWithoutFilmInput
 }
 

@@ -11,6 +11,7 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { Role } from 'src/enum';
 import { FindManyUserArgs } from 'src/@generated/prisma-nestjs-graphql/user/find-many-user.args';
 import { DeleteOneUserArgs } from 'src/@generated/prisma-nestjs-graphql/user/delete-one-user.args';
+import { CurrentUser } from './user.decorator.grapql';
 
 @Resolver()
 export class UsersResolver {
@@ -36,6 +37,12 @@ export class UsersResolver {
     }
     await this.userService.signup(user);
     return true;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => User)
+  async queryMe(@CurrentUser() user: User) {
+    return this.userService.findOne(user?.username);
   }
 
   @UseGuards(GqlAuthGuard)

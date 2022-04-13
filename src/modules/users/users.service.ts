@@ -184,7 +184,7 @@ export class UsersService {
     }
   }
   async findOne(username: string): Promise<User> {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
         username,
       },

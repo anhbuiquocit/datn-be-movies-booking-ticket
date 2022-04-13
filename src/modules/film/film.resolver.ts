@@ -8,14 +8,21 @@ import { GqlAuthGuard } from '../auth/gql-auth-guard';
 import { CreateOneFilmArgs } from 'src/@generated/prisma-nestjs-graphql/film/create-one-film.args';
 import { UpdateOneFilmArgs } from 'src/@generated/prisma-nestjs-graphql/film/update-one-film.args';
 import { DeleteOneFilmArgs } from 'src/@generated/prisma-nestjs-graphql/film/delete-one-film.args';
+import { FindUniqueFilmArgs } from 'src/@generated/prisma-nestjs-graphql/film/find-unique-film.args';
 
 @Resolver()
 export class FilmResolver {
   constructor(private filmService: FilmService) {}
-  @UseGuards(GqlAuthGuard)
+  // @UseGuards(GqlAuthGuard)
   @Query(() => [Film])
-  async filmConnection(@Args() args: FindManyFilmArgs): Promise<Film[]> {
+  async films(@Args() args: FindManyFilmArgs): Promise<Film[]> {
     return this.filmService.connection(args);
+  }
+
+  // @UseGuards(GqlAuthGuard)
+  @Query(() => Film)
+  async film(@Args() args: FindUniqueFilmArgs) {
+    return this.filmService.findOne(args);
   }
 
   @UseGuards(GqlAuthGuard)
@@ -29,6 +36,7 @@ export class FilmResolver {
   async updateFilmRecord(@Args() args: UpdateOneFilmArgs) {
     return this.filmService.updateOne(args);
   }
+
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean)
   async deleteFilmRecord(@Args() args: DeleteOneFilmArgs) {

@@ -24,13 +24,13 @@ async function bootstrap() {
             /https\:\/\/\w+\.alphamovies\.com$/,
             /wss\:\/\/\w+\.alphamovies\.com$/,
             'file://',
+            'http://localhost:3000/',
           ]
         : [
             /http\:\/\/(\w+)?\.?localhost:3000$/,
             'file://',
             'http://127.0.0.1:3000',
             'https://studio.apollographql.com',
-            'localhost:3000',
           ],
   });
 

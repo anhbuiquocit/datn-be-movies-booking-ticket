@@ -36,6 +36,11 @@ export class AuthService {
       where: {
         username: user.username,
       },
+      select: {
+        id: true,
+        username: true,
+        password: true,
+      },
     });
     console.log('userFind: ', userFind);
     if (!userFind) throw new MyApolloError(AuthError.USER_NAME_NOT_CORRECT);

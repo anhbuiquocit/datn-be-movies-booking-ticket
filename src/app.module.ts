@@ -20,6 +20,9 @@ import { BookingModule } from './modules/booking/booking.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      context: ({ req }) => {
+        return { request: req };
+      },
     }),
     UsersModule,
     AuthModule,

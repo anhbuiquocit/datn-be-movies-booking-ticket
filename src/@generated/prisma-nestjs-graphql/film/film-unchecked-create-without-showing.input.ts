@@ -33,4 +33,16 @@ export class FilmUncheckedCreateWithoutShowingInput {
 
     @Field(() => String, {nullable:true})
     time?: string;
+
+    @Field(() => String, {nullable:true})
+    image?: string;
+
+    @Field(() => String, {nullable:true})
+    imageDescription1?: string;
+
+    @Field(() => String, {nullable:true})
+    imageDescription2?: string;
+
+    @Field(() => String, {nullable:true})
+    imageDescription3?: string;
 }

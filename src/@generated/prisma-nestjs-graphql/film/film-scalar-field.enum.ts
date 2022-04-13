@@ -10,7 +10,11 @@ export enum FilmScalarFieldEnum {
     description = "description",
     director = "director",
     actor = "actor",
-    time = "time"
+    time = "time",
+    image = "image",
+    imageDescription1 = "imageDescription1",
+    imageDescription2 = "imageDescription2",
+    imageDescription3 = "imageDescription3"
 }
 
 

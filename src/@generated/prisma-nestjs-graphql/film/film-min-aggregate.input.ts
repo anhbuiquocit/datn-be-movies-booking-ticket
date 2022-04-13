@@ -33,4 +33,16 @@ export class FilmMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     time?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    image?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    imageDescription1?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    imageDescription2?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    imageDescription3?: true;
 }

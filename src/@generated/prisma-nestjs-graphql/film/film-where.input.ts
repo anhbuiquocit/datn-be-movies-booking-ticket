@@ -48,6 +48,18 @@ export class FilmWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     time?: StringNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    image?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    imageDescription1?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    imageDescription2?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    imageDescription3?: StringNullableFilter;
+
     @Field(() => ShowingListRelationFilter, {nullable:true})
     Showing?: ShowingListRelationFilter;
 }

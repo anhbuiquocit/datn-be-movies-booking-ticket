@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export class FilmService {
   async connection(args): Promise<Film[]> {
     const { where, orderBy, cursor, take, skip, distinct } = args;
-    const listFilm = prisma.film.findMany({
+    const listFilm = await prisma.film.findMany({
       where,
       orderBy,
       cursor,
@@ -15,6 +15,13 @@ export class FilmService {
       distinct,
     });
     return listFilm;
+  }
+  async findOne(args): Promise<Film> {
+    const { where } = args;
+    const film = await prisma.film.findUnique({
+      where,
+    });
+    return film;
   }
   async createOne(args): Promise<Film> {
     const { data } = args;

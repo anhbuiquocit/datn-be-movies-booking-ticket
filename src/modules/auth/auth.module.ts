@@ -17,7 +17,7 @@ import { APP_GUARD } from '@nestjs/core';
     PassportModule,
     JwtModule.register({
       secret: constant.secret,
-      signOptions: { expiresIn: '3000s' },
+      signOptions: { expiresIn: '1d' },
     }),
   ],
   controllers: [AuthController],

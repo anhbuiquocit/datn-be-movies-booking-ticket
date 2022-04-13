@@ -35,17 +35,21 @@ model User {
 }
 
 model Film {
-  id          String    @id @default(uuid())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime?
-  deletedAt   DateTime?
-  trailler    String
-  name        String
-  description String?
-  director    String?
-  actor       String?
-  time        String?
-  Showing     Showing[]
+  id                String    @id @default(uuid())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime?
+  deletedAt         DateTime?
+  trailler          String
+  name              String
+  description       String?
+  director          String?
+  actor             String?
+  time              String?
+  image             String?
+  imageDescription1 String?
+  imageDescription2 String?
+  imageDescription3 String?
+  Showing           Showing[]
 }
 
 model ClusterCinema {

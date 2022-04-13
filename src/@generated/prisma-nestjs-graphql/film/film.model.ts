@@ -37,6 +37,18 @@ export class Film {
     @Field(() => String, {nullable:true})
     time!: string | null;
 
+    @Field(() => String, {nullable:true})
+    image!: string | null;
+
+    @Field(() => String, {nullable:true})
+    imageDescription1!: string | null;
+
+    @Field(() => String, {nullable:true})
+    imageDescription2!: string | null;
+
+    @Field(() => String, {nullable:true})
+    imageDescription3!: string | null;
+
     @Field(() => [Showing], {nullable:true})
     Showing?: Array<Showing>;
 

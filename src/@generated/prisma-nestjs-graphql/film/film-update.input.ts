@@ -39,6 +39,18 @@ export class FilmUpdateInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     time?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    image?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    imageDescription1?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    imageDescription2?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    imageDescription3?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => ShowingUpdateManyWithoutFilmInput, {nullable:true})
     Showing?: ShowingUpdateManyWithoutFilmInput;
 }

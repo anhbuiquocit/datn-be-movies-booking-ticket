@@ -36,5 +36,17 @@ export class FilmCountAggregate {
     time!: number;
 
     @Field(() => Int, {nullable:false})
+    image!: number;
+
+    @Field(() => Int, {nullable:false})
+    imageDescription1!: number;
+
+    @Field(() => Int, {nullable:false})
+    imageDescription2!: number;
+
+    @Field(() => Int, {nullable:false})
+    imageDescription3!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }
