@@ -20,9 +20,6 @@ export class BookingMinAggregateInput {
     UserId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    ShowingId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     amount?: true;
 
     @Field(() => Boolean, {nullable:true})

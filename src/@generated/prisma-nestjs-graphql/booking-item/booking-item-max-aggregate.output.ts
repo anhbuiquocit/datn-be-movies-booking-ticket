@@ -20,8 +20,8 @@ export class BookingItemMaxAggregate {
     @Field(() => String, {nullable:true})
     SeatId?: string;
 
-    @Field(() => Int, {nullable:true})
-    amount?: number;
+    @Field(() => String, {nullable:true})
+    ShowingId?: string;
 
     @Field(() => Int, {nullable:true})
     price?: number;

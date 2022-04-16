@@ -4,7 +4,6 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { UserUpdateOneRequiredWithoutBookingInput } from '../user/user-update-one-required-without-booking.input';
-import { ShowingUpdateOneRequiredWithoutBookingInput } from '../showing/showing-update-one-required-without-booking.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { PromotionUpdateOneRequiredWithoutBookingInput } from '../promotion/promotion-update-one-required-without-booking.input';
 
@@ -25,9 +24,6 @@ export class BookingUpdateWithoutBookingItemInput {
 
     @Field(() => UserUpdateOneRequiredWithoutBookingInput, {nullable:true})
     user?: UserUpdateOneRequiredWithoutBookingInput;
-
-    @Field(() => ShowingUpdateOneRequiredWithoutBookingInput, {nullable:true})
-    showing?: ShowingUpdateOneRequiredWithoutBookingInput;
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     amount?: IntFieldUpdateOperationsInput;

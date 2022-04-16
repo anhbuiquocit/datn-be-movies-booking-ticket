@@ -6,8 +6,5 @@ import { Int } from '@nestjs/graphql';
 export class BookingItemCount {
 
     @Field(() => Int, {nullable:false})
-    Order?: number;
-
-    @Field(() => Int, {nullable:false})
     Booking?: number;
 }

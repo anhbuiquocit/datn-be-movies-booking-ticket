@@ -32,9 +32,6 @@ export class BookingScalarWhereWithAggregatesInput {
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     UserId?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    ShowingId?: StringWithAggregatesFilter;
-
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     amount?: IntWithAggregatesFilter;
 

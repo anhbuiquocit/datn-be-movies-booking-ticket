@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { OrderOrderByRelationAggregateInput } from '../order/order-order-by-relation-aggregate.input';
 import { BookingOrderByRelationAggregateInput } from '../booking/booking-order-by-relation-aggregate.input';
 
 @InputType()
@@ -33,9 +32,6 @@ export class PromotionOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     endDate?: keyof typeof SortOrder;
-
-    @Field(() => OrderOrderByRelationAggregateInput, {nullable:true})
-    Order?: OrderOrderByRelationAggregateInput;
 
     @Field(() => BookingOrderByRelationAggregateInput, {nullable:true})
     Booking?: BookingOrderByRelationAggregateInput;

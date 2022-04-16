@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Order } from '../order/order.model';
 import { Booking } from '../booking/booking.model';
 import { PromotionCount } from './promotion-count.output';
 
@@ -35,9 +34,6 @@ export class Promotion {
 
     @Field(() => Date, {nullable:false})
     endDate!: Date;
-
-    @Field(() => [Order], {nullable:true})
-    Order?: Array<Order>;
 
     @Field(() => [Booking], {nullable:true})
     Booking?: Array<Booking>;

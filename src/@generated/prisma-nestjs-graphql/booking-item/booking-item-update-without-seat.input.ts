@@ -3,8 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
+import { ShowingUpdateOneRequiredWithoutBookingItemInput } from '../showing/showing-update-one-required-without-booking-item.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { OrderUpdateManyWithoutBookingItemInput } from '../order/order-update-many-without-booking-item.input';
 import { BookingUpdateManyWithoutBookingItemInput } from '../booking/booking-update-many-without-booking-item.input';
 
 @InputType()
@@ -22,14 +22,11 @@ export class BookingItemUpdateWithoutSeatInput {
     @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    amount?: IntFieldUpdateOperationsInput;
+    @Field(() => ShowingUpdateOneRequiredWithoutBookingItemInput, {nullable:true})
+    showing?: ShowingUpdateOneRequiredWithoutBookingItemInput;
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     price?: IntFieldUpdateOperationsInput;
-
-    @Field(() => OrderUpdateManyWithoutBookingItemInput, {nullable:true})
-    Order?: OrderUpdateManyWithoutBookingItemInput;
 
     @Field(() => BookingUpdateManyWithoutBookingItemInput, {nullable:true})
     Booking?: BookingUpdateManyWithoutBookingItemInput;

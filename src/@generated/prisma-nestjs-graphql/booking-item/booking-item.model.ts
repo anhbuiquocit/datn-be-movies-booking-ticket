@@ -2,8 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Seat } from '../seat/seat.model';
+import { Showing } from '../showing/showing.model';
 import { Int } from '@nestjs/graphql';
-import { Order } from '../order/order.model';
 import { Booking } from '../booking/booking.model';
 import { BookingItemCount } from './booking-item-count.output';
 
@@ -28,14 +28,14 @@ export class BookingItem {
     @Field(() => String, {nullable:false})
     SeatId!: string;
 
-    @Field(() => Int, {nullable:false})
-    amount!: number;
+    @Field(() => Showing, {nullable:false})
+    showing?: Showing;
+
+    @Field(() => String, {nullable:false})
+    ShowingId!: string;
 
     @Field(() => Int, {nullable:false})
     price!: number;
-
-    @Field(() => [Order], {nullable:true})
-    Order?: Array<Order>;
 
     @Field(() => [Booking], {nullable:true})
     Booking?: Array<Booking>;

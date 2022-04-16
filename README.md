@@ -35,9 +35,12 @@ $ npm install
 ## Running the app
 
 ```bash
-
+app using nodejs version: 16.14.2
 # Run docker compose
 $ docker compose up -d
+
+#Migrate data
+npx prisma migrate dev
 
 # development
 $ npm run start

@@ -5,7 +5,6 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { OrderUpdateManyWithoutUserInput } from '../order/order-update-many-without-user.input';
 import { BookingUpdateManyWithoutUserInput } from '../booking/booking-update-many-without-user.input';
 
 @InputType()
@@ -55,9 +54,6 @@ export class UserUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     role?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => OrderUpdateManyWithoutUserInput, {nullable:true})
-    Order?: OrderUpdateManyWithoutUserInput;
 
     @Field(() => BookingUpdateManyWithoutUserInput, {nullable:true})
     Booking?: BookingUpdateManyWithoutUserInput;

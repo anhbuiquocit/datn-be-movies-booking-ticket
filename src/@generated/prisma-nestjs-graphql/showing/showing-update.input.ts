@@ -5,8 +5,7 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { RoomUpdateOneRequiredWithoutShowingInput } from '../room/room-update-one-required-without-showing.input';
 import { FilmUpdateOneRequiredWithoutShowingInput } from '../film/film-update-one-required-without-showing.input';
-import { OrderUpdateManyWithoutShowingInput } from '../order/order-update-many-without-showing.input';
-import { BookingUpdateManyWithoutShowingInput } from '../booking/booking-update-many-without-showing.input';
+import { BookingItemUpdateManyWithoutShowingInput } from '../booking-item/booking-item-update-many-without-showing.input';
 
 @InputType()
 export class ShowingUpdateInput {
@@ -35,9 +34,6 @@ export class ShowingUpdateInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     endDate?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => OrderUpdateManyWithoutShowingInput, {nullable:true})
-    Order?: OrderUpdateManyWithoutShowingInput;
-
-    @Field(() => BookingUpdateManyWithoutShowingInput, {nullable:true})
-    Booking?: BookingUpdateManyWithoutShowingInput;
+    @Field(() => BookingItemUpdateManyWithoutShowingInput, {nullable:true})
+    BookingItem?: BookingItemUpdateManyWithoutShowingInput;
 }

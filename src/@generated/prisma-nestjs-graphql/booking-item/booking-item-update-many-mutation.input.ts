@@ -21,8 +21,5 @@ export class BookingItemUpdateManyMutationInput {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    amount?: IntFieldUpdateOperationsInput;
-
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     price?: IntFieldUpdateOperationsInput;
 }

@@ -4,7 +4,6 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
-import { ShowingRelationFilter } from '../showing/showing-relation-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { BookingItemRelationFilter } from '../booking-item/booking-item-relation-filter.input';
 import { PromotionRelationFilter } from '../promotion/promotion-relation-filter.input';
@@ -38,12 +37,6 @@ export class BookingWhereInput {
 
     @Field(() => StringFilter, {nullable:true})
     UserId?: StringFilter;
-
-    @Field(() => ShowingRelationFilter, {nullable:true})
-    showing?: ShowingRelationFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    ShowingId?: StringFilter;
 
     @Field(() => IntFilter, {nullable:true})
     amount?: IntFilter;

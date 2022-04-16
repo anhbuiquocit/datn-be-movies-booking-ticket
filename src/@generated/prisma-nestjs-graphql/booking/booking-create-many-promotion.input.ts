@@ -20,9 +20,6 @@ export class BookingCreateManyPromotionInput {
     @Field(() => String, {nullable:false})
     UserId!: string;
 
-    @Field(() => String, {nullable:false})
-    ShowingId!: string;
-
     @Field(() => Int, {nullable:false})
     amount!: number;
 

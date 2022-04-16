@@ -4,8 +4,8 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { SeatRelationFilter } from '../seat/seat-relation-filter.input';
+import { ShowingRelationFilter } from '../showing/showing-relation-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { OrderListRelationFilter } from '../order/order-list-relation-filter.input';
 import { BookingListRelationFilter } from '../booking/booking-list-relation-filter.input';
 
 @InputType()
@@ -38,14 +38,14 @@ export class BookingItemWhereInput {
     @Field(() => StringFilter, {nullable:true})
     SeatId?: StringFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    amount?: IntFilter;
+    @Field(() => ShowingRelationFilter, {nullable:true})
+    showing?: ShowingRelationFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    ShowingId?: StringFilter;
 
     @Field(() => IntFilter, {nullable:true})
     price?: IntFilter;
-
-    @Field(() => OrderListRelationFilter, {nullable:true})
-    Order?: OrderListRelationFilter;
 
     @Field(() => BookingListRelationFilter, {nullable:true})
     Booking?: BookingListRelationFilter;

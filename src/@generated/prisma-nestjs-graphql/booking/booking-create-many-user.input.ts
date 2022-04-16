@@ -17,9 +17,6 @@ export class BookingCreateManyUserInput {
     @Field(() => Date, {nullable:true})
     deletedAt?: Date | string;
 
-    @Field(() => String, {nullable:false})
-    ShowingId!: string;
-
     @Field(() => Int, {nullable:false})
     amount!: number;
 

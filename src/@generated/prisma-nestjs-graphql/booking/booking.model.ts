@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { User } from '../user/user.model';
-import { Showing } from '../showing/showing.model';
 import { Int } from '@nestjs/graphql';
 import { BookingItem } from '../booking-item/booking-item.model';
 import { Promotion } from '../promotion/promotion.model';
@@ -27,12 +26,6 @@ export class Booking {
 
     @Field(() => String, {nullable:false})
     UserId!: string;
-
-    @Field(() => Showing, {nullable:false})
-    showing?: Showing;
-
-    @Field(() => String, {nullable:false})
-    ShowingId!: string;
 
     @Field(() => Int, {nullable:false})
     amount!: number;

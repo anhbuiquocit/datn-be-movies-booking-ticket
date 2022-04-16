@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { OrderCreateNestedManyWithoutUserInput } from '../order/order-create-nested-many-without-user.input';
 
 @InputType()
 export class UserCreateWithoutBookingInput {
@@ -50,7 +49,4 @@ export class UserCreateWithoutBookingInput {
 
     @Field(() => String, {nullable:true})
     role?: string;
-
-    @Field(() => OrderCreateNestedManyWithoutUserInput, {nullable:true})
-    Order?: OrderCreateNestedManyWithoutUserInput;
 }

@@ -4,7 +4,6 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { FloatFieldUpdateOperationsInput } from '../prisma/float-field-update-operations.input';
-import { OrderUpdateManyWithoutPromotionInput } from '../order/order-update-many-without-promotion.input';
 
 @InputType()
 export class PromotionUpdateWithoutBookingInput {
@@ -35,7 +34,4 @@ export class PromotionUpdateWithoutBookingInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     endDate?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => OrderUpdateManyWithoutPromotionInput, {nullable:true})
-    Order?: OrderUpdateManyWithoutPromotionInput;
 }

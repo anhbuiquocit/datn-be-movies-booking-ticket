@@ -20,9 +20,6 @@ export class BookingMinAggregate {
     @Field(() => String, {nullable:true})
     UserId?: string;
 
-    @Field(() => String, {nullable:true})
-    ShowingId?: string;
-
     @Field(() => Int, {nullable:true})
     amount?: number;
 

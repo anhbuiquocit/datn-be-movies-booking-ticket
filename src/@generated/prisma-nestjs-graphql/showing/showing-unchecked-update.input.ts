@@ -3,8 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
-import { OrderUncheckedUpdateManyWithoutShowingInput } from '../order/order-unchecked-update-many-without-showing.input';
-import { BookingUncheckedUpdateManyWithoutShowingInput } from '../booking/booking-unchecked-update-many-without-showing.input';
+import { BookingItemUncheckedUpdateManyWithoutShowingInput } from '../booking-item/booking-item-unchecked-update-many-without-showing.input';
 
 @InputType()
 export class ShowingUncheckedUpdateInput {
@@ -33,9 +32,6 @@ export class ShowingUncheckedUpdateInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     endDate?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => OrderUncheckedUpdateManyWithoutShowingInput, {nullable:true})
-    Order?: OrderUncheckedUpdateManyWithoutShowingInput;
-
-    @Field(() => BookingUncheckedUpdateManyWithoutShowingInput, {nullable:true})
-    Booking?: BookingUncheckedUpdateManyWithoutShowingInput;
+    @Field(() => BookingItemUncheckedUpdateManyWithoutShowingInput, {nullable:true})
+    BookingItem?: BookingItemUncheckedUpdateManyWithoutShowingInput;
 }

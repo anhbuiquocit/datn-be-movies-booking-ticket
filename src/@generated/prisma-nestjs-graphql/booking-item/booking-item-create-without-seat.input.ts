@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { ShowingCreateNestedOneWithoutBookingItemInput } from '../showing/showing-create-nested-one-without-booking-item.input';
 import { Int } from '@nestjs/graphql';
-import { OrderCreateNestedManyWithoutBookingItemInput } from '../order/order-create-nested-many-without-booking-item.input';
 import { BookingCreateNestedManyWithoutBookingItemInput } from '../booking/booking-create-nested-many-without-booking-item.input';
 
 @InputType()
@@ -19,14 +19,11 @@ export class BookingItemCreateWithoutSeatInput {
     @Field(() => Date, {nullable:true})
     deletedAt?: Date | string;
 
-    @Field(() => Int, {nullable:false})
-    amount!: number;
+    @Field(() => ShowingCreateNestedOneWithoutBookingItemInput, {nullable:false})
+    showing!: ShowingCreateNestedOneWithoutBookingItemInput;
 
     @Field(() => Int, {nullable:false})
     price!: number;
-
-    @Field(() => OrderCreateNestedManyWithoutBookingItemInput, {nullable:true})
-    Order?: OrderCreateNestedManyWithoutBookingItemInput;
 
     @Field(() => BookingCreateNestedManyWithoutBookingItemInput, {nullable:true})
     Booking?: BookingCreateNestedManyWithoutBookingItemInput;

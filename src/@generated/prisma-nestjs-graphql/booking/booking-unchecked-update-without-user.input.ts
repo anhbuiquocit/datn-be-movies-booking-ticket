@@ -20,9 +20,6 @@ export class BookingUncheckedUpdateWithoutUserInput {
     @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    ShowingId?: StringFieldUpdateOperationsInput;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     amount?: IntFieldUpdateOperationsInput;
 

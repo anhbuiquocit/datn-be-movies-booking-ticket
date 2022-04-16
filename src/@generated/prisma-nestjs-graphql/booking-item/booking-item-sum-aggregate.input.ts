@@ -5,8 +5,5 @@ import { InputType } from '@nestjs/graphql';
 export class BookingItemSumAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
-    amount?: true;
-
-    @Field(() => Boolean, {nullable:true})
     price?: true;
 }

@@ -6,7 +6,7 @@ export enum BookingItemScalarFieldEnum {
     updatedAt = "updatedAt",
     deletedAt = "deletedAt",
     SeatId = "SeatId",
-    amount = "amount",
+    ShowingId = "ShowingId",
     price = "price"
 }
 

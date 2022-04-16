@@ -30,7 +30,6 @@ model User {
   point     Int?
   phone     String?
   role      String?
-  Order     Order[]
   Booking   Booking[]
 }
 
@@ -109,23 +108,21 @@ model Promotion {
   maxDiscount Float
   startDate   DateTime
   endDate     DateTime
-  Order       Order[]
   Booking     Booking[]
 }
 
 model Showing {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
-  deletedAt DateTime?
-  room      Room      @relation(fields: [RoomId], references: [id])
-  RoomId    String
-  film      Film      @relation(fields: [FilmId], references: [id])
-  FilmId    String
-  startDate DateTime
-  endDate   DateTime
-  Order     Order[]
-  Booking   Booking[]
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?
+  deletedAt   DateTime?
+  room        Room          @relation(fields: [RoomId], references: [id])
+  RoomId      String
+  film        Film          @relation(fields: [FilmId], references: [id])
+  FilmId      String
+  startDate   DateTime
+  endDate     DateTime
+  BookingItem BookingItem[]
 }
 
 model BookingItem {
@@ -135,38 +132,21 @@ model BookingItem {
   deletedAt DateTime?
   seat      Seat      @relation(fields: [SeatId], references: [id])
   SeatId    String
-  amount    Int
+  showing   Showing   @relation(fields: [ShowingId], references: [id])
+  ShowingId String
   price     Int
-  Order     Order[]
   Booking   Booking[]
 }
 
-model Order {
-  id            String      @id @default(uuid())
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime?
-  deletedAt     DateTime?
-  user          User        @relation(fields: [UserId], references: [id])
-  UserId        String
-  showing       Showing     @relation(fields: [ShowingId], references: [id])
-  ShowingId     String
-  amount        Int
-  price         Int
-  bookingItem   BookingItem @relation(fields: [BookingItemId], references: [id])
-  BookingItemId String
-  promotion     Promotion   @relation(fields: [PromotionId], references: [id])
-  PromotionId   String
-}
 
 model Booking {
-  id            String      @id @default(uuid())
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime?
-  deletedAt     DateTime?
-  user          User        @relation(fields: [UserId], references: [id])
-  UserId        String
-  showing       Showing     @relation(fields: [ShowingId], references: [id])
-  ShowingId     String
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  deletedAt DateTime?
+  user      User      @relation(fields: [UserId], references: [id])
+  UserId    String
+
   amount        Int
   price         Int
   bookingItem   BookingItem @relation(fields: [BookingItemId], references: [id])

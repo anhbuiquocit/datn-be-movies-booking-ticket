@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { OrderUncheckedCreateNestedManyWithoutPromotionInput } from '../order/order-unchecked-create-nested-many-without-promotion.input';
 
 @InputType()
 export class PromotionUncheckedCreateWithoutBookingInput {
@@ -32,7 +31,4 @@ export class PromotionUncheckedCreateWithoutBookingInput {
 
     @Field(() => Date, {nullable:false})
     endDate!: Date | string;
-
-    @Field(() => OrderUncheckedCreateNestedManyWithoutPromotionInput, {nullable:true})
-    Order?: OrderUncheckedCreateNestedManyWithoutPromotionInput;
 }

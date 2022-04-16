@@ -32,9 +32,6 @@ export class BookingScalarWhereInput {
     @Field(() => StringFilter, {nullable:true})
     UserId?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    ShowingId?: StringFilter;
-
     @Field(() => IntFilter, {nullable:true})
     amount?: IntFilter;
 

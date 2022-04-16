@@ -17,8 +17,8 @@ export class BookingItemCreateManySeatInput {
     @Field(() => Date, {nullable:true})
     deletedAt?: Date | string;
 
-    @Field(() => Int, {nullable:false})
-    amount!: number;
+    @Field(() => String, {nullable:false})
+    ShowingId!: string;
 
     @Field(() => Int, {nullable:false})
     price!: number;

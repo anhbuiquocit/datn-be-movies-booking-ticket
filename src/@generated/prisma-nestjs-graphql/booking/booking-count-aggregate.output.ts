@@ -21,9 +21,6 @@ export class BookingCountAggregate {
     UserId!: number;
 
     @Field(() => Int, {nullable:false})
-    ShowingId!: number;
-
-    @Field(() => Int, {nullable:false})
     amount!: number;
 
     @Field(() => Int, {nullable:false})

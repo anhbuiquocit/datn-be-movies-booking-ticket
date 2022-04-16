@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { Order } from '../order/order.model';
 import { Booking } from '../booking/booking.model';
 import { UserCount } from './user-count.output';
 
@@ -53,9 +52,6 @@ export class User {
 
     @Field(() => String, {nullable:true})
     role!: string | null;
-
-    @Field(() => [Order], {nullable:true})
-    Order?: Array<Order>;
 
     @Field(() => [Booking], {nullable:true})
     Booking?: Array<Booking>;

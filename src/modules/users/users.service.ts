@@ -11,48 +11,7 @@ const prisma = new PrismaClient();
 @Injectable()
 export class UsersService {
   constructor(private jwtService: JwtService) {}
-  async findAll(userData): Promise<User[]> {
-    console.log('userData: ', userData);
-    const {
-      id,
-      firstname,
-      lastname,
-      birthday,
-      address,
-      email,
-      active,
-      point,
-      phone,
-      role,
-      Order,
-      Booking,
-      deleteAt,
-      AND,
-      OR,
-      NOT,
-    } = userData;
-    const users = await prisma.user.findMany({
-      where: {
-        deleteAt,
-        id,
-        firstname,
-        lastname,
-        birthday,
-        address,
-        email,
-        active,
-        point,
-        phone,
-        role,
-        Order,
-        Booking,
-        AND,
-        OR,
-        NOT,
-      },
-    });
-    return users;
-  }
+
   async connection(args): Promise<User[]> {
     const { where, orderBy, cursor, take, skip, distinct } = args;
     const users = prisma.user.findMany({

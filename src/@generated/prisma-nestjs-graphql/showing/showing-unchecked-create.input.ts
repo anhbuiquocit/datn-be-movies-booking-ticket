@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { OrderUncheckedCreateNestedManyWithoutShowingInput } from '../order/order-unchecked-create-nested-many-without-showing.input';
-import { BookingUncheckedCreateNestedManyWithoutShowingInput } from '../booking/booking-unchecked-create-nested-many-without-showing.input';
+import { BookingItemUncheckedCreateNestedManyWithoutShowingInput } from '../booking-item/booking-item-unchecked-create-nested-many-without-showing.input';
 
 @InputType()
 export class ShowingUncheckedCreateInput {
@@ -30,9 +29,6 @@ export class ShowingUncheckedCreateInput {
     @Field(() => Date, {nullable:false})
     endDate!: Date | string;
 
-    @Field(() => OrderUncheckedCreateNestedManyWithoutShowingInput, {nullable:true})
-    Order?: OrderUncheckedCreateNestedManyWithoutShowingInput;
-
-    @Field(() => BookingUncheckedCreateNestedManyWithoutShowingInput, {nullable:true})
-    Booking?: BookingUncheckedCreateNestedManyWithoutShowingInput;
+    @Field(() => BookingItemUncheckedCreateNestedManyWithoutShowingInput, {nullable:true})
+    BookingItem?: BookingItemUncheckedCreateNestedManyWithoutShowingInput;
 }

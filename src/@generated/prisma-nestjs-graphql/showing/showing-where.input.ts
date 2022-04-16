@@ -5,8 +5,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { RoomRelationFilter } from '../room/room-relation-filter.input';
 import { FilmRelationFilter } from '../film/film-relation-filter.input';
-import { OrderListRelationFilter } from '../order/order-list-relation-filter.input';
-import { BookingListRelationFilter } from '../booking/booking-list-relation-filter.input';
+import { BookingItemListRelationFilter } from '../booking-item/booking-item-list-relation-filter.input';
 
 @InputType()
 export class ShowingWhereInput {
@@ -50,9 +49,6 @@ export class ShowingWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     endDate?: DateTimeFilter;
 
-    @Field(() => OrderListRelationFilter, {nullable:true})
-    Order?: OrderListRelationFilter;
-
-    @Field(() => BookingListRelationFilter, {nullable:true})
-    Booking?: BookingListRelationFilter;
+    @Field(() => BookingItemListRelationFilter, {nullable:true})
+    BookingItem?: BookingItemListRelationFilter;
 }

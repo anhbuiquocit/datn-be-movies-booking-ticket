@@ -4,7 +4,6 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
-import { OrderListRelationFilter } from '../order/order-list-relation-filter.input';
 import { BookingListRelationFilter } from '../booking/booking-list-relation-filter.input';
 
 @InputType()
@@ -45,9 +44,6 @@ export class PromotionWhereInput {
 
     @Field(() => DateTimeFilter, {nullable:true})
     endDate?: DateTimeFilter;
-
-    @Field(() => OrderListRelationFilter, {nullable:true})
-    Order?: OrderListRelationFilter;
 
     @Field(() => BookingListRelationFilter, {nullable:true})
     Booking?: BookingListRelationFilter;

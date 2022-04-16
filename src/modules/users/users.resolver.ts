@@ -25,7 +25,7 @@ export class UsersResolver {
   ): Promise<User[]> {
     return this.userService.connection(args);
   }
-  @UseGuards(GqlAuthGuard)
+  
   // @Roles(Role.Admin)
   @Mutation((type) => Boolean)
   async signup(@Args('user') user: UserCreateInput): Promise<any> {

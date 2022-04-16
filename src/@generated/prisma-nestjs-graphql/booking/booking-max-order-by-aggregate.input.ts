@@ -21,9 +21,6 @@ export class BookingMaxOrderByAggregateInput {
     UserId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    ShowingId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     amount?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
