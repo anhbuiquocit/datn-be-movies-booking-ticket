@@ -1,6 +1,5 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class BookingItemCreateManyShowingInput {
@@ -20,6 +19,6 @@ export class BookingItemCreateManyShowingInput {
     @Field(() => String, {nullable:false})
     SeatId!: string;
 
-    @Field(() => Int, {nullable:false})
-    price!: number;
+    @Field(() => String, {nullable:false})
+    bookingId!: string;
 }

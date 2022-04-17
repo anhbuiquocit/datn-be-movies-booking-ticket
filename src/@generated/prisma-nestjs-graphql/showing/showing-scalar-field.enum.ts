@@ -7,8 +7,11 @@ export enum ShowingScalarFieldEnum {
     deletedAt = "deletedAt",
     RoomId = "RoomId",
     FilmId = "FilmId",
+    price = "price",
     startDate = "startDate",
-    endDate = "endDate"
+    endDate = "endDate",
+    startTime = "startTime",
+    endTime = "endTime"
 }
 
 

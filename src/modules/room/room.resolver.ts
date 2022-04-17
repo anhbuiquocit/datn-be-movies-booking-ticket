@@ -11,7 +11,7 @@ import { DeleteOneRoomArgs } from 'src/@generated/prisma-nestjs-graphql/room/del
 @Resolver()
 export class RoomResolver {
   constructor(private roomService: RoomService) {}
-  @UseGuards(GqlAuthGuard)
+  // @UseGuards(GqlAuthGuard)
   @Query(() => [Room])
   async roomConnection(@Args() args: FindManyRoomArgs) {
     return this.roomService.connection(args);

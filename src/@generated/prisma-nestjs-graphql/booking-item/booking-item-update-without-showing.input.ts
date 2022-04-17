@@ -4,8 +4,7 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { SeatUpdateOneRequiredWithoutBookingItemInput } from '../seat/seat-update-one-required-without-booking-item.input';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { BookingUpdateManyWithoutBookingItemInput } from '../booking/booking-update-many-without-booking-item.input';
+import { BookingUpdateOneRequiredWithoutBookingItemInput } from '../booking/booking-update-one-required-without-booking-item.input';
 
 @InputType()
 export class BookingItemUpdateWithoutShowingInput {
@@ -25,9 +24,6 @@ export class BookingItemUpdateWithoutShowingInput {
     @Field(() => SeatUpdateOneRequiredWithoutBookingItemInput, {nullable:true})
     seat?: SeatUpdateOneRequiredWithoutBookingItemInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    price?: IntFieldUpdateOperationsInput;
-
-    @Field(() => BookingUpdateManyWithoutBookingItemInput, {nullable:true})
-    Booking?: BookingUpdateManyWithoutBookingItemInput;
+    @Field(() => BookingUpdateOneRequiredWithoutBookingItemInput, {nullable:true})
+    Booking?: BookingUpdateOneRequiredWithoutBookingItemInput;
 }

@@ -27,8 +27,8 @@ export class BookingMaxAggregate {
     price?: number;
 
     @Field(() => String, {nullable:true})
-    BookingItemId?: string;
-
-    @Field(() => String, {nullable:true})
     PromotionId?: string;
+
+    @Field(() => Boolean, {nullable:true})
+    isPayment?: boolean;
 }

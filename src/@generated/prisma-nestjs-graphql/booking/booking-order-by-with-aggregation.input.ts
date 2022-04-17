@@ -32,10 +32,10 @@ export class BookingOrderByWithAggregationInput {
     price?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    BookingItemId?: keyof typeof SortOrder;
+    PromotionId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    PromotionId?: keyof typeof SortOrder;
+    isPayment?: keyof typeof SortOrder;
 
     @Field(() => BookingCountOrderByAggregateInput, {nullable:true})
     _count?: BookingCountOrderByAggregateInput;

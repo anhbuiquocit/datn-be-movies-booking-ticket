@@ -23,5 +23,5 @@ export class BookingItemMaxAggregateInput {
     ShowingId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    price?: true;
+    bookingId?: true;
 }

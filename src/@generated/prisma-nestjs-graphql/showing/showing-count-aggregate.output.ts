@@ -24,10 +24,19 @@ export class ShowingCountAggregate {
     FilmId!: number;
 
     @Field(() => Int, {nullable:false})
+    price!: number;
+
+    @Field(() => Int, {nullable:false})
     startDate!: number;
 
     @Field(() => Int, {nullable:false})
     endDate!: number;
+
+    @Field(() => Int, {nullable:false})
+    startTime!: number;
+
+    @Field(() => Int, {nullable:false})
+    endTime!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

@@ -26,8 +26,8 @@ export class BookingMinAggregateInput {
     price?: true;
 
     @Field(() => Boolean, {nullable:true})
-    BookingItemId?: true;
+    PromotionId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    PromotionId?: true;
+    isPayment?: true;
 }

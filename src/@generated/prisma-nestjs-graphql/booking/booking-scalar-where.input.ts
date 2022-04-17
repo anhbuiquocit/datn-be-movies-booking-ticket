@@ -4,6 +4,8 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 
 @InputType()
 export class BookingScalarWhereInput {
@@ -38,9 +40,9 @@ export class BookingScalarWhereInput {
     @Field(() => IntFilter, {nullable:true})
     price?: IntFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    BookingItemId?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    PromotionId?: StringNullableFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    PromotionId?: StringFilter;
+    @Field(() => BoolNullableFilter, {nullable:true})
+    isPayment?: BoolNullableFilter;
 }

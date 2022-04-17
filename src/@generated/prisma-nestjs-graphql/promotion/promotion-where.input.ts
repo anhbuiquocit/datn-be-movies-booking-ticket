@@ -39,11 +39,17 @@ export class PromotionWhereInput {
     @Field(() => FloatFilter, {nullable:true})
     maxDiscount?: FloatFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    startDate?: DateTimeFilter;
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    startDate?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    endDate?: DateTimeFilter;
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    endDate?: DateTimeNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    startTime?: DateTimeNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    endTime?: DateTimeNullableFilter;
 
     @Field(() => BookingListRelationFilter, {nullable:true})
     Booking?: BookingListRelationFilter;

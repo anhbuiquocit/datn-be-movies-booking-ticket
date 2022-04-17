@@ -26,9 +26,15 @@ export class PromotionUncheckedCreateWithoutBookingInput {
     @Field(() => Float, {nullable:false})
     maxDiscount!: number;
 
-    @Field(() => Date, {nullable:false})
-    startDate!: Date | string;
+    @Field(() => Date, {nullable:true})
+    startDate?: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    endDate!: Date | string;
+    @Field(() => Date, {nullable:true})
+    endDate?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    startTime?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    endTime?: Date | string;
 }

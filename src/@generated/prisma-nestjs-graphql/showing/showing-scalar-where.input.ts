@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+import { IntFilter } from '../prisma/int-filter.input';
 
 @InputType()
 export class ShowingScalarWhereInput {
@@ -34,9 +35,18 @@ export class ShowingScalarWhereInput {
     @Field(() => StringFilter, {nullable:true})
     FilmId?: StringFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    startDate?: DateTimeFilter;
+    @Field(() => IntFilter, {nullable:true})
+    price?: IntFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    endDate?: DateTimeFilter;
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    startDate?: DateTimeNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    endDate?: DateTimeNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    startTime?: DateTimeNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    endTime?: DateTimeNullableFilter;
 }

@@ -4,8 +4,9 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { BookingItemUpdateOneRequiredWithoutBookingInput } from '../booking-item/booking-item-update-one-required-without-booking.input';
-import { PromotionUpdateOneRequiredWithoutBookingInput } from '../promotion/promotion-update-one-required-without-booking.input';
+import { BookingItemUpdateManyWithoutBookingInput } from '../booking-item/booking-item-update-many-without-booking.input';
+import { PromotionUpdateOneWithoutBookingInput } from '../promotion/promotion-update-one-without-booking.input';
+import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
 @InputType()
 export class BookingUpdateWithoutUserInput {
@@ -28,9 +29,12 @@ export class BookingUpdateWithoutUserInput {
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     price?: IntFieldUpdateOperationsInput;
 
-    @Field(() => BookingItemUpdateOneRequiredWithoutBookingInput, {nullable:true})
-    bookingItem?: BookingItemUpdateOneRequiredWithoutBookingInput;
+    @Field(() => BookingItemUpdateManyWithoutBookingInput, {nullable:true})
+    bookingItem?: BookingItemUpdateManyWithoutBookingInput;
 
-    @Field(() => PromotionUpdateOneRequiredWithoutBookingInput, {nullable:true})
-    promotion?: PromotionUpdateOneRequiredWithoutBookingInput;
+    @Field(() => PromotionUpdateOneWithoutBookingInput, {nullable:true})
+    promotion?: PromotionUpdateOneWithoutBookingInput;
+
+    @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
+    isPayment?: NullableBoolFieldUpdateOperationsInput;
 }

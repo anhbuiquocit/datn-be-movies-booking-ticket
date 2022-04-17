@@ -106,8 +106,10 @@ model Promotion {
   code        String
   discount    Float
   maxDiscount Float
-  startDate   DateTime
-  endDate     DateTime
+  startDate   DateTime?
+  endDate     DateTime?
+  startTime   DateTime?
+  endTime     DateTime?
   Booking     Booking[]
 }
 
@@ -120,8 +122,11 @@ model Showing {
   RoomId      String
   film        Film          @relation(fields: [FilmId], references: [id])
   FilmId      String
-  startDate   DateTime
-  endDate     DateTime
+  price       Int
+  startDate   DateTime?
+  endDate     DateTime?
+  startTime   DateTime?
+  endTime     DateTime?
   BookingItem BookingItem[]
 }
 
@@ -134,23 +139,21 @@ model BookingItem {
   SeatId    String
   showing   Showing   @relation(fields: [ShowingId], references: [id])
   ShowingId String
-  price     Int
-  Booking   Booking[]
+  Booking   Booking   @relation(fields: [bookingId], references: [id])
+  bookingId String
 }
 
-
 model Booking {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
-  deletedAt DateTime?
-  user      User      @relation(fields: [UserId], references: [id])
-  UserId    String
-
-  amount        Int
-  price         Int
-  bookingItem   BookingItem @relation(fields: [BookingItemId], references: [id])
-  BookingItemId String
-  promotion     Promotion   @relation(fields: [PromotionId], references: [id])
-  PromotionId   String
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?
+  deletedAt   DateTime?
+  user        User          @relation(fields: [UserId], references: [id])
+  UserId      String
+  amount      Int
+  price       Int
+  bookingItem BookingItem[]
+  promotion   Promotion?    @relation(fields: [PromotionId], references: [id])
+  PromotionId String?
+  isPayment   Boolean?
 }

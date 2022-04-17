@@ -11,7 +11,7 @@ import { DeleteOneShowingArgs } from 'src/@generated/prisma-nestjs-graphql/showi
 @Resolver()
 export class ShowingResolver {
   constructor(private showingService: ShowingService) {}
-  @UseGuards(GqlAuthGuard)
+  // @UseGuards(GqlAuthGuard)
   @Query(() => [Showing])
   async showingConnection(@Args() args: FindManyShowingArgs) {
     return this.showingService.connection(args);

@@ -31,4 +31,10 @@ export class PromotionMinAggregate {
 
     @Field(() => Date, {nullable:true})
     endDate?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    startTime?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    endTime?: Date | string;
 }

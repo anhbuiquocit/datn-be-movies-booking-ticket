@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SeatCreateNestedOneWithoutBookingItemInput } from '../seat/seat-create-nested-one-without-booking-item.input';
 import { ShowingCreateNestedOneWithoutBookingItemInput } from '../showing/showing-create-nested-one-without-booking-item.input';
-import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class BookingItemCreateWithoutBookingInput {
@@ -24,7 +23,4 @@ export class BookingItemCreateWithoutBookingInput {
 
     @Field(() => ShowingCreateNestedOneWithoutBookingItemInput, {nullable:false})
     showing!: ShowingCreateNestedOneWithoutBookingItemInput;
-
-    @Field(() => Int, {nullable:false})
-    price!: number;
 }

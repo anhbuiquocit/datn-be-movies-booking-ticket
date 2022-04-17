@@ -31,11 +31,11 @@ export class BookingGroupBy {
     @Field(() => Int, {nullable:false})
     price!: number;
 
-    @Field(() => String, {nullable:false})
-    BookingItemId!: string;
+    @Field(() => String, {nullable:true})
+    PromotionId?: string;
 
-    @Field(() => String, {nullable:false})
-    PromotionId!: string;
+    @Field(() => Boolean, {nullable:true})
+    isPayment?: boolean;
 
     @Field(() => BookingCountAggregate, {nullable:true})
     _count?: BookingCountAggregate;

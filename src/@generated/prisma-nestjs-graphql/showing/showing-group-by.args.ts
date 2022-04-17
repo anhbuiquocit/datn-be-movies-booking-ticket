@@ -6,6 +6,8 @@ import { ShowingScalarFieldEnum } from './showing-scalar-field.enum';
 import { ShowingScalarWhereWithAggregatesInput } from './showing-scalar-where-with-aggregates.input';
 import { Int } from '@nestjs/graphql';
 import { ShowingCountAggregateInput } from './showing-count-aggregate.input';
+import { ShowingAvgAggregateInput } from './showing-avg-aggregate.input';
+import { ShowingSumAggregateInput } from './showing-sum-aggregate.input';
 import { ShowingMinAggregateInput } from './showing-min-aggregate.input';
 import { ShowingMaxAggregateInput } from './showing-max-aggregate.input';
 
@@ -32,6 +34,12 @@ export class ShowingGroupByArgs {
 
     @Field(() => ShowingCountAggregateInput, {nullable:true})
     _count?: ShowingCountAggregateInput;
+
+    @Field(() => ShowingAvgAggregateInput, {nullable:true})
+    _avg?: ShowingAvgAggregateInput;
+
+    @Field(() => ShowingSumAggregateInput, {nullable:true})
+    _sum?: ShowingSumAggregateInput;
 
     @Field(() => ShowingMinAggregateInput, {nullable:true})
     _min?: ShowingMinAggregateInput;

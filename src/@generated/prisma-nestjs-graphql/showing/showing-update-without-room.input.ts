@@ -4,6 +4,7 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { FilmUpdateOneRequiredWithoutShowingInput } from '../film/film-update-one-required-without-showing.input';
+import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { BookingItemUpdateManyWithoutShowingInput } from '../booking-item/booking-item-update-many-without-showing.input';
 
 @InputType()
@@ -24,11 +25,20 @@ export class ShowingUpdateWithoutRoomInput {
     @Field(() => FilmUpdateOneRequiredWithoutShowingInput, {nullable:true})
     film?: FilmUpdateOneRequiredWithoutShowingInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    startDate?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    price?: IntFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    endDate?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    startDate?: NullableDateTimeFieldUpdateOperationsInput;
+
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    endDate?: NullableDateTimeFieldUpdateOperationsInput;
+
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    startTime?: NullableDateTimeFieldUpdateOperationsInput;
+
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    endTime?: NullableDateTimeFieldUpdateOperationsInput;
 
     @Field(() => BookingItemUpdateManyWithoutShowingInput, {nullable:true})
     BookingItem?: BookingItemUpdateManyWithoutShowingInput;

@@ -32,5 +32,11 @@ export class PromotionCountAggregateInput {
     endDate?: true;
 
     @Field(() => Boolean, {nullable:true})
+    startTime?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    endTime?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

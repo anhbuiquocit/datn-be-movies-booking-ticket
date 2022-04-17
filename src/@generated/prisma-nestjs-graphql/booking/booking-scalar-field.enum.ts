@@ -8,8 +8,8 @@ export enum BookingScalarFieldEnum {
     UserId = "UserId",
     amount = "amount",
     price = "price",
-    BookingItemId = "BookingItemId",
-    PromotionId = "PromotionId"
+    PromotionId = "PromotionId",
+    isPayment = "isPayment"
 }
 
 

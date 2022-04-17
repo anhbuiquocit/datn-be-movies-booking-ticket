@@ -76,8 +76,11 @@ type Showing {
   RoomId: String!
   film: Film!
   FilmId: String!
-  startDate: DateTime!
-  endDate: DateTime!
+  price: Int!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
   BookingItem: [BookingItem!]
   _count: ShowingCount!
 }
@@ -117,10 +120,6 @@ type Seat {
   _count: SeatCount!
 }
 
-type BookingItemCount {
-  Booking: Int!
-}
-
 type BookingItem {
   id: ID!
   createdAt: DateTime!
@@ -130,9 +129,8 @@ type BookingItem {
   SeatId: String!
   showing: Showing!
   ShowingId: String!
-  price: Int!
-  Booking: [Booking!]
-  _count: BookingItemCount!
+  Booking: Booking!
+  bookingId: String!
 }
 
 type PromotionCount {
@@ -147,10 +145,16 @@ type Promotion {
   code: String!
   discount: Float!
   maxDiscount: Float!
-  startDate: DateTime!
-  endDate: DateTime!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
   Booking: [Booking!]
   _count: PromotionCount!
+}
+
+type BookingCount {
+  bookingItem: Int!
 }
 
 type Booking {
@@ -162,10 +166,11 @@ type Booking {
   UserId: String!
   amount: Int!
   price: Int!
-  bookingItem: BookingItem!
-  BookingItemId: String!
-  promotion: Promotion!
-  PromotionId: String!
+  bookingItem: [BookingItem!]
+  promotion: Promotion
+  PromotionId: String
+  isPayment: Boolean
+  _count: BookingCount!
 }
 
 type UserCount {
@@ -360,10 +365,10 @@ input BookingWhereInput {
   UserId: StringFilter
   amount: IntFilter
   price: IntFilter
-  bookingItem: BookingItemRelationFilter
-  BookingItemId: StringFilter
+  bookingItem: BookingItemListRelationFilter
   promotion: PromotionRelationFilter
-  PromotionId: StringFilter
+  PromotionId: StringNullableFilter
+  isPayment: BoolNullableFilter
 }
 
 input DateTimeFilter {
@@ -415,9 +420,10 @@ input NestedIntFilter {
   not: NestedIntFilter
 }
 
-input BookingItemRelationFilter {
-  is: BookingItemWhereInput
-  isNot: BookingItemWhereInput
+input BookingItemListRelationFilter {
+  every: BookingItemWhereInput
+  some: BookingItemWhereInput
+  none: BookingItemWhereInput
 }
 
 input BookingItemWhereInput {
@@ -432,8 +438,8 @@ input BookingItemWhereInput {
   SeatId: StringFilter
   showing: ShowingRelationFilter
   ShowingId: StringFilter
-  price: IntFilter
-  Booking: BookingListRelationFilter
+  Booking: BookingRelationFilter
+  bookingId: StringFilter
 }
 
 input SeatRelationFilter {
@@ -551,8 +557,11 @@ input ShowingWhereInput {
   RoomId: StringFilter
   film: FilmRelationFilter
   FilmId: StringFilter
-  startDate: DateTimeFilter
-  endDate: DateTimeFilter
+  price: IntFilter
+  startDate: DateTimeNullableFilter
+  endDate: DateTimeNullableFilter
+  startTime: DateTimeNullableFilter
+  endTime: DateTimeNullableFilter
   BookingItem: BookingItemListRelationFilter
 }
 
@@ -582,15 +591,14 @@ input FilmWhereInput {
   Showing: ShowingListRelationFilter
 }
 
-input BookingItemListRelationFilter {
-  every: BookingItemWhereInput
-  some: BookingItemWhereInput
-  none: BookingItemWhereInput
-}
-
 input ShowingRelationFilter {
   is: ShowingWhereInput
   isNot: ShowingWhereInput
+}
+
+input BookingRelationFilter {
+  is: BookingWhereInput
+  isNot: BookingWhereInput
 }
 
 input PromotionRelationFilter {
@@ -609,8 +617,10 @@ input PromotionWhereInput {
   code: StringFilter
   discount: FloatFilter
   maxDiscount: FloatFilter
-  startDate: DateTimeFilter
-  endDate: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  endDate: DateTimeNullableFilter
+  startTime: DateTimeNullableFilter
+  endTime: DateTimeNullableFilter
   Booking: BookingListRelationFilter
 }
 
@@ -739,8 +749,11 @@ input ShowingOrderByWithRelationInput {
   RoomId: SortOrder
   film: FilmOrderByWithRelationInput
   FilmId: SortOrder
+  price: SortOrder
   startDate: SortOrder
   endDate: SortOrder
+  startTime: SortOrder
+  endTime: SortOrder
   BookingItem: BookingItemOrderByRelationAggregateInput
 }
 
@@ -806,8 +819,11 @@ enum ShowingScalarFieldEnum {
   deletedAt
   RoomId
   FilmId
+  price
   startDate
   endDate
+  startTime
+  endTime
 }
 
 input SeatOrderByWithRelationInput {
@@ -859,6 +875,8 @@ input PromotionOrderByWithRelationInput {
   maxDiscount: SortOrder
   startDate: SortOrder
   endDate: SortOrder
+  startTime: SortOrder
+  endTime: SortOrder
   Booking: BookingOrderByRelationAggregateInput
 }
 
@@ -876,6 +894,8 @@ enum PromotionScalarFieldEnum {
   maxDiscount
   startDate
   endDate
+  startTime
+  endTime
 }
 
 input BookingItemOrderByWithRelationInput {
@@ -887,8 +907,23 @@ input BookingItemOrderByWithRelationInput {
   SeatId: SortOrder
   showing: ShowingOrderByWithRelationInput
   ShowingId: SortOrder
+  Booking: BookingOrderByWithRelationInput
+  bookingId: SortOrder
+}
+
+input BookingOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  deletedAt: SortOrder
+  user: UserOrderByWithRelationInput
+  UserId: SortOrder
+  amount: SortOrder
   price: SortOrder
-  Booking: BookingOrderByRelationAggregateInput
+  bookingItem: BookingItemOrderByRelationAggregateInput
+  promotion: PromotionOrderByWithRelationInput
+  PromotionId: SortOrder
+  isPayment: SortOrder
 }
 
 input BookingItemWhereUniqueInput {
@@ -902,22 +937,7 @@ enum BookingItemScalarFieldEnum {
   deletedAt
   SeatId
   ShowingId
-  price
-}
-
-input BookingOrderByWithRelationInput {
-  id: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  deletedAt: SortOrder
-  user: UserOrderByWithRelationInput
-  UserId: SortOrder
-  amount: SortOrder
-  price: SortOrder
-  bookingItem: BookingItemOrderByWithRelationInput
-  BookingItemId: SortOrder
-  promotion: PromotionOrderByWithRelationInput
-  PromotionId: SortOrder
+  bookingId
 }
 
 input BookingWhereUniqueInput {
@@ -932,8 +952,8 @@ enum BookingScalarFieldEnum {
   UserId
   amount
   price
-  BookingItemId
   PromotionId
+  isPayment
 }
 
 type Mutation {
@@ -963,6 +983,7 @@ type Mutation {
   createBookingRecord(data: BookingCreateInput!): Booking!
   updateBookingRecord(data: BookingUpdateInput!, where: BookingWhereUniqueInput!): Booking!
   deleteBookingRecord(where: BookingWhereUniqueInput!): Boolean!
+  userBookingTicket(data: BookingItemInput!): Boolean!
 }
 
 input UserCreateInput {
@@ -998,14 +1019,16 @@ input BookingCreateWithoutUserInput {
   deletedAt: DateTime
   amount: Int!
   price: Int!
-  bookingItem: BookingItemCreateNestedOneWithoutBookingInput!
-  promotion: PromotionCreateNestedOneWithoutBookingInput!
+  bookingItem: BookingItemCreateNestedManyWithoutBookingInput
+  promotion: PromotionCreateNestedOneWithoutBookingInput
+  isPayment: Boolean
 }
 
-input BookingItemCreateNestedOneWithoutBookingInput {
-  create: BookingItemCreateWithoutBookingInput
-  connectOrCreate: BookingItemCreateOrConnectWithoutBookingInput
-  connect: BookingItemWhereUniqueInput
+input BookingItemCreateNestedManyWithoutBookingInput {
+  create: [BookingItemCreateWithoutBookingInput!]
+  connectOrCreate: [BookingItemCreateOrConnectWithoutBookingInput!]
+  createMany: BookingItemCreateManyBookingInputEnvelope
+  connect: [BookingItemWhereUniqueInput!]
 }
 
 input BookingItemCreateWithoutBookingInput {
@@ -1015,7 +1038,6 @@ input BookingItemCreateWithoutBookingInput {
   deletedAt: DateTime
   seat: SeatCreateNestedOneWithoutBookingItemInput!
   showing: ShowingCreateNestedOneWithoutBookingItemInput!
-  price: Int!
 }
 
 input SeatCreateNestedOneWithoutBookingItemInput {
@@ -1113,8 +1135,11 @@ input ShowingCreateWithoutRoomInput {
   updatedAt: DateTime
   deletedAt: DateTime
   film: FilmCreateNestedOneWithoutShowingInput!
-  startDate: DateTime!
-  endDate: DateTime!
+  price: Int!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
   BookingItem: BookingItemCreateNestedManyWithoutShowingInput
 }
 
@@ -1159,15 +1184,13 @@ input BookingItemCreateWithoutShowingInput {
   updatedAt: DateTime
   deletedAt: DateTime
   seat: SeatCreateNestedOneWithoutBookingItemInput!
-  price: Int!
-  Booking: BookingCreateNestedManyWithoutBookingItemInput
+  Booking: BookingCreateNestedOneWithoutBookingItemInput!
 }
 
-input BookingCreateNestedManyWithoutBookingItemInput {
-  create: [BookingCreateWithoutBookingItemInput!]
-  connectOrCreate: [BookingCreateOrConnectWithoutBookingItemInput!]
-  createMany: BookingCreateManyBookingItemInputEnvelope
-  connect: [BookingWhereUniqueInput!]
+input BookingCreateNestedOneWithoutBookingItemInput {
+  create: BookingCreateWithoutBookingItemInput
+  connectOrCreate: BookingCreateOrConnectWithoutBookingItemInput
+  connect: BookingWhereUniqueInput
 }
 
 input BookingCreateWithoutBookingItemInput {
@@ -1178,7 +1201,8 @@ input BookingCreateWithoutBookingItemInput {
   user: UserCreateNestedOneWithoutBookingInput!
   amount: Int!
   price: Int!
-  promotion: PromotionCreateNestedOneWithoutBookingInput!
+  promotion: PromotionCreateNestedOneWithoutBookingInput
+  isPayment: Boolean
 }
 
 input UserCreateNestedOneWithoutBookingInput {
@@ -1224,8 +1248,10 @@ input PromotionCreateWithoutBookingInput {
   code: String!
   discount: Float!
   maxDiscount: Float!
-  startDate: DateTime!
-  endDate: DateTime!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
 }
 
 input PromotionCreateOrConnectWithoutBookingInput {
@@ -1236,22 +1262,6 @@ input PromotionCreateOrConnectWithoutBookingInput {
 input BookingCreateOrConnectWithoutBookingItemInput {
   where: BookingWhereUniqueInput!
   create: BookingCreateWithoutBookingItemInput!
-}
-
-input BookingCreateManyBookingItemInputEnvelope {
-  data: [BookingCreateManyBookingItemInput!]!
-  skipDuplicates: Boolean
-}
-
-input BookingCreateManyBookingItemInput {
-  id: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-  UserId: String!
-  amount: Int!
-  price: Int!
-  PromotionId: String!
 }
 
 input BookingItemCreateOrConnectWithoutShowingInput {
@@ -1270,7 +1280,7 @@ input BookingItemCreateManyShowingInput {
   updatedAt: DateTime
   deletedAt: DateTime
   SeatId: String!
-  price: Int!
+  bookingId: String!
 }
 
 input ShowingCreateOrConnectWithoutRoomInput {
@@ -1289,8 +1299,11 @@ input ShowingCreateManyRoomInput {
   updatedAt: DateTime
   deletedAt: DateTime
   FilmId: String!
-  startDate: DateTime!
-  endDate: DateTime!
+  price: Int!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
 }
 
 input RoomCreateOrConnectWithoutSeatInput {
@@ -1316,8 +1329,11 @@ input ShowingCreateWithoutBookingItemInput {
   deletedAt: DateTime
   room: RoomCreateNestedOneWithoutShowingInput!
   film: FilmCreateNestedOneWithoutShowingInput!
-  startDate: DateTime!
-  endDate: DateTime!
+  price: Int!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
 }
 
 input RoomCreateNestedOneWithoutShowingInput {
@@ -1366,8 +1382,7 @@ input BookingItemCreateWithoutSeatInput {
   updatedAt: DateTime
   deletedAt: DateTime
   showing: ShowingCreateNestedOneWithoutBookingItemInput!
-  price: Int!
-  Booking: BookingCreateNestedManyWithoutBookingItemInput
+  Booking: BookingCreateNestedOneWithoutBookingItemInput!
 }
 
 input BookingItemCreateOrConnectWithoutSeatInput {
@@ -1386,7 +1401,7 @@ input BookingItemCreateManySeatInput {
   updatedAt: DateTime
   deletedAt: DateTime
   ShowingId: String!
-  price: Int!
+  bookingId: String!
 }
 
 input SeatCreateOrConnectWithoutRoomInput {
@@ -1423,6 +1438,20 @@ input BookingItemCreateOrConnectWithoutBookingInput {
   create: BookingItemCreateWithoutBookingInput!
 }
 
+input BookingItemCreateManyBookingInputEnvelope {
+  data: [BookingItemCreateManyBookingInput!]!
+  skipDuplicates: Boolean
+}
+
+input BookingItemCreateManyBookingInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  SeatId: String!
+  ShowingId: String!
+}
+
 input BookingCreateOrConnectWithoutUserInput {
   where: BookingWhereUniqueInput!
   create: BookingCreateWithoutUserInput!
@@ -1440,8 +1469,8 @@ input BookingCreateManyUserInput {
   deletedAt: DateTime
   amount: Int!
   price: Int!
-  BookingItemId: String!
-  PromotionId: String!
+  PromotionId: String
+  isPayment: Boolean
 }
 
 input UserUpdateInput {
@@ -1514,8 +1543,9 @@ input BookingUpdateWithoutUserInput {
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   amount: IntFieldUpdateOperationsInput
   price: IntFieldUpdateOperationsInput
-  bookingItem: BookingItemUpdateOneRequiredWithoutBookingInput
-  promotion: PromotionUpdateOneRequiredWithoutBookingInput
+  bookingItem: BookingItemUpdateManyWithoutBookingInput
+  promotion: PromotionUpdateOneWithoutBookingInput
+  isPayment: NullableBoolFieldUpdateOperationsInput
 }
 
 input DateTimeFieldUpdateOperationsInput {
@@ -1530,15 +1560,22 @@ input IntFieldUpdateOperationsInput {
   divide: Int
 }
 
-input BookingItemUpdateOneRequiredWithoutBookingInput {
-  create: BookingItemCreateWithoutBookingInput
-  connectOrCreate: BookingItemCreateOrConnectWithoutBookingInput
-  upsert: BookingItemUpsertWithoutBookingInput
-  connect: BookingItemWhereUniqueInput
-  update: BookingItemUpdateWithoutBookingInput
+input BookingItemUpdateManyWithoutBookingInput {
+  create: [BookingItemCreateWithoutBookingInput!]
+  connectOrCreate: [BookingItemCreateOrConnectWithoutBookingInput!]
+  upsert: [BookingItemUpsertWithWhereUniqueWithoutBookingInput!]
+  createMany: BookingItemCreateManyBookingInputEnvelope
+  set: [BookingItemWhereUniqueInput!]
+  disconnect: [BookingItemWhereUniqueInput!]
+  delete: [BookingItemWhereUniqueInput!]
+  connect: [BookingItemWhereUniqueInput!]
+  update: [BookingItemUpdateWithWhereUniqueWithoutBookingInput!]
+  updateMany: [BookingItemUpdateManyWithWhereWithoutBookingInput!]
+  deleteMany: [BookingItemScalarWhereInput!]
 }
 
-input BookingItemUpsertWithoutBookingInput {
+input BookingItemUpsertWithWhereUniqueWithoutBookingInput {
+  where: BookingItemWhereUniqueInput!
   update: BookingItemUpdateWithoutBookingInput!
   create: BookingItemCreateWithoutBookingInput!
 }
@@ -1550,7 +1587,6 @@ input BookingItemUpdateWithoutBookingInput {
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   seat: SeatUpdateOneRequiredWithoutBookingItemInput
   showing: ShowingUpdateOneRequiredWithoutBookingItemInput
-  price: IntFieldUpdateOperationsInput
 }
 
 input SeatUpdateOneRequiredWithoutBookingItemInput {
@@ -1671,8 +1707,11 @@ input ShowingUpdateWithoutRoomInput {
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   film: FilmUpdateOneRequiredWithoutShowingInput
-  startDate: DateTimeFieldUpdateOperationsInput
-  endDate: DateTimeFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  startTime: NullableDateTimeFieldUpdateOperationsInput
+  endTime: NullableDateTimeFieldUpdateOperationsInput
   BookingItem: BookingItemUpdateManyWithoutShowingInput
 }
 
@@ -1732,26 +1771,18 @@ input BookingItemUpdateWithoutShowingInput {
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   seat: SeatUpdateOneRequiredWithoutBookingItemInput
-  price: IntFieldUpdateOperationsInput
-  Booking: BookingUpdateManyWithoutBookingItemInput
+  Booking: BookingUpdateOneRequiredWithoutBookingItemInput
 }
 
-input BookingUpdateManyWithoutBookingItemInput {
-  create: [BookingCreateWithoutBookingItemInput!]
-  connectOrCreate: [BookingCreateOrConnectWithoutBookingItemInput!]
-  upsert: [BookingUpsertWithWhereUniqueWithoutBookingItemInput!]
-  createMany: BookingCreateManyBookingItemInputEnvelope
-  set: [BookingWhereUniqueInput!]
-  disconnect: [BookingWhereUniqueInput!]
-  delete: [BookingWhereUniqueInput!]
-  connect: [BookingWhereUniqueInput!]
-  update: [BookingUpdateWithWhereUniqueWithoutBookingItemInput!]
-  updateMany: [BookingUpdateManyWithWhereWithoutBookingItemInput!]
-  deleteMany: [BookingScalarWhereInput!]
+input BookingUpdateOneRequiredWithoutBookingItemInput {
+  create: BookingCreateWithoutBookingItemInput
+  connectOrCreate: BookingCreateOrConnectWithoutBookingItemInput
+  upsert: BookingUpsertWithoutBookingItemInput
+  connect: BookingWhereUniqueInput
+  update: BookingUpdateWithoutBookingItemInput
 }
 
-input BookingUpsertWithWhereUniqueWithoutBookingItemInput {
-  where: BookingWhereUniqueInput!
+input BookingUpsertWithoutBookingItemInput {
   update: BookingUpdateWithoutBookingItemInput!
   create: BookingCreateWithoutBookingItemInput!
 }
@@ -1764,7 +1795,8 @@ input BookingUpdateWithoutBookingItemInput {
   user: UserUpdateOneRequiredWithoutBookingInput
   amount: IntFieldUpdateOperationsInput
   price: IntFieldUpdateOperationsInput
-  promotion: PromotionUpdateOneRequiredWithoutBookingInput
+  promotion: PromotionUpdateOneWithoutBookingInput
+  isPayment: NullableBoolFieldUpdateOperationsInput
 }
 
 input UserUpdateOneRequiredWithoutBookingInput {
@@ -1798,10 +1830,12 @@ input UserUpdateWithoutBookingInput {
   role: NullableStringFieldUpdateOperationsInput
 }
 
-input PromotionUpdateOneRequiredWithoutBookingInput {
+input PromotionUpdateOneWithoutBookingInput {
   create: PromotionCreateWithoutBookingInput
   connectOrCreate: PromotionCreateOrConnectWithoutBookingInput
   upsert: PromotionUpsertWithoutBookingInput
+  disconnect: Boolean
+  delete: Boolean
   connect: PromotionWhereUniqueInput
   update: PromotionUpdateWithoutBookingInput
 }
@@ -1819,8 +1853,10 @@ input PromotionUpdateWithoutBookingInput {
   code: StringFieldUpdateOperationsInput
   discount: FloatFieldUpdateOperationsInput
   maxDiscount: FloatFieldUpdateOperationsInput
-  startDate: DateTimeFieldUpdateOperationsInput
-  endDate: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  startTime: NullableDateTimeFieldUpdateOperationsInput
+  endTime: NullableDateTimeFieldUpdateOperationsInput
 }
 
 input FloatFieldUpdateOperationsInput {
@@ -1829,40 +1865,6 @@ input FloatFieldUpdateOperationsInput {
   decrement: Float
   multiply: Float
   divide: Float
-}
-
-input BookingUpdateWithWhereUniqueWithoutBookingItemInput {
-  where: BookingWhereUniqueInput!
-  data: BookingUpdateWithoutBookingItemInput!
-}
-
-input BookingUpdateManyWithWhereWithoutBookingItemInput {
-  where: BookingScalarWhereInput!
-  data: BookingUpdateManyMutationInput!
-}
-
-input BookingScalarWhereInput {
-  AND: [BookingScalarWhereInput!]
-  OR: [BookingScalarWhereInput!]
-  NOT: [BookingScalarWhereInput!]
-  id: StringFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeNullableFilter
-  deletedAt: DateTimeNullableFilter
-  UserId: StringFilter
-  amount: IntFilter
-  price: IntFilter
-  BookingItemId: StringFilter
-  PromotionId: StringFilter
-}
-
-input BookingUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: NullableDateTimeFieldUpdateOperationsInput
-  deletedAt: NullableDateTimeFieldUpdateOperationsInput
-  amount: IntFieldUpdateOperationsInput
-  price: IntFieldUpdateOperationsInput
 }
 
 input BookingItemUpdateWithWhereUniqueWithoutShowingInput {
@@ -1885,7 +1887,7 @@ input BookingItemScalarWhereInput {
   deletedAt: DateTimeNullableFilter
   SeatId: StringFilter
   ShowingId: StringFilter
-  price: IntFilter
+  bookingId: StringFilter
 }
 
 input BookingItemUpdateManyMutationInput {
@@ -1893,7 +1895,6 @@ input BookingItemUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
-  price: IntFieldUpdateOperationsInput
 }
 
 input ShowingUpdateWithWhereUniqueWithoutRoomInput {
@@ -1916,8 +1917,11 @@ input ShowingScalarWhereInput {
   deletedAt: DateTimeNullableFilter
   RoomId: StringFilter
   FilmId: StringFilter
-  startDate: DateTimeFilter
-  endDate: DateTimeFilter
+  price: IntFilter
+  startDate: DateTimeNullableFilter
+  endDate: DateTimeNullableFilter
+  startTime: DateTimeNullableFilter
+  endTime: DateTimeNullableFilter
 }
 
 input ShowingUpdateManyMutationInput {
@@ -1925,8 +1929,11 @@ input ShowingUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
-  startDate: DateTimeFieldUpdateOperationsInput
-  endDate: DateTimeFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  startTime: NullableDateTimeFieldUpdateOperationsInput
+  endTime: NullableDateTimeFieldUpdateOperationsInput
 }
 
 input ShowingUpdateOneRequiredWithoutBookingItemInput {
@@ -1949,8 +1956,11 @@ input ShowingUpdateWithoutBookingItemInput {
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   room: RoomUpdateOneRequiredWithoutShowingInput
   film: FilmUpdateOneRequiredWithoutShowingInput
-  startDate: DateTimeFieldUpdateOperationsInput
-  endDate: DateTimeFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  startTime: NullableDateTimeFieldUpdateOperationsInput
+  endTime: NullableDateTimeFieldUpdateOperationsInput
 }
 
 input RoomUpdateOneRequiredWithoutShowingInput {
@@ -2032,8 +2042,7 @@ input BookingItemUpdateWithoutSeatInput {
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   showing: ShowingUpdateOneRequiredWithoutBookingItemInput
-  price: IntFieldUpdateOperationsInput
-  Booking: BookingUpdateManyWithoutBookingItemInput
+  Booking: BookingUpdateOneRequiredWithoutBookingItemInput
 }
 
 input BookingItemUpdateWithWhereUniqueWithoutSeatInput {
@@ -2078,6 +2087,16 @@ input SeatUpdateManyMutationInput {
   position: StringFieldUpdateOperationsInput
 }
 
+input BookingItemUpdateWithWhereUniqueWithoutBookingInput {
+  where: BookingItemWhereUniqueInput!
+  data: BookingItemUpdateWithoutBookingInput!
+}
+
+input BookingItemUpdateManyWithWhereWithoutBookingInput {
+  where: BookingItemScalarWhereInput!
+  data: BookingItemUpdateManyMutationInput!
+}
+
 input BookingUpdateWithWhereUniqueWithoutUserInput {
   where: BookingWhereUniqueInput!
   data: BookingUpdateWithoutUserInput!
@@ -2086,6 +2105,31 @@ input BookingUpdateWithWhereUniqueWithoutUserInput {
 input BookingUpdateManyWithWhereWithoutUserInput {
   where: BookingScalarWhereInput!
   data: BookingUpdateManyMutationInput!
+}
+
+input BookingScalarWhereInput {
+  AND: [BookingScalarWhereInput!]
+  OR: [BookingScalarWhereInput!]
+  NOT: [BookingScalarWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  UserId: StringFilter
+  amount: IntFilter
+  price: IntFilter
+  PromotionId: StringNullableFilter
+  isPayment: BoolNullableFilter
+}
+
+input BookingUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
+  amount: IntFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  isPayment: NullableBoolFieldUpdateOperationsInput
 }
 
 input LoginUserInput {
@@ -2125,8 +2169,11 @@ input ShowingCreateWithoutFilmInput {
   updatedAt: DateTime
   deletedAt: DateTime
   room: RoomCreateNestedOneWithoutShowingInput!
-  startDate: DateTime!
-  endDate: DateTime!
+  price: Int!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
   BookingItem: BookingItemCreateNestedManyWithoutShowingInput
 }
 
@@ -2146,8 +2193,11 @@ input ShowingCreateManyFilmInput {
   updatedAt: DateTime
   deletedAt: DateTime
   RoomId: String!
-  startDate: DateTime!
-  endDate: DateTime!
+  price: Int!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
 }
 
 input FilmUpdateInput {
@@ -2194,8 +2244,11 @@ input ShowingUpdateWithoutFilmInput {
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   room: RoomUpdateOneRequiredWithoutShowingInput
-  startDate: DateTimeFieldUpdateOperationsInput
-  endDate: DateTimeFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  startTime: NullableDateTimeFieldUpdateOperationsInput
+  endTime: NullableDateTimeFieldUpdateOperationsInput
   BookingItem: BookingItemUpdateManyWithoutShowingInput
 }
 
@@ -2216,8 +2269,11 @@ input ShowingCreateInput {
   deletedAt: DateTime
   room: RoomCreateNestedOneWithoutShowingInput!
   film: FilmCreateNestedOneWithoutShowingInput!
-  startDate: DateTime!
-  endDate: DateTime!
+  price: Int!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
   BookingItem: BookingItemCreateNestedManyWithoutShowingInput
 }
 
@@ -2228,8 +2284,11 @@ input ShowingUpdateInput {
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   room: RoomUpdateOneRequiredWithoutShowingInput
   film: FilmUpdateOneRequiredWithoutShowingInput
-  startDate: DateTimeFieldUpdateOperationsInput
-  endDate: DateTimeFieldUpdateOperationsInput
+  price: IntFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  startTime: NullableDateTimeFieldUpdateOperationsInput
+  endTime: NullableDateTimeFieldUpdateOperationsInput
   BookingItem: BookingItemUpdateManyWithoutShowingInput
 }
 
@@ -2285,8 +2344,10 @@ input PromotionCreateInput {
   code: String!
   discount: Float!
   maxDiscount: Float!
-  startDate: DateTime!
-  endDate: DateTime!
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
   Booking: BookingCreateNestedManyWithoutPromotionInput
 }
 
@@ -2305,7 +2366,8 @@ input BookingCreateWithoutPromotionInput {
   user: UserCreateNestedOneWithoutBookingInput!
   amount: Int!
   price: Int!
-  bookingItem: BookingItemCreateNestedOneWithoutBookingInput!
+  bookingItem: BookingItemCreateNestedManyWithoutBookingInput
+  isPayment: Boolean
 }
 
 input BookingCreateOrConnectWithoutPromotionInput {
@@ -2326,7 +2388,7 @@ input BookingCreateManyPromotionInput {
   UserId: String!
   amount: Int!
   price: Int!
-  BookingItemId: String!
+  isPayment: Boolean
 }
 
 input PromotionUpdateInput {
@@ -2337,8 +2399,10 @@ input PromotionUpdateInput {
   code: StringFieldUpdateOperationsInput
   discount: FloatFieldUpdateOperationsInput
   maxDiscount: FloatFieldUpdateOperationsInput
-  startDate: DateTimeFieldUpdateOperationsInput
-  endDate: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  startTime: NullableDateTimeFieldUpdateOperationsInput
+  endTime: NullableDateTimeFieldUpdateOperationsInput
   Booking: BookingUpdateManyWithoutPromotionInput
 }
 
@@ -2370,7 +2434,8 @@ input BookingUpdateWithoutPromotionInput {
   user: UserUpdateOneRequiredWithoutBookingInput
   amount: IntFieldUpdateOperationsInput
   price: IntFieldUpdateOperationsInput
-  bookingItem: BookingItemUpdateOneRequiredWithoutBookingInput
+  bookingItem: BookingItemUpdateManyWithoutBookingInput
+  isPayment: NullableBoolFieldUpdateOperationsInput
 }
 
 input BookingUpdateWithWhereUniqueWithoutPromotionInput {
@@ -2390,8 +2455,7 @@ input BookingItemCreateInput {
   deletedAt: DateTime
   seat: SeatCreateNestedOneWithoutBookingItemInput!
   showing: ShowingCreateNestedOneWithoutBookingItemInput!
-  price: Int!
-  Booking: BookingCreateNestedManyWithoutBookingItemInput
+  Booking: BookingCreateNestedOneWithoutBookingItemInput!
 }
 
 input BookingItemUpdateInput {
@@ -2401,8 +2465,7 @@ input BookingItemUpdateInput {
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   seat: SeatUpdateOneRequiredWithoutBookingItemInput
   showing: ShowingUpdateOneRequiredWithoutBookingItemInput
-  price: IntFieldUpdateOperationsInput
-  Booking: BookingUpdateManyWithoutBookingItemInput
+  Booking: BookingUpdateOneRequiredWithoutBookingItemInput
 }
 
 input BookingCreateInput {
@@ -2413,8 +2476,9 @@ input BookingCreateInput {
   user: UserCreateNestedOneWithoutBookingInput!
   amount: Int!
   price: Int!
-  bookingItem: BookingItemCreateNestedOneWithoutBookingInput!
-  promotion: PromotionCreateNestedOneWithoutBookingInput!
+  bookingItem: BookingItemCreateNestedManyWithoutBookingInput
+  promotion: PromotionCreateNestedOneWithoutBookingInput
+  isPayment: Boolean
 }
 
 input BookingUpdateInput {
@@ -2425,6 +2489,17 @@ input BookingUpdateInput {
   user: UserUpdateOneRequiredWithoutBookingInput
   amount: IntFieldUpdateOperationsInput
   price: IntFieldUpdateOperationsInput
-  bookingItem: BookingItemUpdateOneRequiredWithoutBookingInput
-  promotion: PromotionUpdateOneRequiredWithoutBookingInput
+  bookingItem: BookingItemUpdateManyWithoutBookingInput
+  promotion: PromotionUpdateOneWithoutBookingInput
+  isPayment: NullableBoolFieldUpdateOperationsInput
+}
+
+input BookingItemInput {
+  userId: String!
+  showingId: String!
+  amount: Float!
+  price: Float!
+  promotionId: String
+  listSeat: String!
+  roomId: String!
 }

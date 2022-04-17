@@ -26,10 +26,10 @@ export class BookingCountAggregateInput {
     price?: true;
 
     @Field(() => Boolean, {nullable:true})
-    BookingItemId?: true;
+    PromotionId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    PromotionId?: true;
+    isPayment?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

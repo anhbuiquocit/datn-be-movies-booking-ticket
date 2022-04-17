@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { RoomCreateNestedOneWithoutShowingInput } from '../room/room-create-nested-one-without-showing.input';
+import { Int } from '@nestjs/graphql';
 import { BookingItemCreateNestedManyWithoutShowingInput } from '../booking-item/booking-item-create-nested-many-without-showing.input';
 
 @InputType()
@@ -21,11 +22,20 @@ export class ShowingCreateWithoutFilmInput {
     @Field(() => RoomCreateNestedOneWithoutShowingInput, {nullable:false})
     room!: RoomCreateNestedOneWithoutShowingInput;
 
-    @Field(() => Date, {nullable:false})
-    startDate!: Date | string;
+    @Field(() => Int, {nullable:false})
+    price!: number;
 
-    @Field(() => Date, {nullable:false})
-    endDate!: Date | string;
+    @Field(() => Date, {nullable:true})
+    startDate?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    endDate?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    startTime?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    endTime?: Date | string;
 
     @Field(() => BookingItemCreateNestedManyWithoutShowingInput, {nullable:true})
     BookingItem?: BookingItemCreateNestedManyWithoutShowingInput;

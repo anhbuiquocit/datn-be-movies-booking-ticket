@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { BookingItemUncheckedCreateNestedManyWithoutBookingInput } from '../booking-item/booking-item-unchecked-create-nested-many-without-booking.input';
 
 @InputType()
 export class BookingUncheckedCreateWithoutUserInput {
@@ -23,9 +24,12 @@ export class BookingUncheckedCreateWithoutUserInput {
     @Field(() => Int, {nullable:false})
     price!: number;
 
-    @Field(() => String, {nullable:false})
-    BookingItemId!: string;
+    @Field(() => BookingItemUncheckedCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingItem?: BookingItemUncheckedCreateNestedManyWithoutBookingInput;
 
-    @Field(() => String, {nullable:false})
-    PromotionId!: string;
+    @Field(() => String, {nullable:true})
+    PromotionId?: string;
+
+    @Field(() => Boolean, {nullable:true})
+    isPayment?: boolean;
 }

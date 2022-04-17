@@ -4,6 +4,8 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
+import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
+import { BoolNullableWithAggregatesFilter } from '../prisma/bool-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class BookingScalarWhereWithAggregatesInput {
@@ -38,9 +40,9 @@ export class BookingScalarWhereWithAggregatesInput {
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     price?: IntWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    BookingItemId?: StringWithAggregatesFilter;
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    PromotionId?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    PromotionId?: StringWithAggregatesFilter;
+    @Field(() => BoolNullableWithAggregatesFilter, {nullable:true})
+    isPayment?: BoolNullableWithAggregatesFilter;
 }

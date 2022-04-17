@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SeatOrderByWithRelationInput } from '../seat/seat-order-by-with-relation.input';
 import { ShowingOrderByWithRelationInput } from '../showing/showing-order-by-with-relation.input';
-import { BookingOrderByRelationAggregateInput } from '../booking/booking-order-by-relation-aggregate.input';
+import { BookingOrderByWithRelationInput } from '../booking/booking-order-by-with-relation.input';
 
 @InputType()
 export class BookingItemOrderByWithRelationInput {
@@ -32,9 +32,9 @@ export class BookingItemOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     ShowingId?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
+    @Field(() => BookingOrderByWithRelationInput, {nullable:true})
+    Booking?: BookingOrderByWithRelationInput;
 
-    @Field(() => BookingOrderByRelationAggregateInput, {nullable:true})
-    Booking?: BookingOrderByRelationAggregateInput;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
 }

@@ -3,7 +3,6 @@ import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
-import { IntFilter } from '../prisma/int-filter.input';
 
 @InputType()
 export class BookingItemScalarWhereInput {
@@ -35,6 +34,6 @@ export class BookingItemScalarWhereInput {
     @Field(() => StringFilter, {nullable:true})
     ShowingId?: StringFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    price?: IntFilter;
+    @Field(() => StringFilter, {nullable:true})
+    bookingId?: StringFilter;
 }

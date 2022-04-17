@@ -7,6 +7,7 @@ import { FindManyBookingArgs } from 'src/@generated/prisma-nestjs-graphql/bookin
 import { UpdateOneBookingArgs } from 'src/@generated/prisma-nestjs-graphql/booking/update-one-booking.args';
 import { GqlAuthGuard } from '../auth/gql-auth-guard';
 import { BookingService } from './booking.service';
+import { BookingItemInput } from './dto/BookingItemDto.dto';
 
 @Resolver()
 export class BookingResolver {
@@ -34,5 +35,12 @@ export class BookingResolver {
   @Mutation(() => Boolean)
   async deleteBookingRecord(@Args() args: DeleteOneBookingArgs) {
     return this.bookingService.deleteOne(args);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Boolean)
+  async userBookingTicket(@Args('data') data: BookingItemInput) {
+    console.log('dataainput: ', data);
+    return this.bookingService.userBookingTicket(data);
   }
 }

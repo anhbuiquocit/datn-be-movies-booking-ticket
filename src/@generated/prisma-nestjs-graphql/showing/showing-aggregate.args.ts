@@ -5,6 +5,8 @@ import { ShowingOrderByWithRelationInput } from './showing-order-by-with-relatio
 import { ShowingWhereUniqueInput } from './showing-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ShowingCountAggregateInput } from './showing-count-aggregate.input';
+import { ShowingAvgAggregateInput } from './showing-avg-aggregate.input';
+import { ShowingSumAggregateInput } from './showing-sum-aggregate.input';
 import { ShowingMinAggregateInput } from './showing-min-aggregate.input';
 import { ShowingMaxAggregateInput } from './showing-max-aggregate.input';
 
@@ -28,6 +30,12 @@ export class ShowingAggregateArgs {
 
     @Field(() => ShowingCountAggregateInput, {nullable:true})
     _count?: ShowingCountAggregateInput;
+
+    @Field(() => ShowingAvgAggregateInput, {nullable:true})
+    _avg?: ShowingAvgAggregateInput;
+
+    @Field(() => ShowingSumAggregateInput, {nullable:true})
+    _sum?: ShowingSumAggregateInput;
 
     @Field(() => ShowingMinAggregateInput, {nullable:true})
     _min?: ShowingMinAggregateInput;

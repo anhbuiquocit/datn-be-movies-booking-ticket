@@ -37,6 +37,12 @@ export class PromotionOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     endDate?: keyof typeof SortOrder;
 
+    @Field(() => SortOrder, {nullable:true})
+    startTime?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    endTime?: keyof typeof SortOrder;
+
     @Field(() => PromotionCountOrderByAggregateInput, {nullable:true})
     _count?: PromotionCountOrderByAggregateInput;
 

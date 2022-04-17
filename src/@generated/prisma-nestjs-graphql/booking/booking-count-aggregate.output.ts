@@ -27,10 +27,10 @@ export class BookingCountAggregate {
     price!: number;
 
     @Field(() => Int, {nullable:false})
-    BookingItemId!: number;
+    PromotionId!: number;
 
     @Field(() => Int, {nullable:false})
-    PromotionId!: number;
+    isPayment!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

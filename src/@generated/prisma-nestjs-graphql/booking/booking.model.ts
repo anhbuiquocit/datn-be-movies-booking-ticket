@@ -5,6 +5,7 @@ import { User } from '../user/user.model';
 import { Int } from '@nestjs/graphql';
 import { BookingItem } from '../booking-item/booking-item.model';
 import { Promotion } from '../promotion/promotion.model';
+import { BookingCount } from './booking-count.output';
 
 @ObjectType()
 export class Booking {
@@ -33,15 +34,18 @@ export class Booking {
     @Field(() => Int, {nullable:false})
     price!: number;
 
-    @Field(() => BookingItem, {nullable:false})
-    bookingItem?: BookingItem;
+    @Field(() => [BookingItem], {nullable:true})
+    bookingItem?: Array<BookingItem>;
 
-    @Field(() => String, {nullable:false})
-    BookingItemId!: string;
+    @Field(() => Promotion, {nullable:true})
+    promotion?: Promotion | null;
 
-    @Field(() => Promotion, {nullable:false})
-    promotion?: Promotion;
+    @Field(() => String, {nullable:true})
+    PromotionId!: string | null;
 
-    @Field(() => String, {nullable:false})
-    PromotionId!: string;
+    @Field(() => Boolean, {nullable:true})
+    isPayment!: boolean | null;
+
+    @Field(() => BookingCount, {nullable:false})
+    _count?: BookingCount;
 }

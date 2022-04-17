@@ -65,7 +65,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-
+Number Error used:
+Booking:5xxx
+User: 4xxx
+Film: 3xxx
+Auth: 2xxx
 
 ## Author
 

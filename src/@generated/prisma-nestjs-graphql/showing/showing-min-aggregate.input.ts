@@ -23,8 +23,17 @@ export class ShowingMinAggregateInput {
     FilmId?: true;
 
     @Field(() => Boolean, {nullable:true})
+    price?: true;
+
+    @Field(() => Boolean, {nullable:true})
     startDate?: true;
 
     @Field(() => Boolean, {nullable:true})
     endDate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    startTime?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    endTime?: true;
 }

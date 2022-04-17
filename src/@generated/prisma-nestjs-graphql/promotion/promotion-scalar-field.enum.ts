@@ -9,7 +9,9 @@ export enum PromotionScalarFieldEnum {
     discount = "discount",
     maxDiscount = "maxDiscount",
     startDate = "startDate",
-    endDate = "endDate"
+    endDate = "endDate",
+    startTime = "startTime",
+    endTime = "endTime"
 }
 
 

@@ -13,7 +13,20 @@ export class RoomService {
       take,
       skip,
       distinct,
+      select: {
+        CinemaId: true,
+        Seat: true,
+        Showing: true,
+        cinema: true,
+        id: true,
+        createdAt: true,
+        _count: true,
+        deletedAt: true,
+        name: true,
+        updatedAt: true,
+      },
     });
+    console.log('List connection Room: ', listConnection);
     return listConnection;
   }
   async createOne(args): Promise<Room> {

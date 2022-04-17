@@ -29,11 +29,17 @@ export class Promotion {
     @Field(() => Float, {nullable:false})
     maxDiscount!: number;
 
-    @Field(() => Date, {nullable:false})
-    startDate!: Date;
+    @Field(() => Date, {nullable:true})
+    startDate!: Date | null;
 
-    @Field(() => Date, {nullable:false})
-    endDate!: Date;
+    @Field(() => Date, {nullable:true})
+    endDate!: Date | null;
+
+    @Field(() => Date, {nullable:true})
+    startTime!: Date | null;
+
+    @Field(() => Date, {nullable:true})
+    endTime!: Date | null;
 
     @Field(() => [Booking], {nullable:true})
     Booking?: Array<Booking>;

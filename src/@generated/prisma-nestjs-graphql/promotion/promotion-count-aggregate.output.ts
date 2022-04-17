@@ -33,5 +33,11 @@ export class PromotionCountAggregate {
     endDate!: number;
 
     @Field(() => Int, {nullable:false})
+    startTime!: number;
+
+    @Field(() => Int, {nullable:false})
+    endTime!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

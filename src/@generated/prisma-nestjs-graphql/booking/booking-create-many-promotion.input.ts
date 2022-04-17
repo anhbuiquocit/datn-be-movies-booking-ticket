@@ -26,6 +26,6 @@ export class BookingCreateManyPromotionInput {
     @Field(() => Int, {nullable:false})
     price!: number;
 
-    @Field(() => String, {nullable:false})
-    BookingItemId!: string;
+    @Field(() => Boolean, {nullable:true})
+    isPayment?: boolean;
 }

@@ -24,7 +24,7 @@ export class BookingItemCountAggregate {
     ShowingId!: number;
 
     @Field(() => Int, {nullable:false})
-    price!: number;
+    bookingId!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

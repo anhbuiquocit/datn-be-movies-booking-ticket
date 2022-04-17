@@ -5,8 +5,10 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { BookingItemRelationFilter } from '../booking-item/booking-item-relation-filter.input';
+import { BookingItemListRelationFilter } from '../booking-item/booking-item-list-relation-filter.input';
 import { PromotionRelationFilter } from '../promotion/promotion-relation-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 
 @InputType()
 export class BookingWhereInput {
@@ -44,15 +46,15 @@ export class BookingWhereInput {
     @Field(() => IntFilter, {nullable:true})
     price?: IntFilter;
 
-    @Field(() => BookingItemRelationFilter, {nullable:true})
-    bookingItem?: BookingItemRelationFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    BookingItemId?: StringFilter;
+    @Field(() => BookingItemListRelationFilter, {nullable:true})
+    bookingItem?: BookingItemListRelationFilter;
 
     @Field(() => PromotionRelationFilter, {nullable:true})
     promotion?: PromotionRelationFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    PromotionId?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    PromotionId?: StringNullableFilter;
+
+    @Field(() => BoolNullableFilter, {nullable:true})
+    isPayment?: BoolNullableFilter;
 }

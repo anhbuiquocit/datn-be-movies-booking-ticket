@@ -24,8 +24,17 @@ export class ShowingMinOrderByAggregateInput {
     FilmId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     startDate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     endDate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    startTime?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    endTime?: keyof typeof SortOrder;
 }

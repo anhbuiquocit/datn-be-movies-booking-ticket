@@ -13,7 +13,26 @@ export class FilmService {
       take,
       skip,
       distinct,
+      select: {
+        Showing: true,
+        _count: true,
+        actor: true,
+        createdAt: true,
+        deletedAt: true,
+        description: true,
+        director: true,
+        id: true,
+        image: true,
+        imageDescription1: true,
+        imageDescription2: true,
+        imageDescription3: true,
+        name: true,
+        time: true,
+        trailler: true,
+        updatedAt: true,
+      },
     });
+    console.log('listFilm: ', listFilm);
     return listFilm;
   }
   async findOne(args): Promise<Film> {

@@ -24,5 +24,5 @@ export class BookingItemCountOrderByAggregateInput {
     ShowingId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
+    bookingId?: keyof typeof SortOrder;
 }

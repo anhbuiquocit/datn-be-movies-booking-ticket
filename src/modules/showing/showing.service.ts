@@ -13,6 +13,23 @@ export class ShowingService {
       take,
       skip,
       distinct,
+      select: {
+        BookingItem: true,
+        FilmId: true,
+        RoomId: true,
+        _count: true,
+        createdAt: true,
+        deletedAt: true,
+        endDate: true,
+        film: true,
+        id: true,
+        price: true,
+        room: true,
+        startDate: true,
+        updatedAt: true,
+        startTime: true,
+        endTime: true,
+      },
     });
     return listShowing;
   }

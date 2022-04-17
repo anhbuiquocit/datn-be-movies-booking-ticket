@@ -28,6 +28,9 @@ export class BookingCreateWithoutBookingItemInput {
     @Field(() => Int, {nullable:false})
     price!: number;
 
-    @Field(() => PromotionCreateNestedOneWithoutBookingInput, {nullable:false})
-    promotion!: PromotionCreateNestedOneWithoutBookingInput;
+    @Field(() => PromotionCreateNestedOneWithoutBookingInput, {nullable:true})
+    promotion?: PromotionCreateNestedOneWithoutBookingInput;
+
+    @Field(() => Boolean, {nullable:true})
+    isPayment?: boolean;
 }
