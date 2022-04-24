@@ -22,7 +22,6 @@ export class BookingService {
     return listConnection;
   }
   async createOne(args): Promise<Booking> {
-    console.log('args: ', args);
     const { data } = args;
     const itemCreate = await prisma.booking.create({
       data,
@@ -82,7 +81,6 @@ export class BookingService {
         result.push(`H${i + 1}`);
       }
     }
-    console.log('result', result);
     if (!result) return [];
     const listSeatId = [];
     for (let i = 0; i < listSeat.length; i++) {
@@ -93,12 +91,14 @@ export class BookingService {
     return listSeatId;
   }
 
-  async userBookingTicket(data: BookingItemInput): Promise<boolean> {
-    console.log('data.listSeat', JSON.parse(data.listSeat));
+  async userBookingTicket(
+    data: BookingItemInput,
+    user: { userId: string; username: string },
+  ): Promise<boolean> {
     try {
       const userExist = await prisma.user.count({
         where: {
-          id: data.userId,
+          id: user.userId,
         },
       });
       if (userExist === 0) {
@@ -137,7 +137,7 @@ export class BookingService {
           },
         },
       });
-      console.log('TicketIsBoooked: ', TicketIsBooked);
+      console.log('TicketIsBooked: ', TicketIsBooked);
       if (TicketIsBooked !== 0) {
         throw new MyApolloError(BookingError.SEAT_SHOWING_IS_BOOKED);
       }
@@ -154,10 +154,11 @@ export class BookingService {
         data: {
           user: {
             connect: {
-              id: data.userId,
+              id: user.userId,
             },
           },
           amount: data.amount,
+          lineSeatMatrix: data.listSeat,
           price: data.price,
           bookingItem: {
             createMany: {
@@ -173,7 +174,6 @@ export class BookingService {
             : undefined,
         },
       });
-      console.log('This is end');
       return true;
     } catch (err) {
       throw err;

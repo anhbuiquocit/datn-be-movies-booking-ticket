@@ -37,6 +37,9 @@ export class BookingGroupBy {
     @Field(() => Boolean, {nullable:true})
     isPayment?: boolean;
 
+    @Field(() => String, {nullable:true})
+    lineSeatMatrix?: string;
+
     @Field(() => BookingCountAggregate, {nullable:true})
     _count?: BookingCountAggregate;
 

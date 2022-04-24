@@ -32,5 +32,8 @@ export class BookingCountAggregateInput {
     isPayment?: true;
 
     @Field(() => Boolean, {nullable:true})
+    lineSeatMatrix?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

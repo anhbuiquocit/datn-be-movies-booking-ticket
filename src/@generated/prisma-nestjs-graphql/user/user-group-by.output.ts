@@ -23,6 +23,9 @@ export class UserGroupBy {
     deleteAt?: Date | string;
 
     @Field(() => String, {nullable:true})
+    image?: string;
+
+    @Field(() => String, {nullable:true})
     firstname?: string;
 
     @Field(() => String, {nullable:true})

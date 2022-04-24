@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { ReviewFilmUncheckedCreateNestedManyWithoutFilmInput } from '../review-film/review-film-unchecked-create-nested-many-without-film.input';
 
 @InputType()
 export class FilmUncheckedCreateWithoutShowingInput {
@@ -45,4 +46,7 @@ export class FilmUncheckedCreateWithoutShowingInput {
 
     @Field(() => String, {nullable:true})
     imageDescription3?: string;
+
+    @Field(() => ReviewFilmUncheckedCreateNestedManyWithoutFilmInput, {nullable:true})
+    ReviewFilm?: ReviewFilmUncheckedCreateNestedManyWithoutFilmInput;
 }

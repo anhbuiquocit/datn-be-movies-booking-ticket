@@ -31,4 +31,7 @@ export class BookingMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     isPayment?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    lineSeatMatrix?: keyof typeof SortOrder;
 }

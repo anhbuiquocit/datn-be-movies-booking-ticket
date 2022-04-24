@@ -6,6 +6,7 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { BookingItemUncheckedUpdateManyWithoutBookingInput } from '../booking-item/booking-item-unchecked-update-many-without-booking.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 
 @InputType()
 export class BookingUncheckedUpdateWithoutPromotionInput {
@@ -36,4 +37,7 @@ export class BookingUncheckedUpdateWithoutPromotionInput {
 
     @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
     isPayment?: NullableBoolFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    lineSeatMatrix?: NullableStringFieldUpdateOperationsInput;
 }

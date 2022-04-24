@@ -10,10 +10,13 @@ import { JwtModule } from '@nestjs/jwt';
 import constant from '../../config/index';
 import { RolesGuard } from 'src/util/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { AdminModule } from '../admin/admin.module';
+import { AdminService } from '../admin/admin.service';
 
 @Module({
   imports: [
     UsersModule,
+    AdminModule,
     PassportModule,
     JwtModule.register({
       secret: constant.secret,
@@ -24,6 +27,7 @@ import { APP_GUARD } from '@nestjs/core';
   providers: [
     AuthService,
     AuthResolver,
+    AdminService,
     LocalStrategy,
     JwtStrategy,
     {

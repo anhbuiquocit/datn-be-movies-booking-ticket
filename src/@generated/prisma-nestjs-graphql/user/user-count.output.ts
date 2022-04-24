@@ -7,4 +7,7 @@ export class UserCount {
 
     @Field(() => Int, {nullable:false})
     Booking?: number;
+
+    @Field(() => Int, {nullable:false})
+    ReviewFilm?: number;
 }

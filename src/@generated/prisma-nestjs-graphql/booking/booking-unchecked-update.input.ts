@@ -40,4 +40,7 @@ export class BookingUncheckedUpdateInput {
 
     @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
     isPayment?: NullableBoolFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    lineSeatMatrix?: NullableStringFieldUpdateOperationsInput;
 }

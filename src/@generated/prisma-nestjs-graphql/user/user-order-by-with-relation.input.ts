@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { BookingOrderByRelationAggregateInput } from '../booking/booking-order-by-relation-aggregate.input';
+import { ReviewFilmOrderByRelationAggregateInput } from '../review-film/review-film-order-by-relation-aggregate.input';
 
 @InputType()
 export class UserOrderByWithRelationInput {
@@ -17,6 +18,9 @@ export class UserOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     deleteAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    image?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     firstname?: keyof typeof SortOrder;
@@ -53,4 +57,7 @@ export class UserOrderByWithRelationInput {
 
     @Field(() => BookingOrderByRelationAggregateInput, {nullable:true})
     Booking?: BookingOrderByRelationAggregateInput;
+
+    @Field(() => ReviewFilmOrderByRelationAggregateInput, {nullable:true})
+    ReviewFilm?: ReviewFilmOrderByRelationAggregateInput;
 }

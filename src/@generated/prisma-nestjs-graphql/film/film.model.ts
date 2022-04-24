@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Showing } from '../showing/showing.model';
+import { ReviewFilm } from '../review-film/review-film.model';
 import { FilmCount } from './film-count.output';
 
 @ObjectType()
@@ -51,6 +52,9 @@ export class Film {
 
     @Field(() => [Showing], {nullable:true})
     Showing?: Array<Showing>;
+
+    @Field(() => [ReviewFilm], {nullable:true})
+    ReviewFilm?: Array<ReviewFilm>;
 
     @Field(() => FilmCount, {nullable:false})
     _count?: FilmCount;

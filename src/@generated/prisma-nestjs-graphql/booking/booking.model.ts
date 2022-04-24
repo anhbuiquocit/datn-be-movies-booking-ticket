@@ -46,6 +46,9 @@ export class Booking {
     @Field(() => Boolean, {nullable:true})
     isPayment!: boolean | null;
 
+    @Field(() => String, {nullable:true})
+    lineSeatMatrix!: string | null;
+
     @Field(() => BookingCount, {nullable:false})
     _count?: BookingCount;
 }

@@ -12,6 +12,10 @@ import { Role } from 'src/enum';
 import { FindManyUserArgs } from 'src/@generated/prisma-nestjs-graphql/user/find-many-user.args';
 import { DeleteOneUserArgs } from 'src/@generated/prisma-nestjs-graphql/user/delete-one-user.args';
 import { CurrentUser } from './user.decorator.grapql';
+import { UserAggregateArgs } from 'src/@generated/prisma-nestjs-graphql/user/user-aggregate.args';
+import { Any } from 'typeorm';
+import { AggregateUser } from 'src/@generated/prisma-nestjs-graphql/user/aggregate-user.output';
+import { FileUpload, GraphQLUpload } from 'graphql-upload';
 
 @Resolver()
 export class UsersResolver {
@@ -25,13 +29,16 @@ export class UsersResolver {
   ): Promise<User[]> {
     return this.userService.connection(args);
   }
-  
+
+  @UseGuards(GqlAuthGuard)
+  @Query((type) => AggregateUser)
+  async UserAggregate(@Args() args: UserAggregateArgs) {
+    return this.userService.userAggregate(args);
+  }
   // @Roles(Role.Admin)
   @Mutation((type) => Boolean)
   async signup(@Args('user') user: UserCreateInput): Promise<any> {
     const userFind = await this.userService.findOne(user.username);
-    // console.log('userFind', userWhereInput);
-    console.log('userFind: ', userFind);
     if (userFind) {
       throw new HttpException('User existed', HttpStatus.NOT_FOUND);
     }

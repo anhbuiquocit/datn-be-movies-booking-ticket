@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { ReviewFilmCreateNestedManyWithoutUserInput } from '../review-film/review-film-create-nested-many-without-user.input';
 
 @InputType()
 export class UserCreateWithoutBookingInput {
@@ -16,6 +17,9 @@ export class UserCreateWithoutBookingInput {
 
     @Field(() => Date, {nullable:true})
     deleteAt?: Date | string;
+
+    @Field(() => String, {nullable:true})
+    image?: string;
 
     @Field(() => String, {nullable:true})
     firstname?: string;
@@ -49,4 +53,7 @@ export class UserCreateWithoutBookingInput {
 
     @Field(() => String, {nullable:true})
     role?: string;
+
+    @Field(() => ReviewFilmCreateNestedManyWithoutUserInput, {nullable:true})
+    ReviewFilm?: ReviewFilmCreateNestedManyWithoutUserInput;
 }

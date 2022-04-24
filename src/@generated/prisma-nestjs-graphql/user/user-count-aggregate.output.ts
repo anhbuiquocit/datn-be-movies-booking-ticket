@@ -18,6 +18,9 @@ export class UserCountAggregate {
     deleteAt!: number;
 
     @Field(() => Int, {nullable:false})
+    image!: number;
+
+    @Field(() => Int, {nullable:false})
     firstname!: number;
 
     @Field(() => Int, {nullable:false})

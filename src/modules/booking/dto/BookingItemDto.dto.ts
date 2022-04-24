@@ -2,8 +2,6 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class BookingItemInput {
   @Field(() => String)
-  userId: string;
-  @Field(() => String)
   showingId: string;
   @Field(() => Number)
   amount: number;
@@ -11,7 +9,7 @@ export class BookingItemInput {
   price: number;
   @Field(() => String, { nullable: true })
   promotionId: string;
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   listSeat: string;
   @Field(() => String)
   roomId: string;

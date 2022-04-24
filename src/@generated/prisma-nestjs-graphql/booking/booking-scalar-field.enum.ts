@@ -9,7 +9,8 @@ export enum BookingScalarFieldEnum {
     amount = "amount",
     price = "price",
     PromotionId = "PromotionId",
-    isPayment = "isPayment"
+    isPayment = "isPayment",
+    lineSeatMatrix = "lineSeatMatrix"
 }
 
 

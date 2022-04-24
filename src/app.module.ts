@@ -15,6 +15,7 @@ import { RoomModule } from './modules/room/room.module';
 import { PromotionModule } from './modules/promotion/promotion.module';
 import { BookingItemModule } from './modules/booking-item/booking-item.module';
 import { BookingModule } from './modules/booking/booking.module';
+import { FileResolver } from './util/fileResolver';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -33,6 +34,7 @@ import { BookingModule } from './modules/booking/booking.module';
     PromotionModule,
     BookingItemModule,
     BookingModule,
+    FileResolver,
   ],
   controllers: [],
   providers: [

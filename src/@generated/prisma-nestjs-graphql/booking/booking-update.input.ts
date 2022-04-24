@@ -8,6 +8,7 @@ import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operat
 import { BookingItemUpdateManyWithoutBookingInput } from '../booking-item/booking-item-update-many-without-booking.input';
 import { PromotionUpdateOneWithoutBookingInput } from '../promotion/promotion-update-one-without-booking.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 
 @InputType()
 export class BookingUpdateInput {
@@ -41,4 +42,7 @@ export class BookingUpdateInput {
 
     @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
     isPayment?: NullableBoolFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    lineSeatMatrix?: NullableStringFieldUpdateOperationsInput;
 }

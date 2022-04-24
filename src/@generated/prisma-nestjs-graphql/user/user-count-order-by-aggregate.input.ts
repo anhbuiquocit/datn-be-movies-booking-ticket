@@ -18,6 +18,9 @@ export class UserCountOrderByAggregateInput {
     deleteAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    image?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     firstname?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

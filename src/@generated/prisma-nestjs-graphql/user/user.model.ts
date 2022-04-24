@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Booking } from '../booking/booking.model';
+import { ReviewFilm } from '../review-film/review-film.model';
 import { UserCount } from './user-count.output';
 
 @ObjectType()
@@ -19,6 +20,9 @@ export class User {
 
     @Field(() => Date, {nullable:true})
     deleteAt!: Date | null;
+
+    @Field(() => String, {nullable:true})
+    image!: string | null;
 
     @Field(() => String, {nullable:true})
     firstname!: string | null;
@@ -55,6 +59,9 @@ export class User {
 
     @Field(() => [Booking], {nullable:true})
     Booking?: Array<Booking>;
+
+    @Field(() => [ReviewFilm], {nullable:true})
+    ReviewFilm?: Array<ReviewFilm>;
 
     @Field(() => UserCount, {nullable:false})
     _count?: UserCount;

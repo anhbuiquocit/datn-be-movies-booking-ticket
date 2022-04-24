@@ -45,4 +45,7 @@ export class BookingScalarWhereWithAggregatesInput {
 
     @Field(() => BoolNullableWithAggregatesFilter, {nullable:true})
     isPayment?: BoolNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    lineSeatMatrix?: StringNullableWithAggregatesFilter;
 }

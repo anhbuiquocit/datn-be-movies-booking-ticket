@@ -33,5 +33,8 @@ export class BookingCountAggregate {
     isPayment!: number;
 
     @Field(() => Int, {nullable:false})
+    lineSeatMatrix!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

@@ -9,48 +9,49 @@ import { ShowingCount } from './showing-count.output';
 
 @ObjectType()
 export class Showing {
-  @Field(() => ID, { nullable: false })
-  id!: string;
 
-  @Field(() => Date, { nullable: false })
-  createdAt!: Date;
+    @Field(() => ID, {nullable:false})
+    id!: string;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt!: Date | null;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date;
 
-  @Field(() => Date, { nullable: true })
-  deletedAt!: Date | null;
+    @Field(() => Date, {nullable:true})
+    updatedAt!: Date | null;
 
-  @Field(() => Room, { nullable: false })
-  room?: Room;
+    @Field(() => Date, {nullable:true})
+    deletedAt!: Date | null;
 
-  @Field(() => String, { nullable: false })
-  RoomId!: string;
+    @Field(() => Room, {nullable:false})
+    room?: Room;
 
-  @Field(() => Film, { nullable: false })
-  film?: Film;
+    @Field(() => String, {nullable:false})
+    RoomId!: string;
 
-  @Field(() => String, { nullable: false })
-  FilmId!: string;
+    @Field(() => Film, {nullable:false})
+    film?: Film;
 
-  @Field(() => Int, { nullable: false })
-  price!: number;
+    @Field(() => String, {nullable:false})
+    FilmId!: string;
 
-  @Field(() => Date, { nullable: true })
-  startDate!: Date | null;
+    @Field(() => Int, {nullable:false})
+    price!: number;
 
-  @Field(() => Date, { nullable: true })
-  endDate!: Date | null;
+    @Field(() => Date, {nullable:true})
+    startDate!: Date | null;
 
-  @Field(() => Date, { nullable: true })
-  startTime!: Date | null;
+    @Field(() => Date, {nullable:true})
+    endDate!: Date | null;
 
-  @Field(() => Date, { nullable: true })
-  endTime!: Date | null;
+    @Field(() => Date, {nullable:true})
+    startTime!: Date | null;
 
-  @Field(() => [BookingItem], { nullable: true })
-  BookingItem?: Array<BookingItem>;
+    @Field(() => Date, {nullable:true})
+    endTime!: Date | null;
 
-  @Field(() => ShowingCount, { nullable: false })
-  _count?: ShowingCount;
+    @Field(() => [BookingItem], {nullable:true})
+    BookingItem?: Array<BookingItem>;
+
+    @Field(() => ShowingCount, {nullable:false})
+    _count?: ShowingCount;
 }

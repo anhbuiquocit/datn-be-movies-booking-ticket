@@ -28,4 +28,7 @@ export class BookingCreateManyPromotionInput {
 
     @Field(() => Boolean, {nullable:true})
     isPayment?: boolean;
+
+    @Field(() => String, {nullable:true})
+    lineSeatMatrix?: string;
 }

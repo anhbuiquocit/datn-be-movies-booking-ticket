@@ -17,6 +17,9 @@ export class UserMinAggregateInput {
     deleteAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    image?: true;
+
+    @Field(() => Boolean, {nullable:true})
     firstname?: true;
 
     @Field(() => Boolean, {nullable:true})

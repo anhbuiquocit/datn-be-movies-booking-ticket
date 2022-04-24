@@ -57,4 +57,7 @@ export class BookingWhereInput {
 
     @Field(() => BoolNullableFilter, {nullable:true})
     isPayment?: BoolNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    lineSeatMatrix?: StringNullableFilter;
 }

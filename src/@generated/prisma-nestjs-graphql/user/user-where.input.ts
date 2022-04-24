@@ -6,6 +6,7 @@ import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { BookingListRelationFilter } from '../booking/booking-list-relation-filter.input';
+import { ReviewFilmListRelationFilter } from '../review-film/review-film-list-relation-filter.input';
 
 @InputType()
 export class UserWhereInput {
@@ -30,6 +31,9 @@ export class UserWhereInput {
 
     @Field(() => DateTimeNullableFilter, {nullable:true})
     deleteAt?: DateTimeNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    image?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     firstname?: StringNullableFilter;
@@ -66,4 +70,7 @@ export class UserWhereInput {
 
     @Field(() => BookingListRelationFilter, {nullable:true})
     Booking?: BookingListRelationFilter;
+
+    @Field(() => ReviewFilmListRelationFilter, {nullable:true})
+    ReviewFilm?: ReviewFilmListRelationFilter;
 }

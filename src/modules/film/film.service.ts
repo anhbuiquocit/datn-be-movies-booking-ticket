@@ -32,7 +32,7 @@ export class FilmService {
         updatedAt: true,
       },
     });
-    console.log('listFilm: ', listFilm);
+    console.log('Film: ', listFilm[0].Showing[0]);
     return listFilm;
   }
   async findOne(args): Promise<Film> {

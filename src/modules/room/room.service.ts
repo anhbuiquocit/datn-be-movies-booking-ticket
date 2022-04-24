@@ -26,7 +26,6 @@ export class RoomService {
         updatedAt: true,
       },
     });
-    console.log('List connection Room: ', listConnection);
     return listConnection;
   }
   async createOne(args): Promise<Room> {

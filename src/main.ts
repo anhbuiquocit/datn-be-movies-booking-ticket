@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import { json, raw } from 'body-parser'; // eslint-disable-line import/no-extraneous-dependencies
 import '././util/prettyError';
 import rateLimit from 'express-rate-limit';
+import { graphqlUploadExpress } from 'graphql-upload';
 import * as config from './config';
 
 import * as dotenv from 'dotenv';
@@ -33,7 +34,7 @@ async function bootstrap() {
             'https://studio.apollographql.com',
           ],
   });
-
+  app.use(graphqlUploadExpress({ maxFileSize: 2 * 1000 * 1000 }));
   app.use(
     config.default.grapqlEndPoint,
     rateLimit({

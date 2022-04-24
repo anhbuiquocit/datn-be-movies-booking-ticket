@@ -30,4 +30,7 @@ export class BookingMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     isPayment?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    lineSeatMatrix?: true;
 }

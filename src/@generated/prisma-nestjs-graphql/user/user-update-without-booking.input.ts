@@ -5,6 +5,7 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { ReviewFilmUpdateManyWithoutUserInput } from '../review-film/review-film-update-many-without-user.input';
 
 @InputType()
 export class UserUpdateWithoutBookingInput {
@@ -20,6 +21,9 @@ export class UserUpdateWithoutBookingInput {
 
     @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
     deleteAt?: NullableDateTimeFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    image?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     firstname?: NullableStringFieldUpdateOperationsInput;
@@ -53,4 +57,7 @@ export class UserUpdateWithoutBookingInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     role?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => ReviewFilmUpdateManyWithoutUserInput, {nullable:true})
+    ReviewFilm?: ReviewFilmUpdateManyWithoutUserInput;
 }

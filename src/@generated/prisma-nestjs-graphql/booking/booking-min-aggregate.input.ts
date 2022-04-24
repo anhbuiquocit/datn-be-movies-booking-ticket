@@ -30,4 +30,7 @@ export class BookingMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     isPayment?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    lineSeatMatrix?: true;
 }

@@ -15,6 +15,27 @@ generator nestgraphql {
 }
 
 model User {
+  id         String       @id @default(uuid())
+  createAt   DateTime?    @default(now())
+  updateAt   DateTime?
+  deleteAt   DateTime?
+  image      String?
+  firstname  String?
+  lastname   String?
+  birthday   DateTime?
+  address    String?
+  email      String
+  password   String
+  username   String       @unique
+  active     Boolean?
+  point      Int?
+  phone      String?
+  role       String?
+  Booking    Booking[]
+  ReviewFilm ReviewFilm[]
+}
+
+model Admin {
   id        String    @id @default(uuid())
   createAt  DateTime? @default(now())
   updateAt  DateTime?
@@ -24,18 +45,16 @@ model User {
   birthday  DateTime?
   address   String?
   email     String
+  image     String?
   password  String
   username  String    @unique
-  active    Boolean?
-  point     Int?
   phone     String?
   role      String?
-  Booking   Booking[]
 }
 
 model Film {
-  id                String    @id @default(uuid())
-  createdAt         DateTime  @default(now())
+  id                String       @id @default(uuid())
+  createdAt         DateTime     @default(now())
   updatedAt         DateTime?
   deletedAt         DateTime?
   trailler          String
@@ -49,6 +68,16 @@ model Film {
   imageDescription2 String?
   imageDescription3 String?
   Showing           Showing[]
+  ReviewFilm        ReviewFilm[]
+}
+
+model ReviewFilm {
+  id      String  @id @default(uuid())
+  user    User    @relation(fields: [userId], references: [id])
+  userId  String
+  film    Film    @relation(fields: [filmId], references: [id])
+  filmId  String
+  comment String? @db.VarChar(5000)
 }
 
 model ClusterCinema {
@@ -144,16 +173,17 @@ model BookingItem {
 }
 
 model Booking {
-  id          String        @id @default(uuid())
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime?
-  deletedAt   DateTime?
-  user        User          @relation(fields: [UserId], references: [id])
-  UserId      String
-  amount      Int
-  price       Int
-  bookingItem BookingItem[]
-  promotion   Promotion?    @relation(fields: [PromotionId], references: [id])
-  PromotionId String?
-  isPayment   Boolean?
+  id             String        @id @default(uuid())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime?
+  deletedAt      DateTime?
+  user           User          @relation(fields: [UserId], references: [id])
+  UserId         String
+  amount         Int
+  price          Int
+  bookingItem    BookingItem[]
+  promotion      Promotion?    @relation(fields: [PromotionId], references: [id])
+  PromotionId    String?
+  isPayment      Boolean?
+  lineSeatMatrix String?       @db.VarChar(5000)
 }

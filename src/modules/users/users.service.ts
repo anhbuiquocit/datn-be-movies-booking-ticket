@@ -1,3 +1,4 @@
+// import { FileResolver } from 'src/util/FileResolver';
 import { UsersError } from './users.error';
 import { MyApolloError } from 'src/util/handleException/MyError';
 import { JwtService } from '@nestjs/jwt';
@@ -7,13 +8,20 @@ import { hash } from './../../util/bcrypt';
 import { User } from '../../@generated/prisma-nestjs-graphql/user/user.model';
 import { Body, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
+import { UserAggregateArgs } from 'src/@generated/prisma-nestjs-graphql/user/user-aggregate.args';
+
 const prisma = new PrismaClient();
 @Injectable()
 export class UsersService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+  ) // private fileResolver: FileResolver,
+  {}
 
   async connection(args): Promise<User[]> {
     const { where, orderBy, cursor, take, skip, distinct } = args;
+    console.log('take: ', take);
+    console.log('skip: ', skip);
     const users = prisma.user.findMany({
       where,
       orderBy,
@@ -23,6 +31,34 @@ export class UsersService {
       distinct,
     });
     return users;
+  }
+  async userAggregate(args: UserAggregateArgs) {
+    const {
+      where,
+      orderBy,
+      cursor,
+      take,
+      skip,
+      _count,
+      _avg,
+      _sum,
+      _min,
+      _max,
+    } = args;
+    const aggregations = await prisma.user.aggregate({
+      where,
+      orderBy,
+      cursor,
+      take,
+      skip,
+      _count,
+      _avg,
+      _sum,
+      _min,
+      _max,
+    });
+    console.log('aggregations: ', aggregations);
+    return aggregations;
   }
   async createUser(data): Promise<User> {
     try {
@@ -51,7 +87,6 @@ export class UsersService {
           ],
         },
       });
-      console.log('userExists: ', userExist);
       if (userExist !== 0) {
         throw new MyApolloError(UsersError.USERNAME_EMAIL_IS_EXIST);
       }
@@ -85,11 +120,9 @@ export class UsersService {
             deleteAt: null,
           },
         });
-        console.log('userExist: ', userExist);
         if (userExist) {
           throw new MyApolloError(UsersError.USERNAME_IS_EXISTED);
         }
-        console.log('dataa: ', data);
         const user = await prisma.user.create({
           data: {
             firstname: data.firstname,
@@ -106,7 +139,6 @@ export class UsersService {
           },
         });
         if (user) {
-          console.log('user after create: ', user);
           const payload = { username: user.username, sub: user.id };
           const token = this.jwtService.sign(payload);
 
@@ -122,12 +154,12 @@ export class UsersService {
   }
   async updateUser(args): Promise<boolean> {
     const { data, where } = args;
+    // this.fileResolver.uploadFile(data.image);
     try {
       const user = await prisma.user.update({
         where,
         data,
       });
-      console.log('user after update: ', user);
       return true;
     } catch (err) {
       throw new MyApolloError(UsersError.UPDATE_FAILED);
@@ -148,7 +180,6 @@ export class UsersService {
         username,
       },
     });
-    console.log('userFind: ', user);
     return user;
   }
   validateUser(user: User) {
