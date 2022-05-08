@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { ShowingOrderByRelationAggregateInput } from '../showing/showing-order-by-relation-aggregate.input';
 import { ReviewFilmOrderByRelationAggregateInput } from '../review-film/review-film-order-by-relation-aggregate.input';
+import { ActorOnFilmOrderByRelationAggregateInput } from '../actor-on-film/actor-on-film-order-by-relation-aggregate.input';
 
 @InputType()
 export class FilmOrderByWithRelationInput {
@@ -54,4 +55,7 @@ export class FilmOrderByWithRelationInput {
 
     @Field(() => ReviewFilmOrderByRelationAggregateInput, {nullable:true})
     ReviewFilm?: ReviewFilmOrderByRelationAggregateInput;
+
+    @Field(() => ActorOnFilmOrderByRelationAggregateInput, {nullable:true})
+    ActorOnFilm?: ActorOnFilmOrderByRelationAggregateInput;
 }

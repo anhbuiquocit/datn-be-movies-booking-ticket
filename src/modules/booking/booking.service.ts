@@ -18,6 +18,22 @@ export class BookingService {
       take,
       skip,
       distinct,
+      select: {
+        PromotionId: true,
+        UserId: true,
+        _count: true,
+        amount: true,
+        bookingItem: true,
+        createdAt: true,
+        deletedAt: true,
+        id: true,
+        isPayment: true,
+        lineSeatMatrix: true,
+        price: true,
+        promotion: true,
+        updatedAt: true,
+        user: true,
+      },
     });
     return listConnection;
   }

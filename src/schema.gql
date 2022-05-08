@@ -49,9 +49,37 @@ type ReviewFilm {
   comment: String
 }
 
+type ActorCount {
+  ActorOnFilm: Int!
+}
+
+type Actor {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  birthday: DateTime
+  description: String
+  image: String
+  ActorOnFilm: [ActorOnFilm!]
+  _count: ActorCount!
+}
+
+type ActorOnFilm {
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  actor: Actor!
+  actorId: String!
+  film: Film!
+  filmId: String!
+}
+
 type FilmCount {
   Showing: Int!
   ReviewFilm: Int!
+  ActorOnFilm: Int!
 }
 
 type Film {
@@ -71,6 +99,7 @@ type Film {
   imageDescription3: String
   Showing: [Showing!]
   ReviewFilm: [ReviewFilm!]
+  ActorOnFilm: [ActorOnFilm!]
   _count: FilmCount!
 }
 
@@ -313,6 +342,64 @@ type AdminLoginResponse {
   admin: Admin!
 }
 
+type FilmCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  deletedAt: Int!
+  trailler: Int!
+  name: Int!
+  description: Int!
+  director: Int!
+  actor: Int!
+  time: Int!
+  image: Int!
+  imageDescription1: Int!
+  imageDescription2: Int!
+  imageDescription3: Int!
+  _all: Int!
+}
+
+type FilmMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  trailler: String
+  name: String
+  description: String
+  director: String
+  actor: String
+  time: String
+  image: String
+  imageDescription1: String
+  imageDescription2: String
+  imageDescription3: String
+}
+
+type FilmMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  trailler: String
+  name: String
+  description: String
+  director: String
+  actor: String
+  time: String
+  image: String
+  imageDescription1: String
+  imageDescription2: String
+  imageDescription3: String
+}
+
+type AggregateFilm {
+  _count: FilmCountAggregate
+  _min: FilmMinAggregate
+  _max: FilmMaxAggregate
+}
+
 type Query {
   UsersConnection(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
   UserAggregate(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, _count: UserCountAggregateInput, _avg: UserAvgAggregateInput, _sum: UserSumAggregateInput, _min: UserMinAggregateInput, _max: UserMaxAggregateInput): AggregateUser!
@@ -320,12 +407,15 @@ type Query {
   adminQueryMe: Admin!
   films(where: FilmWhereInput, orderBy: [FilmOrderByWithRelationInput!], cursor: FilmWhereUniqueInput, take: Int, skip: Int, distinct: [FilmScalarFieldEnum!]): [Film!]!
   film(where: FilmWhereUniqueInput!): Film!
+  filmAggregate(where: FilmWhereInput, orderBy: [FilmOrderByWithRelationInput!], cursor: FilmWhereUniqueInput, take: Int, skip: Int, _count: FilmCountAggregateInput, _min: FilmMinAggregateInput, _max: FilmMaxAggregateInput): AggregateFilm!
+  reviewFilmsConnection(where: ReviewFilmWhereInput, orderBy: [ReviewFilmOrderByWithRelationInput!], cursor: ReviewFilmWhereUniqueInput, take: Int, skip: Int, distinct: [ReviewFilmScalarFieldEnum!]): [ReviewFilm!]!
   showingConnection(where: ShowingWhereInput, orderBy: [ShowingOrderByWithRelationInput!], cursor: ShowingWhereUniqueInput, take: Int, skip: Int, distinct: [ShowingScalarFieldEnum!]): [Showing!]!
   seatConnection(where: SeatWhereInput, orderBy: [SeatOrderByWithRelationInput!], cursor: SeatWhereUniqueInput, take: Int, skip: Int, distinct: [SeatScalarFieldEnum!]): [Seat!]!
   roomConnection(where: RoomWhereInput, orderBy: [RoomOrderByWithRelationInput!], cursor: RoomWhereUniqueInput, take: Int, skip: Int, distinct: [RoomScalarFieldEnum!]): [Room!]!
   promotionConnection(where: PromotionWhereInput, orderBy: [PromotionOrderByWithRelationInput!], cursor: PromotionWhereUniqueInput, take: Int, skip: Int, distinct: [PromotionScalarFieldEnum!]): [Promotion!]!
   bookingItemConnection(where: BookingItemWhereInput, orderBy: [BookingItemOrderByWithRelationInput!], cursor: BookingItemWhereUniqueInput, take: Int, skip: Int, distinct: [BookingItemScalarFieldEnum!]): [BookingItem!]!
   bookingConnection(where: BookingWhereInput, orderBy: [BookingOrderByWithRelationInput!], cursor: BookingWhereUniqueInput, take: Int, skip: Int, distinct: [BookingScalarFieldEnum!]): [Booking!]!
+  createPresignedS3(file: String!): String!
 }
 
 input UserWhereInput {
@@ -706,6 +796,7 @@ input FilmWhereInput {
   imageDescription3: StringNullableFilter
   Showing: ShowingListRelationFilter
   ReviewFilm: ReviewFilmListRelationFilter
+  ActorOnFilm: ActorOnFilmListRelationFilter
 }
 
 input ReviewFilmListRelationFilter {
@@ -724,6 +815,45 @@ input ReviewFilmWhereInput {
   film: FilmRelationFilter
   filmId: StringFilter
   comment: StringNullableFilter
+}
+
+input ActorOnFilmListRelationFilter {
+  every: ActorOnFilmWhereInput
+  some: ActorOnFilmWhereInput
+  none: ActorOnFilmWhereInput
+}
+
+input ActorOnFilmWhereInput {
+  AND: [ActorOnFilmWhereInput!]
+  OR: [ActorOnFilmWhereInput!]
+  NOT: [ActorOnFilmWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  actor: ActorRelationFilter
+  actorId: StringFilter
+  film: FilmRelationFilter
+  filmId: StringFilter
+}
+
+input ActorRelationFilter {
+  is: ActorWhereInput
+  isNot: ActorWhereInput
+}
+
+input ActorWhereInput {
+  AND: [ActorWhereInput!]
+  OR: [ActorWhereInput!]
+  NOT: [ActorWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  name: StringFilter
+  birthday: DateTimeNullableFilter
+  description: StringNullableFilter
+  image: StringNullableFilter
+  ActorOnFilm: ActorOnFilmListRelationFilter
 }
 
 input ShowingRelationFilter {
@@ -922,9 +1052,14 @@ input FilmOrderByWithRelationInput {
   imageDescription3: SortOrder
   Showing: ShowingOrderByRelationAggregateInput
   ReviewFilm: ReviewFilmOrderByRelationAggregateInput
+  ActorOnFilm: ActorOnFilmOrderByRelationAggregateInput
 }
 
 input ShowingOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ActorOnFilmOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
@@ -947,6 +1082,78 @@ enum FilmScalarFieldEnum {
   imageDescription1
   imageDescription2
   imageDescription3
+}
+
+input FilmCountAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  trailler: Boolean
+  name: Boolean
+  description: Boolean
+  director: Boolean
+  actor: Boolean
+  time: Boolean
+  image: Boolean
+  imageDescription1: Boolean
+  imageDescription2: Boolean
+  imageDescription3: Boolean
+  _all: Boolean
+}
+
+input FilmMinAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  trailler: Boolean
+  name: Boolean
+  description: Boolean
+  director: Boolean
+  actor: Boolean
+  time: Boolean
+  image: Boolean
+  imageDescription1: Boolean
+  imageDescription2: Boolean
+  imageDescription3: Boolean
+}
+
+input FilmMaxAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  trailler: Boolean
+  name: Boolean
+  description: Boolean
+  director: Boolean
+  actor: Boolean
+  time: Boolean
+  image: Boolean
+  imageDescription1: Boolean
+  imageDescription2: Boolean
+  imageDescription3: Boolean
+}
+
+input ReviewFilmOrderByWithRelationInput {
+  id: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+  film: FilmOrderByWithRelationInput
+  filmId: SortOrder
+  comment: SortOrder
+}
+
+input ReviewFilmWhereUniqueInput {
+  id: String
+}
+
+enum ReviewFilmScalarFieldEnum {
+  id
+  userId
+  filmId
+  comment
 }
 
 input ShowingOrderByWithRelationInput {
@@ -1177,6 +1384,8 @@ type Mutation {
   createFilmRecord(data: FilmCreateInput!): Film!
   updateFilmRecord(data: FilmUpdateInput!, where: FilmWhereUniqueInput!): Film!
   deleteFilmRecord(where: FilmWhereUniqueInput!): Boolean!
+  addComment(data: FilmReivew!): Boolean!
+  checkAvailableShowing(filmId: String!): Boolean!
   createShowing(data: ShowingCreateInput!): Showing!
   updateShowing(data: ShowingUpdateInput!, where: ShowingWhereUniqueInput!): Showing!
   deleteShowing(where: ShowingWhereUniqueInput!): Boolean!
@@ -1197,6 +1406,7 @@ type Mutation {
   deleteBookingRecord(where: BookingWhereUniqueInput!): Boolean!
   userBookingTicket(data: BookingItemInput!): Boolean!
   uploadFile(file: Upload!): Boolean!
+  imageUrl(key: String!): String!
 }
 
 input UserCreateInput {
@@ -1381,6 +1591,7 @@ input FilmCreateWithoutShowingInput {
   imageDescription2: String
   imageDescription3: String
   ReviewFilm: ReviewFilmCreateNestedManyWithoutFilmInput
+  ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
 }
 
 input ReviewFilmCreateNestedManyWithoutFilmInput {
@@ -1432,10 +1643,6 @@ input ReviewFilmCreateOrConnectWithoutFilmInput {
   create: ReviewFilmCreateWithoutFilmInput!
 }
 
-input ReviewFilmWhereUniqueInput {
-  id: String
-}
-
 input ReviewFilmCreateManyFilmInputEnvelope {
   data: [ReviewFilmCreateManyFilmInput!]!
   skipDuplicates: Boolean
@@ -1445,6 +1652,72 @@ input ReviewFilmCreateManyFilmInput {
   id: String
   userId: String!
   comment: String
+}
+
+input ActorOnFilmCreateNestedManyWithoutFilmInput {
+  create: [ActorOnFilmCreateWithoutFilmInput!]
+  connectOrCreate: [ActorOnFilmCreateOrConnectWithoutFilmInput!]
+  createMany: ActorOnFilmCreateManyFilmInputEnvelope
+  connect: [ActorOnFilmWhereUniqueInput!]
+}
+
+input ActorOnFilmCreateWithoutFilmInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  actor: ActorCreateNestedOneWithoutActorOnFilmInput!
+}
+
+input ActorCreateNestedOneWithoutActorOnFilmInput {
+  create: ActorCreateWithoutActorOnFilmInput
+  connectOrCreate: ActorCreateOrConnectWithoutActorOnFilmInput
+  connect: ActorWhereUniqueInput
+}
+
+input ActorCreateWithoutActorOnFilmInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  name: String!
+  birthday: DateTime
+  description: String
+  image: String
+}
+
+input ActorCreateOrConnectWithoutActorOnFilmInput {
+  where: ActorWhereUniqueInput!
+  create: ActorCreateWithoutActorOnFilmInput!
+}
+
+input ActorWhereUniqueInput {
+  id: String
+}
+
+input ActorOnFilmCreateOrConnectWithoutFilmInput {
+  where: ActorOnFilmWhereUniqueInput!
+  create: ActorOnFilmCreateWithoutFilmInput!
+}
+
+input ActorOnFilmWhereUniqueInput {
+  actorId_filmId: ActorOnFilmActorIdFilmIdCompoundUniqueInput
+}
+
+input ActorOnFilmActorIdFilmIdCompoundUniqueInput {
+  actorId: String!
+  filmId: String!
+}
+
+input ActorOnFilmCreateManyFilmInputEnvelope {
+  data: [ActorOnFilmCreateManyFilmInput!]!
+  skipDuplicates: Boolean
+}
+
+input ActorOnFilmCreateManyFilmInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  actorId: String!
 }
 
 input FilmCreateOrConnectWithoutShowingInput {
@@ -1548,6 +1821,7 @@ input FilmCreateWithoutReviewFilmInput {
   imageDescription2: String
   imageDescription3: String
   Showing: ShowingCreateNestedManyWithoutFilmInput
+  ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
 }
 
 input ShowingCreateNestedManyWithoutFilmInput {
@@ -2134,6 +2408,7 @@ input FilmUpdateWithoutShowingInput {
   imageDescription2: NullableStringFieldUpdateOperationsInput
   imageDescription3: NullableStringFieldUpdateOperationsInput
   ReviewFilm: ReviewFilmUpdateManyWithoutFilmInput
+  ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
 }
 
 input ReviewFilmUpdateManyWithoutFilmInput {
@@ -2218,6 +2493,84 @@ input ReviewFilmScalarWhereInput {
 input ReviewFilmUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   comment: NullableStringFieldUpdateOperationsInput
+}
+
+input ActorOnFilmUpdateManyWithoutFilmInput {
+  create: [ActorOnFilmCreateWithoutFilmInput!]
+  connectOrCreate: [ActorOnFilmCreateOrConnectWithoutFilmInput!]
+  upsert: [ActorOnFilmUpsertWithWhereUniqueWithoutFilmInput!]
+  createMany: ActorOnFilmCreateManyFilmInputEnvelope
+  set: [ActorOnFilmWhereUniqueInput!]
+  disconnect: [ActorOnFilmWhereUniqueInput!]
+  delete: [ActorOnFilmWhereUniqueInput!]
+  connect: [ActorOnFilmWhereUniqueInput!]
+  update: [ActorOnFilmUpdateWithWhereUniqueWithoutFilmInput!]
+  updateMany: [ActorOnFilmUpdateManyWithWhereWithoutFilmInput!]
+  deleteMany: [ActorOnFilmScalarWhereInput!]
+}
+
+input ActorOnFilmUpsertWithWhereUniqueWithoutFilmInput {
+  where: ActorOnFilmWhereUniqueInput!
+  update: ActorOnFilmUpdateWithoutFilmInput!
+  create: ActorOnFilmCreateWithoutFilmInput!
+}
+
+input ActorOnFilmUpdateWithoutFilmInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
+  actor: ActorUpdateOneRequiredWithoutActorOnFilmInput
+}
+
+input ActorUpdateOneRequiredWithoutActorOnFilmInput {
+  create: ActorCreateWithoutActorOnFilmInput
+  connectOrCreate: ActorCreateOrConnectWithoutActorOnFilmInput
+  upsert: ActorUpsertWithoutActorOnFilmInput
+  connect: ActorWhereUniqueInput
+  update: ActorUpdateWithoutActorOnFilmInput
+}
+
+input ActorUpsertWithoutActorOnFilmInput {
+  update: ActorUpdateWithoutActorOnFilmInput!
+  create: ActorCreateWithoutActorOnFilmInput!
+}
+
+input ActorUpdateWithoutActorOnFilmInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  birthday: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+}
+
+input ActorOnFilmUpdateWithWhereUniqueWithoutFilmInput {
+  where: ActorOnFilmWhereUniqueInput!
+  data: ActorOnFilmUpdateWithoutFilmInput!
+}
+
+input ActorOnFilmUpdateManyWithWhereWithoutFilmInput {
+  where: ActorOnFilmScalarWhereInput!
+  data: ActorOnFilmUpdateManyMutationInput!
+}
+
+input ActorOnFilmScalarWhereInput {
+  AND: [ActorOnFilmScalarWhereInput!]
+  OR: [ActorOnFilmScalarWhereInput!]
+  NOT: [ActorOnFilmScalarWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
+  actorId: StringFilter
+  filmId: StringFilter
+}
+
+input ActorOnFilmUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
 }
 
 input BookingItemUpdateManyWithoutShowingInput {
@@ -2363,6 +2716,7 @@ input FilmUpdateWithoutReviewFilmInput {
   imageDescription2: NullableStringFieldUpdateOperationsInput
   imageDescription3: NullableStringFieldUpdateOperationsInput
   Showing: ShowingUpdateManyWithoutFilmInput
+  ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
 }
 
 input ShowingUpdateManyWithoutFilmInput {
@@ -2746,6 +3100,7 @@ input FilmCreateInput {
   imageDescription3: String
   Showing: ShowingCreateNestedManyWithoutFilmInput
   ReviewFilm: ReviewFilmCreateNestedManyWithoutFilmInput
+  ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
 }
 
 input FilmUpdateInput {
@@ -2765,6 +3120,12 @@ input FilmUpdateInput {
   imageDescription3: NullableStringFieldUpdateOperationsInput
   Showing: ShowingUpdateManyWithoutFilmInput
   ReviewFilm: ReviewFilmUpdateManyWithoutFilmInput
+  ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
+}
+
+input FilmReivew {
+  filmId: String!
+  comment: String!
 }
 
 input ShowingCreateInput {

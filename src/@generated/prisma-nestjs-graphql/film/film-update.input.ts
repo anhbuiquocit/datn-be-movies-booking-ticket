@@ -6,6 +6,7 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { ShowingUpdateManyWithoutFilmInput } from '../showing/showing-update-many-without-film.input';
 import { ReviewFilmUpdateManyWithoutFilmInput } from '../review-film/review-film-update-many-without-film.input';
+import { ActorOnFilmUpdateManyWithoutFilmInput } from '../actor-on-film/actor-on-film-update-many-without-film.input';
 
 @InputType()
 export class FilmUpdateInput {
@@ -57,4 +58,7 @@ export class FilmUpdateInput {
 
     @Field(() => ReviewFilmUpdateManyWithoutFilmInput, {nullable:true})
     ReviewFilm?: ReviewFilmUpdateManyWithoutFilmInput;
+
+    @Field(() => ActorOnFilmUpdateManyWithoutFilmInput, {nullable:true})
+    ActorOnFilm?: ActorOnFilmUpdateManyWithoutFilmInput;
 }

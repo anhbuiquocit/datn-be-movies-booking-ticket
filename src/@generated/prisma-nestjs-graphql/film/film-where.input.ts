@@ -6,6 +6,7 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { ShowingListRelationFilter } from '../showing/showing-list-relation-filter.input';
 import { ReviewFilmListRelationFilter } from '../review-film/review-film-list-relation-filter.input';
+import { ActorOnFilmListRelationFilter } from '../actor-on-film/actor-on-film-list-relation-filter.input';
 
 @InputType()
 export class FilmWhereInput {
@@ -66,4 +67,7 @@ export class FilmWhereInput {
 
     @Field(() => ReviewFilmListRelationFilter, {nullable:true})
     ReviewFilm?: ReviewFilmListRelationFilter;
+
+    @Field(() => ActorOnFilmListRelationFilter, {nullable:true})
+    ActorOnFilm?: ActorOnFilmListRelationFilter;
 }

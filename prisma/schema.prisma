@@ -53,8 +53,8 @@ model Admin {
 }
 
 model Film {
-  id                String       @id @default(uuid())
-  createdAt         DateTime     @default(now())
+  id                String        @id @default(uuid())
+  createdAt         DateTime      @default(now())
   updatedAt         DateTime?
   deletedAt         DateTime?
   trailler          String
@@ -69,6 +69,7 @@ model Film {
   imageDescription3 String?
   Showing           Showing[]
   ReviewFilm        ReviewFilm[]
+  ActorOnFilm       ActorOnFilm[]
 }
 
 model ReviewFilm {
@@ -186,4 +187,28 @@ model Booking {
   PromotionId    String?
   isPayment      Boolean?
   lineSeatMatrix String?       @db.VarChar(5000)
+}
+
+model Actor {
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?
+  deletedAt   DateTime?
+  name        String
+  birthday    DateTime?
+  description String?
+  image       String?
+  ActorOnFilm ActorOnFilm[]
+}
+
+model ActorOnFilm {
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  deletedAt DateTime?
+  actor     Actor     @relation(fields: [actorId], references: [id])
+  actorId   String
+  film      Film      @relation(fields: [filmId], references: [id])
+  filmId    String
+
+  @@id([actorId, filmId])
 }

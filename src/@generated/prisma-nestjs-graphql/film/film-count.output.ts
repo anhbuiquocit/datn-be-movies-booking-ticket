@@ -10,4 +10,7 @@ export class FilmCount {
 
     @Field(() => Int, {nullable:false})
     ReviewFilm?: number;
+
+    @Field(() => Int, {nullable:false})
+    ActorOnFilm?: number;
 }

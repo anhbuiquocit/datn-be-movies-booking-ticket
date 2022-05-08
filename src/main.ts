@@ -8,9 +8,8 @@ import rateLimit from 'express-rate-limit';
 import { graphqlUploadExpress } from 'graphql-upload';
 import * as config from './config';
 
-import * as dotenv from 'dotenv';
+import 'dotenv/config';
 import { AllExceptionsFilter } from './util/handleException/all-exception.filter';
-dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.useGlobalFilters(new HttpErrorFilter());

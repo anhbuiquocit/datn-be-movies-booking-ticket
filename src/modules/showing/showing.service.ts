@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 @Injectable()
 export class ShowingService {
   async connection(args): Promise<Showing[]> {
+    console.log('args: ', args);
     const { where, orderBy, cursor, take, skip, distinct } = args;
     const listShowing = await prisma.showing.findMany({
       where,

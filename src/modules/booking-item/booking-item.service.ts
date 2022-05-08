@@ -13,7 +13,20 @@ export class BookingItemService {
       take,
       skip,
       distinct,
+      select: {
+        Booking: true,
+        SeatId: true,
+        ShowingId: true,
+        bookingId: true,
+        createdAt: true,
+        deletedAt: true,
+        id: true,
+        seat: true,
+        showing: true,
+        updatedAt: true,
+      },
     });
+    console.log('listConnection: ', listConnection);
     return listConnection;
   }
   async createOne(args): Promise<BookingItem> {

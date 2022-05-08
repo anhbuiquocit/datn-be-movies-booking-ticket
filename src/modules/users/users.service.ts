@@ -14,9 +14,8 @@ const prisma = new PrismaClient();
 @Injectable()
 export class UsersService {
   constructor(
-    private jwtService: JwtService,
-  ) // private fileResolver: FileResolver,
-  {}
+    private jwtService: JwtService, // private fileResolver: FileResolver,
+  ) {}
 
   async connection(args): Promise<User[]> {
     const { where, orderBy, cursor, take, skip, distinct } = args;
@@ -74,7 +73,10 @@ export class UsersService {
         point,
         phone,
         role,
+        image,
       } = data;
+      
+      // console.log('image: ', image)
       const userExist = await prisma.user.count({
         where: {
           OR: [
@@ -103,6 +105,7 @@ export class UsersService {
           point,
           phone,
           role,
+          image,
         },
       });
       return userCreate;

@@ -1,3 +1,4 @@
+import { AwsServiceModule } from './modules/aws-service/aws-service.module';
 import { HttpErrorFilter } from './util/handleException/http-exception.filter';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -35,6 +36,7 @@ import { FileResolver } from './util/fileResolver';
     BookingItemModule,
     BookingModule,
     FileResolver,
+    AwsServiceModule,
   ],
   controllers: [],
   providers: [
