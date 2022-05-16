@@ -112,6 +112,7 @@ type Film {
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  isHot: Boolean
   Showing: [Showing!]
   ReviewFilm: [ReviewFilm!]
   ActorOnFilm: [ActorOnFilm!]
@@ -374,6 +375,7 @@ type FilmCountAggregate {
   imageDescription1: Int!
   imageDescription2: Int!
   imageDescription3: Int!
+  isHot: Int!
   categoryId: Int!
   _all: Int!
 }
@@ -401,6 +403,7 @@ type FilmMinAggregate {
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  isHot: Boolean
   categoryId: String
 }
 
@@ -419,6 +422,7 @@ type FilmMaxAggregate {
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  isHot: Boolean
   categoryId: String
 }
 
@@ -946,6 +950,7 @@ input FilmWhereInput {
   imageDescription1: StringNullableFilter
   imageDescription2: StringNullableFilter
   imageDescription3: StringNullableFilter
+  isHot: BoolNullableFilter
   Showing: ShowingListRelationFilter
   ReviewFilm: ReviewFilmListRelationFilter
   ActorOnFilm: ActorOnFilmListRelationFilter
@@ -1228,6 +1233,7 @@ input FilmOrderByWithRelationInput {
   imageDescription1: SortOrder
   imageDescription2: SortOrder
   imageDescription3: SortOrder
+  isHot: SortOrder
   Showing: ShowingOrderByRelationAggregateInput
   ReviewFilm: ReviewFilmOrderByRelationAggregateInput
   ActorOnFilm: ActorOnFilmOrderByRelationAggregateInput
@@ -1276,6 +1282,7 @@ enum FilmScalarFieldEnum {
   imageDescription1
   imageDescription2
   imageDescription3
+  isHot
   categoryId
 }
 
@@ -1294,6 +1301,7 @@ input FilmCountAggregateInput {
   imageDescription1: Boolean
   imageDescription2: Boolean
   imageDescription3: Boolean
+  isHot: Boolean
   categoryId: Boolean
   _all: Boolean
 }
@@ -1321,6 +1329,7 @@ input FilmMinAggregateInput {
   imageDescription1: Boolean
   imageDescription2: Boolean
   imageDescription3: Boolean
+  isHot: Boolean
   categoryId: Boolean
 }
 
@@ -1339,6 +1348,7 @@ input FilmMaxAggregateInput {
   imageDescription1: Boolean
   imageDescription2: Boolean
   imageDescription3: Boolean
+  isHot: Boolean
   categoryId: Boolean
 }
 
@@ -1900,6 +1910,7 @@ input FilmCreateWithoutShowingInput {
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  isHot: Boolean
   ReviewFilm: ReviewFilmCreateNestedManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
   Category: CategoryCreateNestedOneWithoutFilmInput
@@ -2155,6 +2166,7 @@ input FilmCreateWithoutReviewFilmInput {
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  isHot: Boolean
   Showing: ShowingCreateNestedManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
   Category: CategoryCreateNestedOneWithoutFilmInput
@@ -2743,6 +2755,7 @@ input FilmUpdateWithoutShowingInput {
   imageDescription1: NullableStringFieldUpdateOperationsInput
   imageDescription2: NullableStringFieldUpdateOperationsInput
   imageDescription3: NullableStringFieldUpdateOperationsInput
+  isHot: NullableBoolFieldUpdateOperationsInput
   ReviewFilm: ReviewFilmUpdateManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
   Category: CategoryUpdateOneWithoutFilmInput
@@ -3076,6 +3089,7 @@ input FilmUpdateWithoutReviewFilmInput {
   imageDescription1: NullableStringFieldUpdateOperationsInput
   imageDescription2: NullableStringFieldUpdateOperationsInput
   imageDescription3: NullableStringFieldUpdateOperationsInput
+  isHot: NullableBoolFieldUpdateOperationsInput
   Showing: ShowingUpdateManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
   Category: CategoryUpdateOneWithoutFilmInput
@@ -3460,6 +3474,7 @@ input FilmCreateInput {
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  isHot: Boolean
   Showing: ShowingCreateNestedManyWithoutFilmInput
   ReviewFilm: ReviewFilmCreateNestedManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
@@ -3481,6 +3496,7 @@ input FilmUpdateInput {
   imageDescription1: NullableStringFieldUpdateOperationsInput
   imageDescription2: NullableStringFieldUpdateOperationsInput
   imageDescription3: NullableStringFieldUpdateOperationsInput
+  isHot: NullableBoolFieldUpdateOperationsInput
   Showing: ShowingUpdateManyWithoutFilmInput
   ReviewFilm: ReviewFilmUpdateManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput

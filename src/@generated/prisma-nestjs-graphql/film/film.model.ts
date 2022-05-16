@@ -53,6 +53,9 @@ export class Film {
     @Field(() => String, {nullable:true})
     imageDescription3!: string | null;
 
+    @Field(() => Boolean, {nullable:true})
+    isHot!: boolean | null;
+
     @Field(() => [Showing], {nullable:true})
     Showing?: Array<Showing>;
 

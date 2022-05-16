@@ -47,6 +47,9 @@ export class FilmCountAggregateInput {
     imageDescription3?: true;
 
     @Field(() => Boolean, {nullable:true})
+    isHot?: true;
+
+    @Field(() => Boolean, {nullable:true})
     categoryId?: true;
 
     @Field(() => Boolean, {nullable:true})

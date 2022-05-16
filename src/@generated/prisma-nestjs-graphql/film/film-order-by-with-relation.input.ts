@@ -51,6 +51,9 @@ export class FilmOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     imageDescription3?: keyof typeof SortOrder;
 
+    @Field(() => SortOrder, {nullable:true})
+    isHot?: keyof typeof SortOrder;
+
     @Field(() => ShowingOrderByRelationAggregateInput, {nullable:true})
     Showing?: ShowingOrderByRelationAggregateInput;
 

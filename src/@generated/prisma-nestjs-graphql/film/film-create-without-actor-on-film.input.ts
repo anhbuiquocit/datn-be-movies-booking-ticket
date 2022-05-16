@@ -50,6 +50,9 @@ export class FilmCreateWithoutActorOnFilmInput {
     @Field(() => String, {nullable:true})
     imageDescription3?: string;
 
+    @Field(() => Boolean, {nullable:true})
+    isHot?: boolean;
+
     @Field(() => ShowingCreateNestedManyWithoutFilmInput, {nullable:true})
     Showing?: ShowingCreateNestedManyWithoutFilmInput;
 

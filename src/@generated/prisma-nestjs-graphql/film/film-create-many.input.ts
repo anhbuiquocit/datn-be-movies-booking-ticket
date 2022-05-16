@@ -47,6 +47,9 @@ export class FilmCreateManyInput {
     @Field(() => String, {nullable:true})
     imageDescription3?: string;
 
+    @Field(() => Boolean, {nullable:true})
+    isHot?: boolean;
+
     @Field(() => String, {nullable:true})
     categoryId?: string;
 }

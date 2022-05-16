@@ -53,6 +53,9 @@ export class FilmOrderByWithAggregationInput {
     imageDescription3?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    isHot?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     categoryId?: keyof typeof SortOrder;
 
     @Field(() => FilmCountOrderByAggregateInput, {nullable:true})

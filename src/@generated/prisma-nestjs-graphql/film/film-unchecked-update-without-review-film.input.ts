@@ -5,6 +5,7 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 import { ShowingUncheckedUpdateManyWithoutFilmInput } from '../showing/showing-unchecked-update-many-without-film.input';
 import { ActorOnFilmUncheckedUpdateManyWithoutFilmInput } from '../actor-on-film/actor-on-film-unchecked-update-many-without-film.input';
 
@@ -52,6 +53,9 @@ export class FilmUncheckedUpdateWithoutReviewFilmInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     imageDescription3?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
+    isHot?: NullableBoolFieldUpdateOperationsInput;
 
     @Field(() => ShowingUncheckedUpdateManyWithoutFilmInput, {nullable:true})
     Showing?: ShowingUncheckedUpdateManyWithoutFilmInput;

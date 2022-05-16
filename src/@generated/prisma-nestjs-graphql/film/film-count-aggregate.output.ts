@@ -48,6 +48,9 @@ export class FilmCountAggregate {
     imageDescription3!: number;
 
     @Field(() => Int, {nullable:false})
+    isHot!: number;
+
+    @Field(() => Int, {nullable:false})
     categoryId!: number;
 
     @Field(() => Int, {nullable:false})

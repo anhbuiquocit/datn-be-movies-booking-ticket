@@ -5,6 +5,7 @@ import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregate
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
+import { BoolNullableWithAggregatesFilter } from '../prisma/bool-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class FilmScalarWhereWithAggregatesInput {
@@ -59,6 +60,9 @@ export class FilmScalarWhereWithAggregatesInput {
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     imageDescription3?: StringNullableWithAggregatesFilter;
+
+    @Field(() => BoolNullableWithAggregatesFilter, {nullable:true})
+    isHot?: BoolNullableWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     categoryId?: StringNullableWithAggregatesFilter;

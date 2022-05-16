@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Film` ADD COLUMN `isHot` BOOLEAN NULL;

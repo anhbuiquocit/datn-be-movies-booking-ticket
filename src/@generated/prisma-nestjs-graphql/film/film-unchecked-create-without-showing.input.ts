@@ -49,6 +49,9 @@ export class FilmUncheckedCreateWithoutShowingInput {
     @Field(() => String, {nullable:true})
     imageDescription3?: string;
 
+    @Field(() => Boolean, {nullable:true})
+    isHot?: boolean;
+
     @Field(() => ReviewFilmUncheckedCreateNestedManyWithoutFilmInput, {nullable:true})
     ReviewFilm?: ReviewFilmUncheckedCreateNestedManyWithoutFilmInput;
 

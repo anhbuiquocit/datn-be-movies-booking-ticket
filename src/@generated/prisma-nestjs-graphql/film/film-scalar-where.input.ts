@@ -5,6 +5,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 
 @InputType()
 export class FilmScalarWhereInput {
@@ -59,6 +60,9 @@ export class FilmScalarWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     imageDescription3?: StringNullableFilter;
+
+    @Field(() => BoolNullableFilter, {nullable:true})
+    isHot?: BoolNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     categoryId?: StringNullableFilter;
