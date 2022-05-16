@@ -52,6 +52,16 @@ model Admin {
   role      String?
 }
 
+model Category {
+  id          String    @id @default(uuid())
+  createAt    DateTime? @default(now())
+  updateAt    DateTime?
+  deleteAt    DateTime?
+  name        String
+  description String?   @db.VarChar(5000)
+  Film        Film[]
+}
+
 model Film {
   id                String        @id @default(uuid())
   createdAt         DateTime      @default(now())
@@ -59,10 +69,10 @@ model Film {
   deletedAt         DateTime?
   trailler          String
   name              String
-  description       String?
+  description       String?       @db.VarChar(5000)
   director          String?
   actor             String?
-  time              String?
+  time              Int?
   image             String?
   imageDescription1 String?
   imageDescription2 String?
@@ -70,6 +80,8 @@ model Film {
   Showing           Showing[]
   ReviewFilm        ReviewFilm[]
   ActorOnFilm       ActorOnFilm[]
+  Category          Category?     @relation(fields: [categoryId], references: [id])
+  categoryId        String?
 }
 
 model ReviewFilm {

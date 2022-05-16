@@ -9,7 +9,7 @@ import { BookingItemInput } from './dto/BookingItemDto.dto';
 const prisma = new PrismaClient();
 @Injectable()
 export class BookingService {
-  async connection(args): Promise<Booking[]> {
+  async connection(args): Promise<any[]> {
     const { where, orderBy, cursor, take, skip, distinct } = args;
     const listConnection = await prisma.booking.findMany({
       where,
@@ -23,7 +23,23 @@ export class BookingService {
         UserId: true,
         _count: true,
         amount: true,
-        bookingItem: true,
+        bookingItem: {
+          select: {
+            id: true,
+            seat: true,
+            showing: {
+              select: {
+                id: true,
+                price: true,
+                film: true,
+                startDate: true,
+                endDate: true,
+                startTime: true,
+                endTime: true,
+              },
+            },
+          },
+        },
         createdAt: true,
         deletedAt: true,
         id: true,
@@ -35,6 +51,7 @@ export class BookingService {
         user: true,
       },
     });
+    console.log('listConnection: ', listConnection);
     return listConnection;
   }
   async createOne(args): Promise<Booking> {
@@ -110,7 +127,7 @@ export class BookingService {
   async userBookingTicket(
     data: BookingItemInput,
     user: { userId: string; username: string },
-  ): Promise<boolean> {
+  ): Promise<Booking> {
     try {
       const userExist = await prisma.user.count({
         where: {
@@ -166,7 +183,7 @@ export class BookingService {
         });
       }
 
-      await prisma.booking.create({
+      const bookingCreate = await prisma.booking.create({
         data: {
           user: {
             connect: {
@@ -190,7 +207,7 @@ export class BookingService {
             : undefined,
         },
       });
-      return true;
+      return bookingCreate;
     } catch (err) {
       throw err;
     }

@@ -40,7 +40,7 @@ export class BookingResolver {
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Boolean)
+  @Mutation(() => Booking)
   async userBookingTicket(
     @Args('data') data: BookingItemInput,
     @CurrentUser() user: { userId: string; username: string },

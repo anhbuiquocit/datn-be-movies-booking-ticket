@@ -76,6 +76,21 @@ type ActorOnFilm {
   filmId: String!
 }
 
+type CategoryCount {
+  Film: Int!
+}
+
+type Category {
+  id: ID!
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+  name: String!
+  description: String
+  Film: [Film!]
+  _count: CategoryCount!
+}
+
 type FilmCount {
   Showing: Int!
   ReviewFilm: Int!
@@ -92,7 +107,7 @@ type Film {
   description: String
   director: String
   actor: String
-  time: String
+  time: Int
   image: String
   imageDescription1: String
   imageDescription2: String
@@ -100,6 +115,8 @@ type Film {
   Showing: [Showing!]
   ReviewFilm: [ReviewFilm!]
   ActorOnFilm: [ActorOnFilm!]
+  Category: Category
+  categoryId: String
   _count: FilmCount!
 }
 
@@ -357,7 +374,16 @@ type FilmCountAggregate {
   imageDescription1: Int!
   imageDescription2: Int!
   imageDescription3: Int!
+  categoryId: Int!
   _all: Int!
+}
+
+type FilmAvgAggregate {
+  time: Float
+}
+
+type FilmSumAggregate {
+  time: Int
 }
 
 type FilmMinAggregate {
@@ -370,11 +396,12 @@ type FilmMinAggregate {
   description: String
   director: String
   actor: String
-  time: String
+  time: Int
   image: String
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  categoryId: String
 }
 
 type FilmMaxAggregate {
@@ -387,17 +414,140 @@ type FilmMaxAggregate {
   description: String
   director: String
   actor: String
-  time: String
+  time: Int
   image: String
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
+  categoryId: String
 }
 
 type AggregateFilm {
   _count: FilmCountAggregate
+  _avg: FilmAvgAggregate
+  _sum: FilmSumAggregate
   _min: FilmMinAggregate
   _max: FilmMaxAggregate
+}
+
+type ShowingCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  deletedAt: Int!
+  RoomId: Int!
+  FilmId: Int!
+  price: Int!
+  startDate: Int!
+  endDate: Int!
+  startTime: Int!
+  endTime: Int!
+  _all: Int!
+}
+
+type ShowingAvgAggregate {
+  price: Float
+}
+
+type ShowingSumAggregate {
+  price: Int
+}
+
+type ShowingMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  RoomId: String
+  FilmId: String
+  price: Int
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
+}
+
+type ShowingMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  RoomId: String
+  FilmId: String
+  price: Int
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
+}
+
+type AggregateShowing {
+  _count: ShowingCountAggregate
+  _avg: ShowingAvgAggregate
+  _sum: ShowingSumAggregate
+  _min: ShowingMinAggregate
+  _max: ShowingMaxAggregate
+}
+
+type PromotionCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  deletedAt: Int!
+  code: Int!
+  discount: Int!
+  maxDiscount: Int!
+  startDate: Int!
+  endDate: Int!
+  startTime: Int!
+  endTime: Int!
+  _all: Int!
+}
+
+type PromotionAvgAggregate {
+  discount: Float
+  maxDiscount: Float
+}
+
+type PromotionSumAggregate {
+  discount: Float
+  maxDiscount: Float
+}
+
+type PromotionMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  code: String
+  discount: Float
+  maxDiscount: Float
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
+}
+
+type PromotionMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  code: String
+  discount: Float
+  maxDiscount: Float
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
+}
+
+type AggregatePromotion {
+  _count: PromotionCountAggregate
+  _avg: PromotionAvgAggregate
+  _sum: PromotionSumAggregate
+  _min: PromotionMinAggregate
+  _max: PromotionMaxAggregate
 }
 
 type Query {
@@ -407,12 +557,14 @@ type Query {
   adminQueryMe: Admin!
   films(where: FilmWhereInput, orderBy: [FilmOrderByWithRelationInput!], cursor: FilmWhereUniqueInput, take: Int, skip: Int, distinct: [FilmScalarFieldEnum!]): [Film!]!
   film(where: FilmWhereUniqueInput!): Film!
-  filmAggregate(where: FilmWhereInput, orderBy: [FilmOrderByWithRelationInput!], cursor: FilmWhereUniqueInput, take: Int, skip: Int, _count: FilmCountAggregateInput, _min: FilmMinAggregateInput, _max: FilmMaxAggregateInput): AggregateFilm!
+  filmAggregate(where: FilmWhereInput, orderBy: [FilmOrderByWithRelationInput!], cursor: FilmWhereUniqueInput, take: Int, skip: Int, _count: FilmCountAggregateInput, _avg: FilmAvgAggregateInput, _sum: FilmSumAggregateInput, _min: FilmMinAggregateInput, _max: FilmMaxAggregateInput): AggregateFilm!
   reviewFilmsConnection(where: ReviewFilmWhereInput, orderBy: [ReviewFilmOrderByWithRelationInput!], cursor: ReviewFilmWhereUniqueInput, take: Int, skip: Int, distinct: [ReviewFilmScalarFieldEnum!]): [ReviewFilm!]!
   showingConnection(where: ShowingWhereInput, orderBy: [ShowingOrderByWithRelationInput!], cursor: ShowingWhereUniqueInput, take: Int, skip: Int, distinct: [ShowingScalarFieldEnum!]): [Showing!]!
+  ShowingAggregate(where: ShowingWhereInput, orderBy: [ShowingOrderByWithRelationInput!], cursor: ShowingWhereUniqueInput, take: Int, skip: Int, _count: ShowingCountAggregateInput, _avg: ShowingAvgAggregateInput, _sum: ShowingSumAggregateInput, _min: ShowingMinAggregateInput, _max: ShowingMaxAggregateInput): AggregateShowing!
   seatConnection(where: SeatWhereInput, orderBy: [SeatOrderByWithRelationInput!], cursor: SeatWhereUniqueInput, take: Int, skip: Int, distinct: [SeatScalarFieldEnum!]): [Seat!]!
   roomConnection(where: RoomWhereInput, orderBy: [RoomOrderByWithRelationInput!], cursor: RoomWhereUniqueInput, take: Int, skip: Int, distinct: [RoomScalarFieldEnum!]): [Room!]!
   promotionConnection(where: PromotionWhereInput, orderBy: [PromotionOrderByWithRelationInput!], cursor: PromotionWhereUniqueInput, take: Int, skip: Int, distinct: [PromotionScalarFieldEnum!]): [Promotion!]!
+  promotionAggregate(where: PromotionWhereInput, orderBy: [PromotionOrderByWithRelationInput!], cursor: PromotionWhereUniqueInput, take: Int, skip: Int, _count: PromotionCountAggregateInput, _avg: PromotionAvgAggregateInput, _sum: PromotionSumAggregateInput, _min: PromotionMinAggregateInput, _max: PromotionMaxAggregateInput): AggregatePromotion!
   bookingItemConnection(where: BookingItemWhereInput, orderBy: [BookingItemOrderByWithRelationInput!], cursor: BookingItemWhereUniqueInput, take: Int, skip: Int, distinct: [BookingItemScalarFieldEnum!]): [BookingItem!]!
   bookingConnection(where: BookingWhereInput, orderBy: [BookingOrderByWithRelationInput!], cursor: BookingWhereUniqueInput, take: Int, skip: Int, distinct: [BookingScalarFieldEnum!]): [Booking!]!
   createPresignedS3(file: String!): String!
@@ -789,7 +941,7 @@ input FilmWhereInput {
   description: StringNullableFilter
   director: StringNullableFilter
   actor: StringNullableFilter
-  time: StringNullableFilter
+  time: IntNullableFilter
   image: StringNullableFilter
   imageDescription1: StringNullableFilter
   imageDescription2: StringNullableFilter
@@ -797,6 +949,8 @@ input FilmWhereInput {
   Showing: ShowingListRelationFilter
   ReviewFilm: ReviewFilmListRelationFilter
   ActorOnFilm: ActorOnFilmListRelationFilter
+  Category: CategoryRelationFilter
+  categoryId: StringNullableFilter
 }
 
 input ReviewFilmListRelationFilter {
@@ -854,6 +1008,30 @@ input ActorWhereInput {
   description: StringNullableFilter
   image: StringNullableFilter
   ActorOnFilm: ActorOnFilmListRelationFilter
+}
+
+input CategoryRelationFilter {
+  is: CategoryWhereInput
+  isNot: CategoryWhereInput
+}
+
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+  id: StringFilter
+  createAt: DateTimeNullableFilter
+  updateAt: DateTimeNullableFilter
+  deleteAt: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  Film: FilmListRelationFilter
+}
+
+input FilmListRelationFilter {
+  every: FilmWhereInput
+  some: FilmWhereInput
+  none: FilmWhereInput
 }
 
 input ShowingRelationFilter {
@@ -1053,6 +1231,8 @@ input FilmOrderByWithRelationInput {
   Showing: ShowingOrderByRelationAggregateInput
   ReviewFilm: ReviewFilmOrderByRelationAggregateInput
   ActorOnFilm: ActorOnFilmOrderByRelationAggregateInput
+  Category: CategoryOrderByWithRelationInput
+  categoryId: SortOrder
 }
 
 input ShowingOrderByRelationAggregateInput {
@@ -1060,6 +1240,20 @@ input ShowingOrderByRelationAggregateInput {
 }
 
 input ActorOnFilmOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input CategoryOrderByWithRelationInput {
+  id: SortOrder
+  createAt: SortOrder
+  updateAt: SortOrder
+  deleteAt: SortOrder
+  name: SortOrder
+  description: SortOrder
+  Film: FilmOrderByRelationAggregateInput
+}
+
+input FilmOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
@@ -1082,6 +1276,7 @@ enum FilmScalarFieldEnum {
   imageDescription1
   imageDescription2
   imageDescription3
+  categoryId
 }
 
 input FilmCountAggregateInput {
@@ -1099,7 +1294,16 @@ input FilmCountAggregateInput {
   imageDescription1: Boolean
   imageDescription2: Boolean
   imageDescription3: Boolean
+  categoryId: Boolean
   _all: Boolean
+}
+
+input FilmAvgAggregateInput {
+  time: Boolean
+}
+
+input FilmSumAggregateInput {
+  time: Boolean
 }
 
 input FilmMinAggregateInput {
@@ -1117,6 +1321,7 @@ input FilmMinAggregateInput {
   imageDescription1: Boolean
   imageDescription2: Boolean
   imageDescription3: Boolean
+  categoryId: Boolean
 }
 
 input FilmMaxAggregateInput {
@@ -1134,6 +1339,7 @@ input FilmMaxAggregateInput {
   imageDescription1: Boolean
   imageDescription2: Boolean
   imageDescription3: Boolean
+  categoryId: Boolean
 }
 
 input ReviewFilmOrderByWithRelationInput {
@@ -1242,6 +1448,57 @@ enum ShowingScalarFieldEnum {
   endTime
 }
 
+input ShowingCountAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  RoomId: Boolean
+  FilmId: Boolean
+  price: Boolean
+  startDate: Boolean
+  endDate: Boolean
+  startTime: Boolean
+  endTime: Boolean
+  _all: Boolean
+}
+
+input ShowingAvgAggregateInput {
+  price: Boolean
+}
+
+input ShowingSumAggregateInput {
+  price: Boolean
+}
+
+input ShowingMinAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  RoomId: Boolean
+  FilmId: Boolean
+  price: Boolean
+  startDate: Boolean
+  endDate: Boolean
+  startTime: Boolean
+  endTime: Boolean
+}
+
+input ShowingMaxAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  RoomId: Boolean
+  FilmId: Boolean
+  price: Boolean
+  startDate: Boolean
+  endDate: Boolean
+  startTime: Boolean
+  endTime: Boolean
+}
+
 input SeatOrderByWithRelationInput {
   id: SortOrder
   createdAt: SortOrder
@@ -1312,6 +1569,59 @@ enum PromotionScalarFieldEnum {
   endDate
   startTime
   endTime
+}
+
+input PromotionCountAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  code: Boolean
+  discount: Boolean
+  maxDiscount: Boolean
+  startDate: Boolean
+  endDate: Boolean
+  startTime: Boolean
+  endTime: Boolean
+  _all: Boolean
+}
+
+input PromotionAvgAggregateInput {
+  discount: Boolean
+  maxDiscount: Boolean
+}
+
+input PromotionSumAggregateInput {
+  discount: Boolean
+  maxDiscount: Boolean
+}
+
+input PromotionMinAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  code: Boolean
+  discount: Boolean
+  maxDiscount: Boolean
+  startDate: Boolean
+  endDate: Boolean
+  startTime: Boolean
+  endTime: Boolean
+}
+
+input PromotionMaxAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  deletedAt: Boolean
+  code: Boolean
+  discount: Boolean
+  maxDiscount: Boolean
+  startDate: Boolean
+  endDate: Boolean
+  startTime: Boolean
+  endTime: Boolean
 }
 
 input BookingItemOrderByWithRelationInput {
@@ -1404,7 +1714,7 @@ type Mutation {
   createBookingRecord(data: BookingCreateInput!): Booking!
   updateBookingRecord(data: BookingUpdateInput!, where: BookingWhereUniqueInput!): Booking!
   deleteBookingRecord(where: BookingWhereUniqueInput!): Boolean!
-  userBookingTicket(data: BookingItemInput!): Boolean!
+  userBookingTicket(data: BookingItemInput!): Booking!
   uploadFile(file: Upload!): Boolean!
   imageUrl(key: String!): String!
 }
@@ -1585,13 +1895,14 @@ input FilmCreateWithoutShowingInput {
   description: String
   director: String
   actor: String
-  time: String
+  time: Int
   image: String
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
   ReviewFilm: ReviewFilmCreateNestedManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
+  Category: CategoryCreateNestedOneWithoutFilmInput
 }
 
 input ReviewFilmCreateNestedManyWithoutFilmInput {
@@ -1720,6 +2031,30 @@ input ActorOnFilmCreateManyFilmInput {
   actorId: String!
 }
 
+input CategoryCreateNestedOneWithoutFilmInput {
+  create: CategoryCreateWithoutFilmInput
+  connectOrCreate: CategoryCreateOrConnectWithoutFilmInput
+  connect: CategoryWhereUniqueInput
+}
+
+input CategoryCreateWithoutFilmInput {
+  id: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+  name: String!
+  description: String
+}
+
+input CategoryCreateOrConnectWithoutFilmInput {
+  where: CategoryWhereUniqueInput!
+  create: CategoryCreateWithoutFilmInput!
+}
+
+input CategoryWhereUniqueInput {
+  id: String
+}
+
 input FilmCreateOrConnectWithoutShowingInput {
   where: FilmWhereUniqueInput!
   create: FilmCreateWithoutShowingInput!
@@ -1815,13 +2150,14 @@ input FilmCreateWithoutReviewFilmInput {
   description: String
   director: String
   actor: String
-  time: String
+  time: Int
   image: String
   imageDescription1: String
   imageDescription2: String
   imageDescription3: String
   Showing: ShowingCreateNestedManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
+  Category: CategoryCreateNestedOneWithoutFilmInput
 }
 
 input ShowingCreateNestedManyWithoutFilmInput {
@@ -2402,13 +2738,14 @@ input FilmUpdateWithoutShowingInput {
   description: NullableStringFieldUpdateOperationsInput
   director: NullableStringFieldUpdateOperationsInput
   actor: NullableStringFieldUpdateOperationsInput
-  time: NullableStringFieldUpdateOperationsInput
+  time: NullableIntFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   imageDescription1: NullableStringFieldUpdateOperationsInput
   imageDescription2: NullableStringFieldUpdateOperationsInput
   imageDescription3: NullableStringFieldUpdateOperationsInput
   ReviewFilm: ReviewFilmUpdateManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
+  Category: CategoryUpdateOneWithoutFilmInput
 }
 
 input ReviewFilmUpdateManyWithoutFilmInput {
@@ -2573,6 +2910,30 @@ input ActorOnFilmUpdateManyMutationInput {
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
 }
 
+input CategoryUpdateOneWithoutFilmInput {
+  create: CategoryCreateWithoutFilmInput
+  connectOrCreate: CategoryCreateOrConnectWithoutFilmInput
+  upsert: CategoryUpsertWithoutFilmInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: CategoryWhereUniqueInput
+  update: CategoryUpdateWithoutFilmInput
+}
+
+input CategoryUpsertWithoutFilmInput {
+  update: CategoryUpdateWithoutFilmInput!
+  create: CategoryCreateWithoutFilmInput!
+}
+
+input CategoryUpdateWithoutFilmInput {
+  id: StringFieldUpdateOperationsInput
+  createAt: NullableDateTimeFieldUpdateOperationsInput
+  updateAt: NullableDateTimeFieldUpdateOperationsInput
+  deleteAt: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+}
+
 input BookingItemUpdateManyWithoutShowingInput {
   create: [BookingItemCreateWithoutShowingInput!]
   connectOrCreate: [BookingItemCreateOrConnectWithoutShowingInput!]
@@ -2710,13 +3071,14 @@ input FilmUpdateWithoutReviewFilmInput {
   description: NullableStringFieldUpdateOperationsInput
   director: NullableStringFieldUpdateOperationsInput
   actor: NullableStringFieldUpdateOperationsInput
-  time: NullableStringFieldUpdateOperationsInput
+  time: NullableIntFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   imageDescription1: NullableStringFieldUpdateOperationsInput
   imageDescription2: NullableStringFieldUpdateOperationsInput
   imageDescription3: NullableStringFieldUpdateOperationsInput
   Showing: ShowingUpdateManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
+  Category: CategoryUpdateOneWithoutFilmInput
 }
 
 input ShowingUpdateManyWithoutFilmInput {
@@ -3093,7 +3455,7 @@ input FilmCreateInput {
   description: String
   director: String
   actor: String
-  time: String
+  time: Int
   image: String
   imageDescription1: String
   imageDescription2: String
@@ -3101,6 +3463,7 @@ input FilmCreateInput {
   Showing: ShowingCreateNestedManyWithoutFilmInput
   ReviewFilm: ReviewFilmCreateNestedManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmCreateNestedManyWithoutFilmInput
+  Category: CategoryCreateNestedOneWithoutFilmInput
 }
 
 input FilmUpdateInput {
@@ -3113,7 +3476,7 @@ input FilmUpdateInput {
   description: NullableStringFieldUpdateOperationsInput
   director: NullableStringFieldUpdateOperationsInput
   actor: NullableStringFieldUpdateOperationsInput
-  time: NullableStringFieldUpdateOperationsInput
+  time: NullableIntFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
   imageDescription1: NullableStringFieldUpdateOperationsInput
   imageDescription2: NullableStringFieldUpdateOperationsInput
@@ -3121,6 +3484,7 @@ input FilmUpdateInput {
   Showing: ShowingUpdateManyWithoutFilmInput
   ReviewFilm: ReviewFilmUpdateManyWithoutFilmInput
   ActorOnFilm: ActorOnFilmUpdateManyWithoutFilmInput
+  Category: CategoryUpdateOneWithoutFilmInput
 }
 
 input FilmReivew {

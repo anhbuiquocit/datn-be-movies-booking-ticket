@@ -14,7 +14,8 @@ export enum FilmScalarFieldEnum {
     image = "image",
     imageDescription1 = "imageDescription1",
     imageDescription2 = "imageDescription2",
-    imageDescription3 = "imageDescription3"
+    imageDescription3 = "imageDescription3",
+    categoryId = "categoryId"
 }
 
 

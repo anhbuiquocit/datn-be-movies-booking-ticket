@@ -46,4 +46,7 @@ export class FilmMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     imageDescription3?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    categoryId?: keyof typeof SortOrder;
 }

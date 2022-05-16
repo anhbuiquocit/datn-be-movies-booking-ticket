@@ -4,6 +4,7 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { ShowingUncheckedUpdateManyWithoutFilmInput } from '../showing/showing-unchecked-update-many-without-film.input';
 import { ReviewFilmUncheckedUpdateManyWithoutFilmInput } from '../review-film/review-film-unchecked-update-many-without-film.input';
 
@@ -37,8 +38,8 @@ export class FilmUncheckedUpdateWithoutActorOnFilmInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     actor?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    time?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    time?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     image?: NullableStringFieldUpdateOperationsInput;
@@ -57,4 +58,7 @@ export class FilmUncheckedUpdateWithoutActorOnFilmInput {
 
     @Field(() => ReviewFilmUncheckedUpdateManyWithoutFilmInput, {nullable:true})
     ReviewFilm?: ReviewFilmUncheckedUpdateManyWithoutFilmInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    categoryId?: NullableStringFieldUpdateOperationsInput;
 }

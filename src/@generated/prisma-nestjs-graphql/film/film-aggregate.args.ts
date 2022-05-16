@@ -5,6 +5,8 @@ import { FilmOrderByWithRelationInput } from './film-order-by-with-relation.inpu
 import { FilmWhereUniqueInput } from './film-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { FilmCountAggregateInput } from './film-count-aggregate.input';
+import { FilmAvgAggregateInput } from './film-avg-aggregate.input';
+import { FilmSumAggregateInput } from './film-sum-aggregate.input';
 import { FilmMinAggregateInput } from './film-min-aggregate.input';
 import { FilmMaxAggregateInput } from './film-max-aggregate.input';
 
@@ -28,6 +30,12 @@ export class FilmAggregateArgs {
 
     @Field(() => FilmCountAggregateInput, {nullable:true})
     _count?: FilmCountAggregateInput;
+
+    @Field(() => FilmAvgAggregateInput, {nullable:true})
+    _avg?: FilmAvgAggregateInput;
+
+    @Field(() => FilmSumAggregateInput, {nullable:true})
+    _sum?: FilmSumAggregateInput;
 
     @Field(() => FilmMinAggregateInput, {nullable:true})
     _min?: FilmMinAggregateInput;

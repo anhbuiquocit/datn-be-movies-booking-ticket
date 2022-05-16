@@ -4,6 +4,7 @@ import { SortOrder } from '../prisma/sort-order.enum';
 import { ShowingOrderByRelationAggregateInput } from '../showing/showing-order-by-relation-aggregate.input';
 import { ReviewFilmOrderByRelationAggregateInput } from '../review-film/review-film-order-by-relation-aggregate.input';
 import { ActorOnFilmOrderByRelationAggregateInput } from '../actor-on-film/actor-on-film-order-by-relation-aggregate.input';
+import { CategoryOrderByWithRelationInput } from '../category/category-order-by-with-relation.input';
 
 @InputType()
 export class FilmOrderByWithRelationInput {
@@ -58,4 +59,10 @@ export class FilmOrderByWithRelationInput {
 
     @Field(() => ActorOnFilmOrderByRelationAggregateInput, {nullable:true})
     ActorOnFilm?: ActorOnFilmOrderByRelationAggregateInput;
+
+    @Field(() => CategoryOrderByWithRelationInput, {nullable:true})
+    Category?: CategoryOrderByWithRelationInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    categoryId?: keyof typeof SortOrder;
 }

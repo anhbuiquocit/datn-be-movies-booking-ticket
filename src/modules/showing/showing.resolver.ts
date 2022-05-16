@@ -1,3 +1,4 @@
+import { ShowingAggregateArgs } from './../../@generated/prisma-nestjs-graphql/showing/showing-aggregate.args';
 import { GqlAuthGuard } from './../auth/gql-auth-guard';
 import { UseGuards } from '@nestjs/common';
 import { ShowingService } from './showing.service';
@@ -7,6 +8,7 @@ import { FindManyShowingArgs } from 'src/@generated/prisma-nestjs-graphql/showin
 import { CreateOneShowingArgs } from 'src/@generated/prisma-nestjs-graphql/showing/create-one-showing.args';
 import { UpdateOneShowingArgs } from 'src/@generated/prisma-nestjs-graphql/showing/update-one-showing.args';
 import { DeleteOneShowingArgs } from 'src/@generated/prisma-nestjs-graphql/showing/delete-one-showing.args';
+import { AggregateShowing } from 'src/@generated/prisma-nestjs-graphql/showing/aggregate-showing.output';
 
 @Resolver()
 export class ShowingResolver {
@@ -30,5 +32,11 @@ export class ShowingResolver {
   @Mutation(() => Boolean)
   async deleteShowing(@Args() args: DeleteOneShowingArgs) {
     return this.showingService.deleteOne(args);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => AggregateShowing)
+  async ShowingAggregate(@Args() args: ShowingAggregateArgs) {
+    return this.showingService.showingAggregate(args);
   }
 }

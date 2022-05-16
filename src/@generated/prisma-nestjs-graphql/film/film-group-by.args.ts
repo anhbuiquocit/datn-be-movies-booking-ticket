@@ -6,6 +6,8 @@ import { FilmScalarFieldEnum } from './film-scalar-field.enum';
 import { FilmScalarWhereWithAggregatesInput } from './film-scalar-where-with-aggregates.input';
 import { Int } from '@nestjs/graphql';
 import { FilmCountAggregateInput } from './film-count-aggregate.input';
+import { FilmAvgAggregateInput } from './film-avg-aggregate.input';
+import { FilmSumAggregateInput } from './film-sum-aggregate.input';
 import { FilmMinAggregateInput } from './film-min-aggregate.input';
 import { FilmMaxAggregateInput } from './film-max-aggregate.input';
 
@@ -32,6 +34,12 @@ export class FilmGroupByArgs {
 
     @Field(() => FilmCountAggregateInput, {nullable:true})
     _count?: FilmCountAggregateInput;
+
+    @Field(() => FilmAvgAggregateInput, {nullable:true})
+    _avg?: FilmAvgAggregateInput;
+
+    @Field(() => FilmSumAggregateInput, {nullable:true})
+    _sum?: FilmSumAggregateInput;
 
     @Field(() => FilmMinAggregateInput, {nullable:true})
     _min?: FilmMinAggregateInput;

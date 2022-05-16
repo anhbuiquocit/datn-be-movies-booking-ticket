@@ -45,4 +45,7 @@ export class FilmMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     imageDescription3?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    categoryId?: true;
 }

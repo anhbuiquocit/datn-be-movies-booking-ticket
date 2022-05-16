@@ -1,3 +1,4 @@
+import { PromotionAggregateArgs } from './../../@generated/prisma-nestjs-graphql/promotion/promotion-aggregate.args';
 import { PromotionService } from './promotion.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
@@ -7,6 +8,7 @@ import { FindManyPromotionArgs } from 'src/@generated/prisma-nestjs-graphql/prom
 import { CreateOnePromotionArgs } from 'src/@generated/prisma-nestjs-graphql/promotion/create-one-promotion.args';
 import { UpdateOnePromotionArgs } from 'src/@generated/prisma-nestjs-graphql/promotion/update-one-promotion.args';
 import { DeleteOnePromotionArgs } from 'src/@generated/prisma-nestjs-graphql/promotion/delete-one-promotion.args';
+import { AggregatePromotion } from 'src/@generated/prisma-nestjs-graphql/promotion/aggregate-promotion.output';
 
 @Resolver()
 export class PromotionResolver {
@@ -15,6 +17,12 @@ export class PromotionResolver {
   @Query(() => [Promotion])
   async promotionConnection(@Args() args: FindManyPromotionArgs) {
     return this.promotionService.connection(args);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => AggregatePromotion)
+  async promotionAggregate(@Args() args: PromotionAggregateArgs) {
+    return this.promotionService.promotionAggregate(args);
   }
 
   @UseGuards(GqlAuthGuard)

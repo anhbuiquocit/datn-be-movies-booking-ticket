@@ -1,7 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { ReviewFilmCreateNestedManyWithoutFilmInput } from '../review-film/review-film-create-nested-many-without-film.input';
 import { ActorOnFilmCreateNestedManyWithoutFilmInput } from '../actor-on-film/actor-on-film-create-nested-many-without-film.input';
+import { CategoryCreateNestedOneWithoutFilmInput } from '../category/category-create-nested-one-without-film.input';
 
 @InputType()
 export class FilmCreateWithoutShowingInput {
@@ -33,8 +35,8 @@ export class FilmCreateWithoutShowingInput {
     @Field(() => String, {nullable:true})
     actor?: string;
 
-    @Field(() => String, {nullable:true})
-    time?: string;
+    @Field(() => Int, {nullable:true})
+    time?: number;
 
     @Field(() => String, {nullable:true})
     image?: string;
@@ -53,4 +55,7 @@ export class FilmCreateWithoutShowingInput {
 
     @Field(() => ActorOnFilmCreateNestedManyWithoutFilmInput, {nullable:true})
     ActorOnFilm?: ActorOnFilmCreateNestedManyWithoutFilmInput;
+
+    @Field(() => CategoryCreateNestedOneWithoutFilmInput, {nullable:true})
+    Category?: CategoryCreateNestedOneWithoutFilmInput;
 }

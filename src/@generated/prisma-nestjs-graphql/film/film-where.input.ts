@@ -4,9 +4,11 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { ShowingListRelationFilter } from '../showing/showing-list-relation-filter.input';
 import { ReviewFilmListRelationFilter } from '../review-film/review-film-list-relation-filter.input';
 import { ActorOnFilmListRelationFilter } from '../actor-on-film/actor-on-film-list-relation-filter.input';
+import { CategoryRelationFilter } from '../category/category-relation-filter.input';
 
 @InputType()
 export class FilmWhereInput {
@@ -47,8 +49,8 @@ export class FilmWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     actor?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    time?: StringNullableFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    time?: IntNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     image?: StringNullableFilter;
@@ -70,4 +72,10 @@ export class FilmWhereInput {
 
     @Field(() => ActorOnFilmListRelationFilter, {nullable:true})
     ActorOnFilm?: ActorOnFilmListRelationFilter;
+
+    @Field(() => CategoryRelationFilter, {nullable:true})
+    Category?: CategoryRelationFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    categoryId?: StringNullableFilter;
 }

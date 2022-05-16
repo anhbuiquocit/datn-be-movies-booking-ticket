@@ -47,6 +47,7 @@ export class FilmService {
         time: true,
         updatedAt: true,
         ActorOnFilm: true,
+        categoryId: true,
       },
     });
     console.log('listFilm: ', listFilm);

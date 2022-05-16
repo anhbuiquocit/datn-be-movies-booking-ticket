@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class FilmCreateManyInput {
@@ -31,8 +32,8 @@ export class FilmCreateManyInput {
     @Field(() => String, {nullable:true})
     actor?: string;
 
-    @Field(() => String, {nullable:true})
-    time?: string;
+    @Field(() => Int, {nullable:true})
+    time?: number;
 
     @Field(() => String, {nullable:true})
     image?: string;
@@ -45,4 +46,7 @@ export class FilmCreateManyInput {
 
     @Field(() => String, {nullable:true})
     imageDescription3?: string;
+
+    @Field(() => String, {nullable:true})
+    categoryId?: string;
 }

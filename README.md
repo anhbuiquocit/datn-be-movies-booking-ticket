@@ -66,6 +66,7 @@ $ npm run test:cov
 ```
 
 Number Error used:
+Showing: 6xxx
 Booking:5xxx
 User: 4xxx
 Film: 3xxx

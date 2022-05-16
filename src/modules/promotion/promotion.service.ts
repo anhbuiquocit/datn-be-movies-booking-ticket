@@ -1,3 +1,4 @@
+import { PromotionAggregateArgs } from './../../@generated/prisma-nestjs-graphql/promotion/promotion-aggregate.args';
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Promotion } from 'src/@generated/prisma-nestjs-graphql/promotion/promotion.model';
@@ -16,6 +17,20 @@ export class PromotionService {
       distinct,
     });
     return listConnection;
+  }
+  async promotionAggregate(args: PromotionAggregateArgs) {
+    const { where, orderBy, cursor, take, skip, _count, _min, _max } = args;
+    const aggregations = await prisma.promotion.aggregate({
+      where,
+      orderBy,
+      cursor,
+      take,
+      skip,
+      _count,
+      _min,
+      _max,
+    });
+    return aggregations;
   }
   async createOne(args): Promise<Promotion> {
     const { data } = args;

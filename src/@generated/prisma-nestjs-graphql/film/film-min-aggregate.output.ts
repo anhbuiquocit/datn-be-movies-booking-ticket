@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class FilmMinAggregate {
@@ -31,8 +32,8 @@ export class FilmMinAggregate {
     @Field(() => String, {nullable:true})
     actor?: string;
 
-    @Field(() => String, {nullable:true})
-    time?: string;
+    @Field(() => Int, {nullable:true})
+    time?: number;
 
     @Field(() => String, {nullable:true})
     image?: string;
@@ -45,4 +46,7 @@ export class FilmMinAggregate {
 
     @Field(() => String, {nullable:true})
     imageDescription3?: string;
+
+    @Field(() => String, {nullable:true})
+    categoryId?: string;
 }
